@@ -1,18 +1,43 @@
-<svg width="64" height="64" viewBox="0 0 240 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="64" height="64" viewBox="0 0 300 320" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="dp-fav-bg" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stopColor="#323846"/>
-      <stop offset="100%" stopColor="#13161c"/>
+    <radialGradient id="dp-fav-bronze" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#d4a373" />
+      <stop offset="35%" stop-color="#b88655" />
+      <stop offset="100%" stop-color="#6e431f" />
     </radialGradient>
-    <linearGradient id="dp-fav-rim" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#e2e8f0"/>
-      <stop offset="100%" stopColor="#475569"/>
+    <linearGradient id="dp-fav-hex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#323640" />
+      <stop offset="100%" stop-color="#1a1c22" />
     </linearGradient>
   </defs>
-  <polygon points="120,6 230,68 230,202 120,264 10,202 10,68" fill="url(#dp-fav-bg)" stroke="url(#dp-fav-rim)" stroke-width="12" stroke-linejoin="round"/>
-  <circle cx="120" cy="135" r="70" fill="#1e242d" stroke="#e2e8f0" stroke-width="6"/>
-  <circle cx="120" cy="135" r="48" fill="#64748b" stroke="#334155" stroke-width="4"/>
-  <path d="M135,75 C155,75 178,95 178,135 C178,175 155,195 135,195" fill="none" stroke="#dc2626" stroke-width="14" stroke-linecap="round"/>
-  <circle cx="120" cy="135" r="24" fill="#c27829" stroke="#78350f" stroke-width="3"/>
-  <polygon points="120,123 124,131 133,131 126,136 128,145 120,140 112,145 114,136 107,131 116,131" fill="#381d07"/>
+
+  <!-- Outer Hexagon -->
+  <polygon points="150,14 258,76 258,202 150,264 42,202 42,76" fill="url(#dp-fav-hex)" stroke="#1b1d24" stroke-width="4" stroke-linejoin="round"/>
+  
+  <!-- Inner Flange Plate -->
+  <polygon points="150,38 238,88 238,190 150,240 62,190 62,88" fill="#ebe5dc" stroke="#252830" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Bolts -->
+  <circle cx="150" cy="54" r="7" fill="#ece5dc" stroke="#252830" stroke-width="2.5"/>
+  <circle cx="224" cy="97" r="7" fill="#ece5dc" stroke="#252830" stroke-width="2.5"/>
+  <circle cx="224" cy="181" r="7" fill="#ece5dc" stroke="#252830" stroke-width="2.5"/>
+  <circle cx="150" cy="224" r="7" fill="#ece5dc" stroke="#252830" stroke-width="2.5"/>
+  <circle cx="76" cy="181" r="7" fill="#ece5dc" stroke="#252830" stroke-width="2.5"/>
+  <circle cx="76" cy="97" r="7" fill="#ece5dc" stroke="#252830" stroke-width="2.5"/>
+
+  <!-- Assembly -->
+  <g transform="translate(150, 139)">
+    <!-- Gear -->
+    <circle cx="0" cy="0" r="68" fill="#252830"/>
+    <!-- Rotor -->
+    <circle cx="0" cy="0" r="54" fill="#ffffff" stroke="#252830" stroke-width="3"/>
+    
+    <!-- Red Caliper on the Right -->
+    <path d="M18,-45 C38,-35 48,-15 48,0 C48,20 38,40 18,50" fill="none" stroke="#252830" stroke-width="16" stroke-linecap="round"/>
+    <path d="M18,-38 C32,-28 40,-12 40,0 C40,15 32,32 18,42" fill="none" stroke="#a71d2a" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Bronze Hub -->
+    <circle cx="0" cy="0" r="28" fill="url(#dp-fav-bronze)" stroke="#78471e" stroke-width="2.5"/>
+    <circle cx="0" cy="0" r="8" fill="#252830"/>
+  </g>
 </svg>

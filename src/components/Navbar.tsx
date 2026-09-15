@@ -49,7 +49,7 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
       id="main-navbar"
       className={`fixed w-full top-0 z-40 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#0a0a0c]/90 backdrop-blur-md border-b border-neutral-800/80 shadow-2xl py-3' 
+          ? 'bg-[#111317]/92 backdrop-blur-md border-b border-[#292e3a] shadow-2xl py-3' 
           : 'bg-transparent border-b border-white/5 py-5'
       }`}
     >
@@ -68,7 +68,7 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
             <DeutschPlexLogo 
               variant="horizontal" 
               size="sm" 
-              animated={true}
+              animated={false}
               className="py-1"
             />
           </motion.a>
@@ -81,11 +81,11 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
                 href={link.href}
                 className={`transition-colors duration-200 hover:text-white ${
                   link.isSpecial 
-                    ? 'text-red-400 hover:text-red-300 flex items-center gap-1 bg-red-950/30 px-2.5 py-1 rounded-full border border-red-900/40' 
-                    : 'text-neutral-300'
+                    ? 'text-[#f4efea] hover:text-[#b88655] flex items-center gap-1.5 bg-[#1e222a] px-3 py-1 rounded-full border border-[#b88655]/40 shadow-sm' 
+                    : 'text-[#c6beb4]'
                 }`}
               >
-                {link.isSpecial && <Search className="w-3.5 h-3.5" />}
+                {link.isSpecial && <Search className="w-3.5 h-3.5 text-[#b88655]" />}
                 {link.label}
               </a>
             ))}
@@ -98,18 +98,18 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
               onClick={onOpenDeploymentModal}
               id="cicd-hub-btn"
               title="إعدادات مستودع GitHub والنشر السحابي المستمر على Netlify"
-              className="px-3 py-2 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/60 text-xs font-semibold flex items-center gap-2 transition-all hover:border-neutral-500 group"
+              className="px-3 py-2 rounded-xl bg-[#181b22] hover:bg-[#202530] text-[#c6beb4] hover:text-white border border-[#292e3a] text-xs font-semibold flex items-center gap-2 transition-all hover:border-[#b88655]/50 group"
             >
-              <Workflow className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-45 transition-transform" />
+              <Workflow className="w-3.5 h-3.5 text-[#b88655] group-hover:rotate-45 transition-transform" />
               <span>نشر GitHub & Netlify</span>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             </button>
 
             {/* Order CTA */}
             <a
-              href="#order"
+              href="#vin-tool"
               id="header-order-btn"
-              className="bg-red-700 hover:bg-red-600 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl shadow-lg shadow-red-950/50 transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+              className="bg-[#a71d2a] hover:bg-[#bd2432] text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl shadow-lg shadow-[#a71d2a]/30 transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>طلب تسعيرة</span>
               <ArrowLeft className="w-4 h-4" />
@@ -120,15 +120,15 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
           <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={onOpenDeploymentModal}
-              className="p-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 text-xs"
+              className="p-2 rounded-lg bg-[#181b22] text-[#c6beb4] border border-[#292e3a] text-xs"
               title="GitHub & Netlify CI/CD"
             >
-              <Workflow className="w-4 h-4 text-emerald-400" />
+              <Workflow className="w-4 h-4 text-[#b88655]" />
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               id="mobile-nav-toggle"
-              className="p-2 text-neutral-300 hover:text-white focus:outline-none rounded-lg bg-neutral-900 border border-neutral-800"
+              className="p-2 text-[#c6beb4] hover:text-white focus:outline-none rounded-lg bg-[#181b22] border border-[#292e3a]"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -139,36 +139,36 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#0d0d12]/98 border-b border-neutral-800 px-4 pt-3 pb-6 space-y-3 mt-3 backdrop-blur-xl animate-in slide-in-from-top-2 duration-200">
+        <div className="lg:hidden bg-[#111317]/98 border-b border-[#292e3a] px-4 pt-3 pb-6 space-y-3 mt-3 backdrop-blur-xl animate-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-2 gap-2 pb-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
+                className="px-3 py-2.5 rounded-lg text-sm font-medium text-[#c6beb4] hover:text-white hover:bg-[#181b22] transition-colors"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          <div className="pt-2 border-t border-neutral-800 space-y-2">
+          <div className="pt-2 border-t border-[#292e3a] space-y-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenDeploymentModal();
               }}
-              className="w-full py-2.5 px-3 bg-neutral-900 border border-neutral-800 rounded-xl text-xs font-bold text-neutral-200 flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-3 bg-[#181b22] border border-[#292e3a] rounded-xl text-xs font-bold text-[#c6beb4] flex items-center justify-center gap-2"
             >
-              <Workflow className="w-4 h-4 text-emerald-400" />
+              <Workflow className="w-4 h-4 text-[#b88655]" />
               <span>دليل ربط المستودع بـ GitHub & Netlify</span>
             </button>
 
             <a
-              href="#order"
+              href="#vin-tool"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3 bg-red-700 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-950"
+              className="w-full py-3 bg-[#a71d2a] hover:bg-[#bd2432] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#a71d2a]/30"
             >
               <span>طلب تسعيرة القطع برقم الهيكل</span>
               <ArrowLeft className="w-4 h-4" />

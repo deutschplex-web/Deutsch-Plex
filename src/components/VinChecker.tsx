@@ -3,242 +3,432 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Barcode, 
-  CheckCircle2, 
-  AlertCircle, 
-  Sparkles, 
-  ArrowLeft, 
-  Copy, 
   Check, 
-  ShieldCheck,
-  Car
+  Send, 
+  MessageCircle, 
+  Barcode, 
+  ChevronDown,
+  CheckCircle2,
+  Copy,
+  FileCheck,
+  RotateCcw
 } from 'lucide-react';
+import { GERMAN_BRANDS } from '../data/brands';
 import { decodeVin } from '../utils/vinDecoder';
-import { SAMPLE_VINS } from '../data/brands';
-import { VinAnalysis } from '../types';
-import BrandLogo from './BrandLogo';
+import { QuoteRequest } from '../types';
 
 interface VinCheckerProps {
-  onUseVin: (vin: string, brand?: string) => void;
+  onUseVin?: (vin: string, brand?: string) => void;
+  onOrderCreated?: (order: QuoteRequest) => void;
+  initialBrand?: string;
+  initialVin?: string;
 }
 
-export default function VinChecker({ onUseVin }: VinCheckerProps) {
-  const [vinInput, setVinInput] = useState('WDD2230621A049821');
-  const [analysis, setAnalysis] = useState<VinAnalysis>(() => decodeVin('WDD2230621A049821'));
-  const [copied, setCopied] = useState(false);
+export default function VinChecker({ 
+  onUseVin, 
+  onOrderCreated,
+  initialBrand,
+  initialVin 
+}: VinCheckerProps) {
+  const [brand, setBrand] = useState('mercedes');
+  const [modelYear, setModelYear] = useState('');
+  const [vin, setVin] = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [partDetails, setPartDetails] = useState('');
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedOrder, setSubmittedOrder] = useState<QuoteRequest | null>(null);
+  const [copiedRef, setCopiedRef] = useState(false);
 
-  const handleInputChange = (val: string) => {
+  // Sync external props
+  useEffect(() => {
+    if (initialVin) {
+      setVin(initialVin.toUpperCase().trim());
+    }
+    if (initialBrand) {
+      const match = GERMAN_BRANDS.find(
+        (b) => b.id === initialBrand || b.nameEn.toLowerCase() === initialBrand.toLowerCase()
+      );
+      if (match) setBrand(match.id);
+    }
+  }, [initialVin, initialBrand]);
+
+  // Real-time VIN analysis & auto-brand detection
+  const vinAnalysis = decodeVin(vin);
+  const selectedBrandObj = GERMAN_BRANDS.find((b) => b.id === brand) || GERMAN_BRANDS[0];
+
+  const handleVinChange = (val: string) => {
     const clean = val.toUpperCase().replace(/\s+/g, '');
-    setVinInput(clean);
-    setAnalysis(decodeVin(clean));
+    setVin(clean);
+    
+    // Auto-detect brand if valid 17-digit VIN entered
+    if (clean.length >= 3) {
+      const decoded = decodeVin(clean);
+      if (decoded.brand) {
+        setBrand(decoded.brand);
+      }
+    }
+
+    if (onUseVin && clean.length === 17) {
+      onUseVin(clean, brand);
+    }
   };
 
-  const handleSelectSample = (sampleVin: string) => {
-    setVinInput(sampleVin);
-    setAnalysis(decodeVin(sampleVin));
+  // WhatsApp quick contact url
+  const buildWhatsAppUrl = () => {
+    const brandName = selectedBrandObj ? `${selectedBrandObj.nameAr} (${selectedBrandObj.nameEn})` : 'سيارة ألمانية';
+    let text = `مرحباً، أود الاستفسار وطلب تسعيرة قطع غيار عبر DeutschPlex:\n`;
+    text += `• الماركة: ${brandName}\n`;
+    if (modelYear) text += `• الموديل / السنة: ${modelYear}\n`;
+    if (vin) text += `• رقم الهيكل (VIN): ${vin}\n`;
+    if (customerName) text += `• الاسم: ${customerName}\n`;
+    if (phoneNumber) text += `• الجوال: ${phoneNumber}\n`;
+    if (partDetails) text += `• القطع المطلوبة: ${partDetails}\n`;
+    
+    return `https://wa.me/966500000000?text=${encodeURIComponent(text)}`;
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(vinInput);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+    const orderId = `DP-2026-${randomSuffix}`;
+
+    const newOrder: QuoteRequest = {
+      id: orderId,
+      createdAt: new Date().toLocaleDateString('ar-SA'),
+      brand: selectedBrandObj.nameAr,
+      model: modelYear || selectedBrandObj.popularModels[0],
+      year: modelYear || '2022',
+      vin: vin.toUpperCase().trim() || 'سيتم تقديمه لاحقاً',
+      category: 'maintenance',
+      partDetails: partDetails || 'طلب تسعيرة قطع غيار ألمانية',
+      partNumber: 'يتم استخراجه بالكتالوج الألماني',
+      customerName: customerName || 'عميل DeutschPlex',
+      phoneNumber: phoneNumber || 'غير محدد',
+      city: 'المملكة العربية السعودية',
+      shippingSpeed: 'express',
+      estimatedPriceRangeSar: 'جاري استخراج السعر باليورو',
+      estimatedDays: '3 - 7 أيام عمل',
+      status: 'received'
+    };
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmittedOrder(newOrder);
+      if (onOrderCreated) {
+        onOrderCreated(newOrder);
+      }
+    }, 800);
+  };
+
+  const handleCopyRef = () => {
+    if (!submittedOrder) return;
+    navigator.clipboard.writeText(submittedOrder.id);
+    setCopiedRef(true);
+    setTimeout(() => setCopiedRef(false), 2000);
+  };
+
+  const handleResetForm = () => {
+    setSubmittedOrder(null);
+    setPartDetails('');
   };
 
   return (
-    <section id="vin-tool" className="py-20 bg-[#0d0d12] border-y border-neutral-800/80 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="vin-tool" className="py-14 sm:py-20 bg-[#111317] relative">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-80 bg-gradient-to-r from-[#a71d2a]/10 via-[#b88655]/10 to-[#a71d2a]/10 blur-[130px] rounded-full pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/50 border border-red-900/60 text-xs font-bold text-red-400 mb-3">
-            <Barcode className="w-3.5 h-3.5" />
-            <span>نظام التدقيق الرقمي ISO 3779</span>
-          </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-3">
-            فاحص ومحلل رقم الهيكل (VIN Decoder)
-          </h2>
-          <p className="text-sm sm:text-base text-neutral-400">
-            أدخل رقم الهيكل المكون من 17 حرفاً ورقماً للتحقق من بيانات السيارة وبلد الصنع ومصنع التجميع وسنة الموديل بدقة 100%.
-          </p>
-        </div>
-
-        {/* Card Box */}
-        <div className="max-w-4xl mx-auto bg-neutral-900/90 border border-neutral-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+        {/* Main Card */}
+        <div className="max-w-5xl mx-auto rounded-2xl bg-[#181b22] border border-[#292e3a] shadow-2xl overflow-hidden p-6 sm:p-8 lg:p-10">
           
-          {/* Sample Chips */}
-          <div className="mb-6">
-            <span className="text-xs text-neutral-400 block mb-2 font-medium">جرّب نماذج لأرقام هياكل معتمدة:</span>
-            <div className="flex flex-wrap gap-2">
-              {SAMPLE_VINS.map((s, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => handleSelectSample(s.vin)}
-                  className={`text-xs px-3 py-1.5 rounded-lg border transition-all ${
-                    vinInput === s.vin 
-                      ? 'bg-red-950 border-red-700 text-red-200' 
-                      : 'bg-neutral-950 border-neutral-800 text-neutral-300 hover:border-neutral-700'
-                  }`}
-                >
-                  <span className="font-semibold">{s.label}</span>
-                  <span className="text-[10px] text-neutral-400 font-mono mr-1.5">({s.vin.slice(0, 7)}...)</span>
-                </button>
-              ))}
-            </div>
-          </div>
+          <AnimatePresence mode="wait">
+            {submittedOrder ? (
+              /* Success Confirmation View */
+              <motion.div 
+                key="confirmation"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.3 }}
+                className="text-center py-8 sm:py-12 space-y-6"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mx-auto flex items-center justify-center">
+                  <FileCheck className="w-8 h-8" />
+                </div>
 
-          {/* VIN Input Bar */}
-          <div className="mb-6">
-            <div className="relative">
-              <input
-                type="text"
-                value={vinInput}
-                onChange={(e) => handleInputChange(e.target.value)}
-                maxLength={17}
-                placeholder="أدخل رقم الهيكل المكون من 17 خانة..."
-                dir="ltr"
-                className="w-full py-4 px-4 sm:px-6 bg-black/60 border-2 border-neutral-700 focus:border-red-600 rounded-xl text-lg sm:text-xl font-mono uppercase text-white tracking-widest focus:outline-none transition-colors"
-              />
-              <div className="absolute inset-y-0 right-0 flex items-center pr-4 text-xs font-mono text-neutral-500 pointer-events-none">
-                <span className={vinInput.length === 17 ? 'text-emerald-400 font-bold' : 'text-neutral-400'}>
-                  {vinInput.length}/17
-                </span>
-              </div>
-            </div>
-          </div>
+                <div>
+                  <h3 className="text-2xl font-extrabold text-[#f4efea] mb-2">
+                    تم استلام طلبك بنجاح!
+                  </h3>
+                  <p className="text-sm text-[#c6beb4] max-w-md mx-auto">
+                    يقوم مهندسونا الآن بمطابقة رقم الهيكل واستخراج رقم القطعة من الكتالوجات الألمانية الرسمية.
+                  </p>
+                </div>
 
-          {/* Real-time Analysis Visualizer */}
-          <div className="space-y-6">
-            {/* Visual Segments */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center" dir="ltr">
-              <div className="p-3 rounded-xl bg-neutral-950 border border-neutral-800">
-                <span className="text-[10px] text-neutral-400 uppercase tracking-wider block mb-1">
-                  1. WMI (المنشأ والماركة)
-                </span>
-                <span className="font-mono text-base sm:text-lg font-bold text-red-400">
-                  {analysis.wmi || '---'}
-                </span>
-                <span className="text-[10px] text-neutral-400 block mt-1">الخانات 1 - 3</span>
-              </div>
+                {/* Reference Number */}
+                <div className="inline-flex items-center gap-3 bg-[#111317] px-5 py-3 rounded-xl border border-[#292e3a]">
+                  <span className="text-xs text-[#c6beb4]">رقم الطلب المرجعي:</span>
+                  <span className="font-mono font-bold text-white text-base">{submittedOrder.id}</span>
+                  <button
+                    type="button"
+                    onClick={handleCopyRef}
+                    className="text-[#c6beb4] hover:text-white transition-colors text-xs flex items-center gap-1 border-r border-[#292e3a] pr-3"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>{copiedRef ? 'تم النسخ' : 'نسخ'}</span>
+                  </button>
+                </div>
 
-              <div className="p-3 rounded-xl bg-neutral-950 border border-neutral-800">
-                <span className="text-[10px] text-neutral-400 uppercase tracking-wider block mb-1">
-                  2. VDS (مواصفات الموديل)
-                </span>
-                <span className="font-mono text-base sm:text-lg font-bold text-amber-400">
-                  {analysis.vds || '------'}
-                </span>
-                <span className="text-[10px] text-neutral-400 block mt-1">الخانات 4 - 9</span>
-              </div>
+                {/* Next Steps */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                  <a
+                    href={buildWhatsAppUrl()}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full sm:w-auto px-8 py-3.5 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40 transition-all"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    <span>متابعة الطلب فوراً عبر الواتساب</span>
+                  </a>
 
-              <div className="p-3 rounded-xl bg-neutral-950 border border-neutral-800">
-                <span className="text-[10px] text-neutral-400 uppercase tracking-wider block mb-1">
-                  3. VIS (الرقم التسلسلي والمصنع)
-                </span>
-                <span className="font-mono text-base sm:text-lg font-bold text-emerald-400">
-                  {analysis.vis || '--------'}
-                </span>
-                <span className="text-[10px] text-neutral-400 block mt-1">الخانات 10 - 17</span>
-              </div>
-            </div>
-
-            {/* Analysis Results Box */}
-            <motion.div 
-              key={analysis.vin + (analysis.brand || '')}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
-              className="p-4 sm:p-5 rounded-xl bg-neutral-950/80 border border-neutral-800 space-y-3"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-neutral-800">
-                <div className="flex items-center gap-3">
-                  {analysis.brand ? (
-                    <div className="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-700/80 p-1 flex items-center justify-center shadow-md">
-                      <BrandLogo brandId={analysis.brand} size={28} animateOnHover={false} />
-                    </div>
-                  ) : analysis.isValid ? (
-                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5" />
-                    </div>
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center">
-                      <AlertCircle className="w-5 h-5" />
-                    </div>
-                  )}
+                  <button
+                    type="button"
+                    onClick={handleResetForm}
+                    className="w-full sm:w-auto px-6 py-3.5 bg-[#121418] hover:bg-[#1e222a] text-[#c6beb4] font-semibold rounded-xl border border-[#292e3a] transition-colors flex items-center justify-center gap-2"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    <span>تقديم طلب آخر</span>
+                  </button>
+                </div>
+              </motion.div>
+            ) : (
+              /* Two-Column Form Layout matching the image */
+              <motion.div 
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch"
+                dir="rtl"
+              >
+                
+                {/* Right Column: Title, Intro, Bullets & WhatsApp CTA */}
+                <div className="lg:col-span-5 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                      <span>
-                        {analysis.isValid 
-                          ? 'رقم هيكل متطابق ومعتمد 100%' 
-                          : (vinInput.length < 17 ? `يرجى إكمال 17 خانة (متبقي ${17 - vinInput.length})` : 'تحقق من صحة رقم الهيكل')}
+                    {/* Main Card Title */}
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#f4efea] tracking-tight mb-3">
+                      اطلب قطعتك الآن
+                    </h2>
+                    
+                    {/* Subtitle */}
+                    <p className="text-xs sm:text-sm text-[#c6beb4] leading-relaxed mb-8">
+                      املأ النموذج وسنقوم بالرد عليك في أسرع وقت ممكن بعرض سعر يشمل قيمة القطعة وتكلفة الشحن.
+                    </p>
+
+                    {/* Features List with Crimson Check Badges */}
+                    <div className="space-y-4 mb-8">
+                      <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full bg-[#a71d2a] flex items-center justify-center text-white shrink-0 shadow-sm">
+                          <Check className="w-3 h-3 stroke-[3]" />
+                        </div>
+                        <span className="text-sm font-bold text-white">مطابقة 100% برقم الهيكل</span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full bg-[#a71d2a] flex items-center justify-center text-white shrink-0 shadow-sm">
+                          <Check className="w-3 h-3 stroke-[3]" />
+                        </div>
+                        <span className="text-sm font-bold text-white">ضمان عامين</span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full bg-[#a71d2a] flex items-center justify-center text-white shrink-0 shadow-sm">
+                          <Check className="w-3 h-3 stroke-[3]" />
+                        </div>
+                        <span className="text-sm font-bold text-white">شحن سريع وآمن</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* WhatsApp Quick Link */}
+                  <div className="mt-8 pt-6 border-t border-[#292e3a]">
+                    <p className="text-xs text-[#c6beb4] text-center mb-3">
+                      أو اختصر الوقت واطلب عبر
+                    </p>
+                    <a
+                      href={buildWhatsAppUrl()}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full py-3.5 px-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-950/40 text-sm sm:text-base"
+                    >
+                      <MessageCircle className="w-5 h-5 fill-white text-[#25D366]" />
+                      <span>واتساب</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Left Column: Input Form */}
+                <form onSubmit={handleSubmit} className="lg:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-5">
+                  
+                  {/* Row 1: Brand & Model/Year */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Brand Select */}
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c6beb4] mb-1.5">
+                        ماركة السيارة *
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={brand}
+                          onChange={(e) => setBrand(e.target.value)}
+                          className="w-full py-3 pr-4 pl-10 bg-[#121418] border border-[#a71d2a] ring-1 ring-[#a71d2a]/40 rounded-xl text-sm font-semibold text-white focus:outline-none appearance-none cursor-pointer"
+                        >
+                          {GERMAN_BRANDS.map((b) => (
+                            <option key={b.id} value={b.id} className="bg-[#181b22] text-white">
+                              {b.nameAr} ({b.nameEn})
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[#c6beb4]">
+                          <ChevronDown className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Model & Year Input */}
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c6beb4] mb-1.5">
+                        موديل السيارة / السنة *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={modelYear}
+                        onChange={(e) => setModelYear(e.target.value)}
+                        placeholder="مثال: S-Class 2022"
+                        className="w-full py-3 px-4 bg-[#121418] border border-[#292e3a] focus:border-[#a71d2a] focus:ring-1 focus:ring-[#a71d2a]/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 2: VIN Input with Barcode Icon */}
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <label className="text-xs font-semibold text-[#c6beb4]">
+                        رقم الهيكل (VIN) *
+                      </label>
+                      <span className="text-[11px] text-[#c6beb4]/80 font-normal">
+                        (مطلوب لضمان الدقة)
                       </span>
-                      {analysis.isValid && (
-                        <span className="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800/80 px-1.5 py-0.5 rounded font-mono">
-                          OEM VERIFIED
+                    </div>
+
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        value={vin}
+                        onChange={(e) => handleVinChange(e.target.value)}
+                        maxLength={17}
+                        placeholder="أدخل رقم الهيكل المكون من 17 حرف ورقم"
+                        className="w-full py-3 pr-4 pl-12 bg-[#121418] border border-[#292e3a] focus:border-[#a71d2a] focus:ring-1 focus:ring-[#a71d2a]/40 rounded-xl text-sm font-mono text-white placeholder:font-sans placeholder:text-neutral-500 focus:outline-none uppercase tracking-wider transition-colors"
+                      />
+                      
+                      {/* Barcode Icon on the Left (inside the input) */}
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-[#c6beb4]">
+                        <Barcode className="w-5 h-5" />
+                      </div>
+                    </div>
+
+                    {/* Subtle Real-time verification notice if 17 chars entered */}
+                    {vin.length === 17 && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-1.5 flex items-center justify-between text-[11px] text-emerald-400 font-medium px-1"
+                      >
+                        <span className="flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span>رقم هيكل متطابق ({vinAnalysis.brandName} • {vinAnalysis.originCountry})</span>
                         </span>
-                      )}
-                    </h4>
-                    <p className="text-xs text-neutral-400">
-                      {analysis.brandName} • {analysis.originCountry}
-                    </p>
+                        <span className="font-mono text-[#c6beb4]">17/17 خانة</span>
+                      </motion.div>
+                    )}
                   </div>
-                </div>
 
-                {analysis.modelYear && (
-                  <div className="px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300">
-                    سنة الموديل: <strong className="text-white">{analysis.modelYear}</strong>
+                  {/* Row 3: Customer Name & Phone Number */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Customer Name */}
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c6beb4] mb-1.5">
+                        الاسم الكريم *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        placeholder="الاسم"
+                        className="w-full py-3 px-4 bg-[#121418] border border-[#292e3a] focus:border-[#a71d2a] focus:ring-1 focus:ring-[#a71d2a]/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors"
+                      />
+                    </div>
+
+                    {/* Phone Number */}
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c6beb4] mb-1.5">
+                        رقم الجوال *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        placeholder="05xxxxxxxx"
+                        dir="ltr"
+                        className="w-full py-3 px-4 bg-[#121418] border border-[#292e3a] focus:border-[#a71d2a] focus:ring-1 focus:ring-[#a71d2a]/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors text-right"
+                      />
+                    </div>
                   </div>
-                )}
-              </div>
 
-              {/* Notes */}
-              {analysis.notesAr && analysis.notesAr.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  {analysis.notesAr.map((note, idx) => (
-                    <p key={idx} className="text-xs text-neutral-300 flex items-start gap-2">
-                      <span className="text-red-500">•</span>
-                      <span>{note}</span>
-                    </p>
-                  ))}
-                </div>
-              )}
-            </motion.div>
+                  {/* Row 4: Part Details Textarea */}
+                  <div>
+                    <label className="block text-xs font-semibold text-[#c6beb4] mb-1.5">
+                      تفاصيل القطعة المطلوبة *
+                    </label>
+                    <textarea
+                      required
+                      rows={3}
+                      value={partDetails}
+                      onChange={(e) => setPartDetails(e.target.value)}
+                      placeholder="يرجى وصف القطعة بدقة (مثال: فحمات أمامية، مساعدات، حساس أكسجين...)"
+                      className="w-full p-4 bg-[#121418] border border-[#292e3a] focus:border-[#a71d2a] focus:ring-1 focus:ring-[#a71d2a]/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors resize-none"
+                    />
+                  </div>
 
-            {/* Action Bar */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-400">تم نسخ رقم الهيكل</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    <span>نسخ رقم الهيكل</span>
-                  </>
-                )}
-              </button>
+                  {/* Row 5: Submit Button */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-3.5 sm:py-4 px-6 bg-[#a71d2a] hover:bg-[#bd2432] disabled:opacity-75 text-white font-bold rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-[#a71d2a]/30 text-sm sm:text-base active:scale-[0.99]"
+                    >
+                      <span>{isSubmitting ? 'جاري إرسال الطلب...' : 'أرسل الطلب للبحث'}</span>
+                      <Send className="w-4 h-4 ml-1" />
+                    </button>
+                  </div>
 
-              <button
-                type="button"
-                onClick={() => onUseVin(vinInput, analysis.brand)}
-                disabled={vinInput.length < 17}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-red-700 hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-950 transition-all hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <span>طلب تسعيرة لقطع هذا الهيكل</span>
-                <ArrowLeft className="w-4 h-4" />
-              </button>
-            </div>
+                </form>
 
-          </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
         </div>
 

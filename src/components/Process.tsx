@@ -35,7 +35,7 @@ export default function Process() {
   ];
 
   return (
-    <section id="process" className="py-20 bg-[#0c0c10] border-y border-neutral-800/80 relative">
+    <section id="process" className="py-20 bg-[#14171e] border-y border-[#292e3a] relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -46,13 +46,13 @@ export default function Process() {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto text-center mb-16"
         >
-          <span className="text-xs font-bold text-red-500 tracking-widest uppercase mb-2 block">
+          <span className="text-xs font-bold text-[#a71d2a] tracking-widest uppercase mb-2 block">
             رحلة العميل
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-4">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#f4efea] mb-4">
             كيف تطلب قطعتك من ألمانيا بكل سهولة؟
           </h2>
-          <p className="text-sm sm:text-base text-neutral-400">
+          <p className="text-sm sm:text-base text-[#c6beb4]">
             خطوات واضحة وسريعة تضمن وصول القطعة المطابقة تماماً لسيارتك دون أي عناء.
           </p>
         </motion.div>
@@ -69,30 +69,30 @@ export default function Process() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="relative p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-red-600/50 transition-colors flex flex-col justify-between group shadow-lg"
+                className="relative p-6 rounded-2xl bg-[#181b22] border border-[#292e3a] hover:border-[#a71d2a]/60 transition-colors flex flex-col justify-between group shadow-lg"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 text-red-500 group-hover:bg-red-700 group-hover:text-white transition-all flex items-center justify-center shadow-md">
+                    <div className="w-12 h-12 rounded-xl bg-[#111317] border border-[#292e3a] text-[#a71d2a] group-hover:bg-[#a71d2a] group-hover:text-white transition-all flex items-center justify-center shadow-md">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="font-mono text-3xl font-black text-neutral-800 group-hover:text-neutral-700 transition-colors">
+                    <span className="font-mono text-3xl font-black text-[#292e3a] group-hover:text-[#383f4f] transition-colors">
                       {s.num}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
+                  <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#b88655] transition-colors">
                     {s.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#c6beb4] leading-relaxed">
                     {s.desc}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-neutral-800/80 flex items-center justify-between text-[11px] text-neutral-500">
+                <div className="pt-4 mt-6 border-t border-[#292e3a] flex items-center justify-between text-[11px] text-[#c6beb4]">
                   <span>خطوة {idx + 1} من 4</span>
-                  <span className="text-emerald-500">مضمونة 100%</span>
+                  <span className="text-emerald-400 font-semibold">مضمونة 100%</span>
                 </div>
               </motion.div>
             );

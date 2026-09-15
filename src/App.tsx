@@ -71,7 +71,12 @@ export default function App() {
       {/* Main Content Sections */}
       <main className="flex-1">
         <Hero onSelectBrand={handleSelectBrand} />
-        <VinChecker onUseVin={handleUseVin} />
+        <VinChecker 
+          onUseVin={handleUseVin} 
+          initialBrand={selectedBrand}
+          initialVin={selectedVin}
+          onOrderCreated={handleOrderCreated}
+        />
         <Categories onSelectCategory={handleSelectCategory} />
         <About />
         <Features />
