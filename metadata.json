@@ -1,0 +1,6 @@
+{
+  "name": "DeutschPlex - قطع غيار السيارات الألمانية",
+  "description": "بوابة استيراد قطع غيار السيارات الألمانية الأصلية إلى السعودية برقم الهيكل VIN مع ربط GitHub و Netlify للنشر التلقائي المستمر.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
