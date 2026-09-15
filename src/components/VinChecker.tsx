@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Barcode, 
   CheckCircle2, 
@@ -18,6 +19,7 @@ import {
 import { decodeVin } from '../utils/vinDecoder';
 import { SAMPLE_VINS } from '../data/brands';
 import { VinAnalysis } from '../types';
+import BrandLogo from './BrandLogo';
 
 interface VinCheckerProps {
   onUseVin: (vin: string, brand?: string) => void;
@@ -144,10 +146,20 @@ export default function VinChecker({ onUseVin }: VinCheckerProps) {
             </div>
 
             {/* Analysis Results Box */}
-            <div className="p-4 sm:p-5 rounded-xl bg-neutral-950/80 border border-neutral-800 space-y-3">
+            <motion.div 
+              key={analysis.vin + (analysis.brand || '')}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+              className="p-4 sm:p-5 rounded-xl bg-neutral-950/80 border border-neutral-800 space-y-3"
+            >
               <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-neutral-800">
-                <div className="flex items-center gap-2.5">
-                  {analysis.isValid ? (
+                <div className="flex items-center gap-3">
+                  {analysis.brand ? (
+                    <div className="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-700/80 p-1 flex items-center justify-center shadow-md">
+                      <BrandLogo brandId={analysis.brand} size={28} animateOnHover={false} />
+                    </div>
+                  ) : analysis.isValid ? (
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
@@ -157,10 +169,17 @@ export default function VinChecker({ onUseVin }: VinCheckerProps) {
                     </div>
                   )}
                   <div>
-                    <h4 className="text-sm font-bold text-white">
-                      {analysis.isValid 
-                        ? 'رقم هيكل متطابق ومعتمد 100%' 
-                        : (vinInput.length < 17 ? `يرجى إكمال 17 خانة (متبقي ${17 - vinInput.length})` : 'تحقق من صحة رقم الهيكل')}
+                    <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                      <span>
+                        {analysis.isValid 
+                          ? 'رقم هيكل متطابق ومعتمد 100%' 
+                          : (vinInput.length < 17 ? `يرجى إكمال 17 خانة (متبقي ${17 - vinInput.length})` : 'تحقق من صحة رقم الهيكل')}
+                      </span>
+                      {analysis.isValid && (
+                        <span className="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800/80 px-1.5 py-0.5 rounded font-mono">
+                          OEM VERIFIED
+                        </span>
+                      )}
                     </h4>
                     <p className="text-xs text-neutral-400">
                       {analysis.brandName} • {analysis.originCountry}
@@ -186,7 +205,7 @@ export default function VinChecker({ onUseVin }: VinCheckerProps) {
                   ))}
                 </div>
               )}
-            </div>
+            </motion.div>
 
             {/* Action Bar */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">

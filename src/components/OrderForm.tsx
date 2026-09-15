@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect, type FormEvent } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Send, 
   MessageCircle, 
@@ -21,6 +22,7 @@ import {
 import { GERMAN_BRANDS, PART_CATEGORIES, SAUDI_CITIES } from '../data/brands';
 import { decodeVin } from '../utils/vinDecoder';
 import { PartCategoryId, QuoteRequest, ShippingSpeed } from '../types';
+import BrandLogo from './BrandLogo';
 
 interface OrderFormProps {
   initialVin?: string;
@@ -152,9 +154,19 @@ export default function OrderForm({
           
           {submittedOrder ? (
             /* Confirmation Screen */
-            <div className="p-8 sm:p-12 text-center space-y-6 animate-in fade-in zoom-in-95 duration-200">
-              <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mx-auto flex items-center justify-center">
-                <FileCheck className="w-8 h-8" />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="p-8 sm:p-12 text-center space-y-6"
+            >
+              <div className="flex items-center justify-center gap-4">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
+                  <FileCheck className="w-8 h-8" />
+                </div>
+                <div className="w-16 h-16 rounded-2xl bg-neutral-950 border border-neutral-800 flex items-center justify-center p-2 shadow-lg">
+                  <BrandLogo brandId={brand} size={36} animateOnHover={false} />
+                </div>
               </div>
 
               <div>
@@ -230,7 +242,7 @@ export default function OrderForm({
                 </button>
               </div>
 
-            </div>
+            </motion.div>
           ) : (
             /* Request Form */
             <form onSubmit={handleSubmit} className="p-6 sm:p-10 space-y-8">
@@ -244,25 +256,49 @@ export default function OrderForm({
                   <h3 className="text-sm sm:text-base font-bold text-white">بيانات السيارة ورقم الهيكل (VIN)</h3>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                  {/* Brand */}
-                  <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                      ماركة السيارة *
-                    </label>
-                    <select
-                      value={brand}
-                      onChange={(e) => setBrand(e.target.value)}
-                      className="w-full p-3 bg-neutral-950 border border-neutral-700 focus:border-red-600 rounded-xl text-sm text-white focus:outline-none"
-                    >
-                      {GERMAN_BRANDS.map((b) => (
-                        <option key={b.id} value={b.id}>
-                          {b.nameAr} ({b.nameEn})
-                        </option>
-                      ))}
-                    </select>
+                {/* Brand Selector Cards with Official Logos */}
+                <div className="mb-6">
+                  <label className="block text-xs font-semibold text-neutral-300 mb-2.5">
+                    اختر العلامة الألمانية *
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+                    {GERMAN_BRANDS.map((b) => {
+                      const isSelected = brand === b.id;
+                      return (
+                        <motion.button
+                          key={b.id}
+                          type="button"
+                          onClick={() => setBrand(b.id)}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                          className={`p-3 rounded-xl border text-center flex flex-col items-center justify-center gap-2 transition-all relative ${
+                            isSelected
+                              ? 'bg-red-950/40 border-red-600 shadow-lg shadow-red-950/50 ring-1 ring-red-600'
+                              : 'bg-neutral-950/80 border-neutral-800 hover:border-neutral-700 hover:bg-neutral-900'
+                          }`}
+                        >
+                          {isSelected && (
+                            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                          )}
+                          <div className="h-10 flex items-center justify-center">
+                            <BrandLogo brandId={b.id} size={32} animateOnHover={false} />
+                          </div>
+                          <div>
+                            <span className={`block text-xs font-bold ${isSelected ? 'text-white' : 'text-neutral-300'}`}>
+                              {b.nameAr}
+                            </span>
+                            <span className="text-[10px] text-neutral-500 font-mono">
+                              {b.nameEn}
+                            </span>
+                          </div>
+                        </motion.button>
+                      );
+                    })}
                   </div>
+                </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   {/* Model */}
                   <div>
                     <label className="block text-xs font-semibold text-neutral-300 mb-1.5">

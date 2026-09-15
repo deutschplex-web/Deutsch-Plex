@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { motion } from 'motion/react';
 import { 
   Award, 
   ShieldCheck, 
@@ -51,7 +52,13 @@ export default function Features() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto text-center mb-16"
+        >
           <span className="text-xs font-bold text-red-500 tracking-widest uppercase mb-2 block">
             المميزات التنافسية
           </span>
@@ -59,29 +66,36 @@ export default function Features() {
             لماذا يختار ملاك السيارات الألمانية DeutschPlex؟
           </h2>
           <p className="text-sm sm:text-base text-neutral-400">
-            نحن لا نوفر مجرد قطع غيار، بل نقدم منظومة متكاملة من الثقة والدقة والأداء لحماية سيارتك الفاخرة.
+            نجمع بين دقة الهندسة الألمانية وسرعة الشحن الجوي وخدمة العملاء المحلية على مدار الساعة.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Feature Cards Grid */}
+        {/* Feature Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f, idx) => {
-            const Icon = f.icon;
+          {features.map((feat, idx) => {
+            const Icon = feat.icon;
             return (
-              <div
+              <motion.div
                 key={idx}
-                className="p-6 sm:p-7 rounded-2xl bg-neutral-900/50 hover:bg-neutral-900 border border-neutral-800 hover:border-red-600/40 transition-all duration-300 group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="p-6 sm:p-7 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 transition-colors group shadow-lg"
               >
-                <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-red-500 mb-6 group-hover:bg-red-700 group-hover:text-white transition-all shadow-md">
+                <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 text-red-500 group-hover:bg-red-700 group-hover:text-white transition-colors flex items-center justify-center mb-5 shadow-sm">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
-                  {f.title}
+
+                <h3 className="text-lg font-bold text-white mb-2.5 group-hover:text-red-400 transition-colors">
+                  {feat.title}
                 </h3>
+
                 <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-                  {f.desc}
+                  {feat.desc}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>

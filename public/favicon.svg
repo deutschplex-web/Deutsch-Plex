@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 240 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="dp-fav-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stopColor="#323846"/>
+      <stop offset="100%" stopColor="#13161c"/>
+    </radialGradient>
+    <linearGradient id="dp-fav-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#e2e8f0"/>
+      <stop offset="100%" stopColor="#475569"/>
+    </linearGradient>
+  </defs>
+  <polygon points="120,6 230,68 230,202 120,264 10,202 10,68" fill="url(#dp-fav-bg)" stroke="url(#dp-fav-rim)" stroke-width="12" stroke-linejoin="round"/>
+  <circle cx="120" cy="135" r="70" fill="#1e242d" stroke="#e2e8f0" stroke-width="6"/>
+  <circle cx="120" cy="135" r="48" fill="#64748b" stroke="#334155" stroke-width="4"/>
+  <path d="M135,75 C155,75 178,95 178,135 C178,175 155,195 135,195" fill="none" stroke="#dc2626" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="120" cy="135" r="24" fill="#c27829" stroke="#78350f" stroke-width="3"/>
+  <polygon points="120,123 124,131 133,131 126,136 128,145 120,140 112,145 114,136 107,131 116,131" fill="#381d07"/>
+</svg>

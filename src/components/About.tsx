@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { motion } from 'motion/react';
 import { ShieldCheck, CheckCircle2, Award, Zap } from 'lucide-react';
+import DeutschPlexLogo from './DeutschPlexLogo';
 
 export default function About() {
   return (
@@ -12,16 +14,20 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Visual Showcase Card */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl p-6 sm:p-8">
+          <motion.div 
+            initial={{ opacity: 0, x: 25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5"
+          >
+            <div className="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900/90 shadow-2xl p-6 sm:p-8 backdrop-blur-sm">
               <div className="flex items-center justify-between pb-6 border-b border-neutral-800">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-red-600/20 text-red-500 border border-red-600/30 flex items-center justify-center font-bold">
-                    🇩🇪
-                  </div>
+                  <DeutschPlexLogo variant="emblem" size="sm" animated={true} />
                   <div>
                     <h4 className="text-sm font-bold text-white">الاستيراد المباشر من ألمانيا</h4>
-                    <p className="text-xs text-neutral-400">مقر التجهيز: فرانكفورت / شتوتغارت</p>
+                    <p className="text-xs text-neutral-400">مقر التجهيز: فرانكفورت / شتوتغارت 🇩🇪</p>
                   </div>
                 </div>
                 <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold">
@@ -54,10 +60,16 @@ export default function About() {
                 <span className="font-mono text-neutral-500">ISO 9001:2026</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Text Content */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 space-y-6"
+          >
             <span className="text-xs font-bold text-red-500 tracking-widest uppercase block">
               عن المشروع
             </span>
@@ -96,7 +108,7 @@ export default function About() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
       </div>

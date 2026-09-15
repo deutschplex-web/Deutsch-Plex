@@ -4,6 +4,9 @@
  */
 
 import { Workflow, MessageCircle, MapPin, Phone, Mail, ShieldCheck } from 'lucide-react';
+import DeutschPlexLogo from './DeutschPlexLogo';
+import BrandLogo from './BrandLogo';
+import { GERMAN_BRANDS } from '../data/brands';
 
 interface FooterProps {
   onOpenDeploymentModal: () => void;
@@ -18,23 +21,33 @@ export default function Footer({ onOpenDeploymentModal }: FooterProps) {
           
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-red-700 flex items-center justify-center font-mono font-bold text-white text-sm">
-                DP
-              </div>
-              <span className="font-extrabold text-lg text-white font-sans">DeutschPlex</span>
-              <span className="text-[10px] bg-red-950 text-red-400 border border-red-800/60 px-1.5 py-0.5 rounded font-mono font-bold">
-                GERMANY ➔ KSA
-              </span>
+            <div>
+              <DeutschPlexLogo variant="horizontal" size="sm" animated={false} />
             </div>
             
             <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
-              المشروع الرائد في المملكة العربية السعودية لاستيراد قطع غيار السيارات الألمانية الأصلية (Mercedes, BMW, Audi, Porsche) مباشرة من ألمانيا بالاعتماد الرقمي الكامل على رقم الهيكل (VIN).
+              المشروع الرائد في المملكة العربية السعودية لاستيراد قطع غيار السيارات الألمانية الأصلية (Mercedes, BMW, Audi, Porsche, Volkswagen) مباشرة من ألمانيا بالاعتماد الرقمي الكامل على رقم الهيكل (VIN).
             </p>
 
             <div className="flex items-center gap-2 text-emerald-400">
               <ShieldCheck className="w-4 h-4" />
               <span className="font-semibold">ضمان ذهبي معتمد لمدة عامين كاملين</span>
+            </div>
+
+            {/* Brand Logos Row in Footer */}
+            <div className="pt-2">
+              <span className="text-[10px] text-neutral-500 block mb-2 font-mono">الكتالوجات المعتمدة:</span>
+              <div className="flex items-center gap-3">
+                {GERMAN_BRANDS.map((b) => (
+                  <div 
+                    key={b.id} 
+                    title={`${b.nameAr} - ${b.nameEn}`}
+                    className="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center p-1.5 hover:border-neutral-600 transition-colors"
+                  >
+                    <BrandLogo brandId={b.id} size={22} animateOnHover={false} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

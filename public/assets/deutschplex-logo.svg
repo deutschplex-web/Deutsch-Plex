@@ -1,0 +1,65 @@
+<svg width="240" height="270" viewBox="0 0 240 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="dp-hex-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stopColor="#323846"/>
+      <stop offset="70%" stopColor="#1e222a"/>
+      <stop offset="100%" stopColor="#13161c"/>
+    </radialGradient>
+    <linearGradient id="dp-hex-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#94a3b8"/>
+      <stop offset="30%" stopColor="#e2e8f0"/>
+      <stop offset="50%" stopColor="#64748b"/>
+      <stop offset="80%" stopColor="#cbd5e1"/>
+      <stop offset="100%" stopColor="#475569"/>
+    </linearGradient>
+    <radialGradient id="dp-rotor-steel" cx="48%" cy="48%" r="48%">
+      <stop offset="0%" stopColor="#94a3b8"/>
+      <stop offset="50%" stopColor="#64748b"/>
+      <stop offset="85%" stopColor="#cbd5e1"/>
+      <stop offset="100%" stopColor="#475569"/>
+    </radialGradient>
+    <radialGradient id="dp-bronze-hub" cx="45%" cy="40%" r="50%">
+      <stop offset="0%" stopColor="#eab308"/>
+      <stop offset="40%" stopColor="#c27829"/>
+      <stop offset="80%" stopColor="#8c4e17"/>
+      <stop offset="100%" stopColor="#58310c"/>
+    </radialGradient>
+    <linearGradient id="dp-caliper-red" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#ef4444"/>
+      <stop offset="50%" stopColor="#dc2626"/>
+      <stop offset="100%" stopColor="#991b1b"/>
+    </linearGradient>
+    <linearGradient id="dp-gear-steel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#e2e8f0"/>
+      <stop offset="50%" stopColor="#94a3b8"/>
+      <stop offset="100%" stopColor="#cbd5e1"/>
+    </linearGradient>
+  </defs>
+
+  <polygon points="120,6 230,68 230,202 120,264 10,202 10,68" fill="url(#dp-hex-bg)" stroke="url(#dp-hex-rim)" stroke-width="10" stroke-linejoin="round"/>
+  <polygon points="120,18 218,74 218,196 120,252 22,196 22,74" fill="none" stroke="#0f172a" stroke-width="4" opacity="0.8"/>
+
+  <circle cx="120" cy="26" r="6.5" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+  <circle cx="206" cy="76" r="6.5" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+  <circle cx="206" cy="194" r="6.5" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+  <circle cx="120" cy="244" r="6.5" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+  <circle cx="34" cy="194" r="6.5" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+  <circle cx="34" cy="76" r="6.5" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+
+  <g transform="translate(120, 135)">
+    <circle cx="0" cy="0" r="76" fill="#1e242d" stroke="url(#dp-gear-steel)" stroke-width="6"/>
+    <circle cx="0" cy="0" r="56" fill="url(#dp-rotor-steel)" stroke="#334155" stroke-width="3"/>
+    
+    <g transform="translate(15, -60)">
+      <path d="M10,0 C25,0 48,22 48,60 C48,98 25,120 10,120 C18,102 24,80 24,60 C24,40 18,18 10,0 Z" fill="#181c24" stroke="#475569" stroke-width="3"/>
+      <path d="M14,18 C17,27 18,34 19,40" fill="none" stroke="url(#dp-caliper-red)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M19,45 C20,50 20,55 20,60" fill="none" stroke="url(#dp-caliper-red)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M20,65 C20,70 20,75 19,80" fill="none" stroke="url(#dp-caliper-red)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M19,85 C18,92 17,98 14,102" fill="none" stroke="url(#dp-caliper-red)" stroke-width="6" stroke-linecap="round"/>
+    </g>
+
+    <circle cx="0" cy="0" r="26" fill="url(#dp-bronze-hub)" stroke="#78350f" stroke-width="3"/>
+    <path d="M0,-16 L4,-5 L15,-5 L7,2 L10,13 L0,7 L-10,13 L-7,2 L-15,-5 L-4,-5 Z" fill="#381d07" stroke="#1c0f04" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="5" fill="#c27829"/>
+  </g>
+</svg>

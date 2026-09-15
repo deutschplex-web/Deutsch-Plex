@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { motion } from 'motion/react';
 import { PART_CATEGORIES } from '../data/brands';
 import { PartCategoryId } from '../types';
 import { 
@@ -32,13 +33,19 @@ const ICONS_MAP: Record<string, any> = {
   CheckCircle2
 };
 
-export default function Categories({ onSelectCategory }: CategoriesProps) {
+export default function Categories({ onSelectCategory}: CategoriesProps) {
   return (
     <section id="categories" className="py-20 bg-[#0a0a0c] relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto text-center mb-16"
+        >
           <span className="text-xs font-bold text-red-500 tracking-widest uppercase mb-2 block">
             كتالوج القطع الألمانية
           </span>
@@ -48,17 +55,22 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
           <p className="text-sm sm:text-base text-neutral-400">
             نوفر جميع قطع الغيار الميكانيكية، الكهربائية، والهيكلية لسيارات مرسيدس، بي إم دبليو، أودي، وبورش بأعلى تصنيف ألماني معتمد.
           </p>
-        </div>
+        </motion.div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {PART_CATEGORIES.map((cat) => {
+          {PART_CATEGORIES.map((cat, idx) => {
             const IconComp = ICONS_MAP[cat.iconName] || Zap;
             return (
-              <div
+              <motion.div
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className="p-6 rounded-2xl bg-neutral-900/60 hover:bg-neutral-900 border border-neutral-800 hover:border-red-600/40 transition-all duration-300 group cursor-pointer flex flex-col justify-between"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                className="p-6 rounded-2xl bg-neutral-900/60 hover:bg-neutral-900 border border-neutral-800 hover:border-red-600/40 transition-colors duration-300 group cursor-pointer flex flex-col justify-between shadow-lg"
               >
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-red-500 mb-5 group-hover:bg-red-700 group-hover:text-white transition-all shadow-md">
@@ -83,7 +95,7 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
                     <ArrowLeft className="w-3.5 h-3.5" />
                   </span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

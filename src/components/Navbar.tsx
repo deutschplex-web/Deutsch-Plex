@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Menu, 
   X, 
@@ -13,6 +14,7 @@ import {
   ShieldCheck,
   Search
 } from 'lucide-react';
+import DeutschPlexLogo from './DeutschPlexLogo';
 
 interface NavbarProps {
   onOpenDeploymentModal: () => void;
@@ -55,24 +57,21 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
         <div className="flex items-center justify-between">
           
           {/* Logo */}
-          <a 
+          <motion.a 
             href="#home" 
             id="brand-logo"
-            className="flex items-center gap-3 group focus:outline-none"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 sm:gap-3 group focus:outline-none"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-700 via-red-600 to-neutral-900 p-0.5 shadow-lg shadow-red-950/40 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-[#0d0d12] rounded-[10px] flex items-center justify-center">
-                <span className="font-mono font-black text-red-500 text-lg tracking-tighter">DP</span>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-white font-sans">DeutschPlex</span>
-                <span className="text-[10px] bg-red-950 text-red-400 border border-red-800/60 px-1.5 py-0.5 rounded font-bold font-mono">🇩🇪 DE</span>
-              </div>
-              <span className="text-[11px] text-neutral-400 font-medium">قطع غيار ألمانية أصلية • استيراد مباشر</span>
-            </div>
-          </a>
+            <DeutschPlexLogo 
+              variant="horizontal" 
+              size="sm" 
+              animated={true}
+              className="py-1"
+            />
+          </motion.a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-reverse space-x-6 text-sm font-medium">

@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   GitBranch, 
   Globe, 
@@ -27,8 +28,6 @@ interface DeploymentModalProps {
 export default function DeploymentModal({ isOpen, onClose }: DeploymentModalProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'github' | 'netlify' | 'checks'>('overview');
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
-
-  if (!isOpen) return null;
 
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -59,8 +58,27 @@ export default function DeploymentModal({ isOpen, onClose }: DeploymentModalProp
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto" dir="rtl">
-      <div className="relative w-full max-w-3xl bg-[#121217] border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto" dir="rtl">
+          {/* Backdrop */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+          />
+
+          {/* Dialog Container */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+            className="relative w-full max-w-3xl bg-[#121217] border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden my-8 z-10"
+          >
         
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-800 bg-[#16161d]">
@@ -305,7 +323,9 @@ export default function DeploymentModal({ isOpen, onClose }: DeploymentModalProp
           </button>
         </div>
 
-      </div>
-    </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }
