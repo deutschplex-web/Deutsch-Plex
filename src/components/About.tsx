@@ -43,7 +43,7 @@ export default function About() {
                 </div>
                 <div className="p-4 rounded-xl bg-[#111317] border border-[#292e3a]">
                   <span className="block text-2xl font-black text-[#a71d2a] font-mono">24 شهر</span>
-                  <span className="text-xs text-[#c6beb4]">ضمان ذهبي شامل</span>
+                  <span className="text-xs text-[#c6beb4]">ضمان معتمد من ألمانيا</span>
                 </div>
                 <div className="p-4 rounded-xl bg-[#111317] border border-[#292e3a]">
                   <span className="block text-2xl font-black text-[#b88655] font-mono">35% - 45%</span>

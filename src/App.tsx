@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import VinChecker from './components/VinChecker';
+import HomeNavigationHub from './components/HomeNavigationHub';
+import PageHeader from './components/PageHeader';
 import Categories from './components/Categories';
 import About from './components/About';
 import Features from './components/Features';
@@ -15,41 +17,64 @@ import OrderForm from './components/OrderForm';
 import OrderTracker from './components/OrderTracker';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
-import DeploymentModal from './components/DeploymentModal';
-import { PartCategoryId, QuoteRequest } from './types';
-import { MessageCircle, Workflow, ChevronUp } from 'lucide-react';
+import { PageId, PartCategoryId, QuoteRequest } from './types';
+import { MessageCircle } from 'lucide-react';
 
 export default function App() {
-  const [isDeployModalOpen, setIsDeployModalOpen] = useState(false);
   const [selectedVin, setSelectedVin] = useState<string>('');
   const [selectedBrand, setSelectedBrand] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<PartCategoryId>('brakes');
   const [latestOrder, setLatestOrder] = useState<QuoteRequest | null>(null);
 
+  // Read URL Hash to support direct links, reload and browser back/forward buttons
+  const getPageFromHash = (): PageId => {
+    const hash = window.location.hash.replace('#', '').trim();
+    const validPages: PageId[] = [
+      'home', 
+      'categories', 
+      'order', 
+      'tracker', 
+      'about', 
+      'features', 
+      'process', 
+      'faq'
+    ];
+    if (validPages.includes(hash as PageId)) {
+      return hash as PageId;
+    }
+    return 'home';
+  };
+
+  const [currentPage, setCurrentPage] = useState<PageId>(getPageFromHash);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentPage(getPageFromHash());
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const navigateTo = (page: PageId) => {
+    setCurrentPage(page);
+    window.location.hash = '#' + page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleUseVin = (vin: string, brand?: string) => {
     setSelectedVin(vin);
     if (brand) setSelectedBrand(brand);
-    // Smooth scroll to order form
-    const orderSection = document.getElementById('order');
-    if (orderSection) {
-      orderSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigateTo('order');
   };
 
   const handleSelectCategory = (catId: PartCategoryId) => {
     setSelectedCategory(catId);
-    const orderSection = document.getElementById('order');
-    if (orderSection) {
-      orderSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigateTo('order');
   };
 
   const handleSelectBrand = (brandId: string) => {
     setSelectedBrand(brandId);
-    const orderSection = document.getElementById('order');
-    if (orderSection) {
-      orderSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigateTo('order');
   };
 
   const handleOrderCreated = (order: QuoteRequest) => {
@@ -57,74 +82,203 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-neutral-100 flex flex-col selection:bg-red-700 selection:text-white relative">
+    <div className="min-h-screen bg-[#0e1014] text-[#f4efea] flex flex-col selection:bg-[#a71d2a] selection:text-white relative font-sans">
       
-      {/* Navbar */}
+      {/* Navbar with Multi-Page Navigation and active indicators */}
       <Navbar 
-        onOpenDeploymentModal={() => setIsDeployModalOpen(true)}
-        onOpenVinChecker={() => {
-          const vinTool = document.getElementById('vin-tool');
-          if (vinTool) vinTool.scrollIntoView({ behavior: 'smooth' });
-        }}
+        currentPage={currentPage}
+        onNavigate={navigateTo}
       />
 
-      {/* Main Content Sections */}
+      {/* Main Content Area Rendering the Active Page */}
       <main className="flex-1">
-        <Hero onSelectBrand={handleSelectBrand} />
-        <VinChecker 
-          onUseVin={handleUseVin} 
-          initialBrand={selectedBrand}
-          initialVin={selectedVin}
-          onOrderCreated={handleOrderCreated}
-        />
-        <Categories onSelectCategory={handleSelectCategory} />
-        <About />
-        <Features />
-        <Process />
-        <OrderForm 
-          initialVin={selectedVin}
-          initialBrand={selectedBrand}
-          initialCategory={selectedCategory}
-          onOrderCreated={handleOrderCreated}
-        />
-        <OrderTracker latestOrder={latestOrder} />
-        <FaqSection />
+        <AnimatePresence mode="wait">
+          {currentPage === 'home' && (
+            <motion.div
+              key="page-home"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              {/* Showcase & Hero for Porsche, BMW, Audi, Mercedes */}
+              <Hero 
+                onSelectBrand={handleSelectBrand} 
+                onSearchVin={handleUseVin}
+                onNavigate={navigateTo}
+              />
+
+              {/* Specialized Services Portals */}
+              <HomeNavigationHub onNavigate={navigateTo} />
+            </motion.div>
+          )}
+
+          {currentPage === 'categories' && (
+            <motion.div
+              key="page-categories"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              <PageHeader
+                pageId="categories"
+                titleAr="كتالوج قطع الغيار الألمانية المعتمدة"
+                subtitleAr="تصفح كافة أنظمة السيارات الألمانية الرئيسية مع إمكانية اختيار أي قسم وطلب تسعيرته فوراً مع الشحن الجوي المباشر."
+                badgeAr="أكثر من 15,000 قطعة OEM"
+                onNavigate={navigateTo}
+              />
+              <Categories onSelectCategory={handleSelectCategory} />
+            </motion.div>
+          )}
+
+          {currentPage === 'order' && (
+            <motion.div
+              key="page-order"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              <PageHeader
+                pageId="order"
+                titleAr="طلب تسعيرة فورية معتمدة"
+                subtitleAr="املأ تفاصيل سيارتك أو رقم الهيكل لاستخراج أفضل تسعيرة مباشرة من مستودعات ألمانيا مع خيارات الشحن الجوي السريع."
+                badgeAr="تسعير مباشر بدون وسطاء"
+                onNavigate={navigateTo}
+              />
+              <OrderForm 
+                initialVin={selectedVin}
+                initialBrand={selectedBrand}
+                initialCategory={selectedCategory}
+                onOrderCreated={handleOrderCreated}
+                onNavigate={navigateTo}
+              />
+            </motion.div>
+          )}
+
+          {currentPage === 'tracker' && (
+            <motion.div
+              key="page-tracker"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              <PageHeader
+                pageId="tracker"
+                titleAr="تتبع مسار الشحنة والطلب الدولي"
+                subtitleAr="تتبع حي ومباشر لتحركات شحنتك الجوية عبر DHL Express من مستودعات فرانكفورت وميونخ حتى باب منزلك في السعودية."
+                badgeAr="تحديثات لحظية للشحن الدولي"
+                onNavigate={navigateTo}
+              />
+              <OrderTracker latestOrder={latestOrder} />
+            </motion.div>
+          )}
+
+          {currentPage === 'about' && (
+            <motion.div
+              key="page-about"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              <PageHeader
+                pageId="about"
+                titleAr="من نحن ومعايير الجودة الألمانية"
+                subtitleAr="منظومة توريد ولوجستيات متكاملة تربط ملاك ومراكز صيانة السيارات الألمانية الفاخرة بالمصادر الأصلية في ألمانيا."
+                badgeAr="شراكات مباشرة مع كبار الموردين"
+                onNavigate={navigateTo}
+              />
+              <About />
+            </motion.div>
+          )}
+
+          {currentPage === 'features' && (
+            <motion.div
+              key="page-features"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              <PageHeader
+                pageId="features"
+                titleAr="المميزات التنافسية وضمان 24 شهر"
+                subtitleAr="اكتشف مزايا الشراء المباشر: توفير حتى 45%، ضمان لمدة 24 شهر من ألمانيا، وتدقيق دقيق برقم الهيكل."
+                badgeAr="ضمان لمدة 24 شهر من ألمانيا"
+                onNavigate={navigateTo}
+              />
+              <Features />
+            </motion.div>
+          )}
+
+          {currentPage === 'process' && (
+            <motion.div
+              key="page-process"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              <PageHeader
+                pageId="process"
+                titleAr="رحلة الطلب وخطوات التنفيذ"
+                subtitleAr="أربع خطوات واضحة وموثقة تضمن لك استلام القطعة المطابقة لمواصفات سيارتك بأعلى سرعة وأقل تكلفة."
+                badgeAr="4 خطوات بسيطة ومباشرة"
+                onNavigate={navigateTo}
+              />
+              <Process />
+            </motion.div>
+          )}
+
+          {currentPage === 'faq' && (
+            <motion.div
+              key="page-faq"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full"
+            >
+              <PageHeader
+                pageId="faq"
+                titleAr="مركز الأسئلة الشائعة والدعم الفني"
+                subtitleAr="إجابات شاملة ومفصلة حول آلية الشحن، الجمارك، طرق الدفع المعتمدة، وسياسات الضمان والاستبدال."
+                badgeAr="دعم فني واستشارات متخصصة"
+                onNavigate={navigateTo}
+              />
+              <FaqSection />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
-      {/* Footer */}
-      <Footer onOpenDeploymentModal={() => setIsDeployModalOpen(true)} />
+      {/* Footer with onNavigate page links */}
+      <Footer 
+        onNavigate={navigateTo}
+      />
 
-      {/* Floating Action Buttons */}
-      <div className="fixed bottom-6 left-6 z-40 flex flex-col gap-3">
-        {/* Floating CI/CD deployment guide button */}
-        <button
-          onClick={() => setIsDeployModalOpen(true)}
-          title="ربط GitHub و Netlify للنشر التلقائي"
-          className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-700 text-emerald-400 hover:text-white hover:bg-neutral-800 shadow-xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 group relative"
-        >
-          <Workflow className="w-5 h-5" />
-          <span className="absolute left-14 bg-neutral-900 text-neutral-200 border border-neutral-700 px-2.5 py-1 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
-            دليل رفع GitHub والنشر على Netlify
-          </span>
-        </button>
-
-        {/* Floating WhatsApp button */}
+      {/* Floating Action Button (WhatsApp) */}
+      <div className="fixed bottom-6 left-6 z-40">
         <a
-          href="https://wa.me/966500000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%82%D8%B7%D8%B9%20%D8%BA%D9%8A%D8%A7%D8%B1%20%D8%A3%D9%84%D9%85%D8%A7%D9%86%D9%8A%D8%A9"
+          href="https://wa.me/966536152188?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%82%D8%B7%D8%B9%20%D8%BA%D9%8A%D8%A7%D8%B1%20%D8%A3%D9%84%D9%85%D8%A7%D9%86%D9%8A%D8%A9"
           target="_blank"
           rel="noreferrer"
-          title="تواصل مباشر عبر الواتساب"
+          title="تواصل مباشر عبر الواتساب: +966 53 615 2188"
           className="w-12 h-12 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white shadow-xl shadow-emerald-950/60 flex items-center justify-center transition-all hover:scale-110 active:scale-95"
         >
           <MessageCircle className="w-6 h-6" />
         </a>
       </div>
-
-      {/* GitHub & Netlify Continuous Deployment Hub Modal */}
-      <DeploymentModal 
-        isOpen={isDeployModalOpen}
-        onClose={() => setIsDeployModalOpen(false)}
-      />
 
     </div>
   );

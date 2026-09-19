@@ -9,19 +9,24 @@ import {
   Menu, 
   X, 
   ArrowLeft, 
-  MessageCircle, 
-  Workflow, 
   ShieldCheck,
-  Search
+  Search,
+  Layers,
+  Send,
+  Truck
 } from 'lucide-react';
 import DeutschPlexLogo from './DeutschPlexLogo';
+import { PageId } from '../types';
 
 interface NavbarProps {
-  onOpenDeploymentModal: () => void;
-  onOpenVinChecker: () => void;
+  currentPage: PageId;
+  onNavigate: (page: PageId) => void;
 }
 
-export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: NavbarProps) {
+export default function Navbar({ 
+  currentPage, 
+  onNavigate
+}: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,16 +38,21 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'الرئيسية', href: '#home' },
-    { label: 'فاحص VIN', href: '#vin-tool', isSpecial: true },
-    { label: 'قطع الغيار', href: '#categories' },
-    { label: 'من نحن', href: '#about' },
-    { label: 'مميزاتنا', href: '#features' },
-    { label: 'طريقة الطلب', href: '#process' },
-    { label: 'تتبع الطلب', href: '#tracker' },
-    { label: 'الأسئلة الشائعة', href: '#faq' },
+  const navLinks: { id: PageId; label: string; isSpecial?: boolean; isOrder?: boolean }[] = [
+    { id: 'home', label: 'الرئيسية' },
+    { id: 'categories', label: 'قطع الغيار' },
+    { id: 'order', label: 'طلب تسعيرة', isOrder: true },
+    { id: 'tracker', label: 'تتبع الشحنة' },
+    { id: 'about', label: 'من نحن' },
+    { id: 'features', label: 'مميزاتنا' },
+    { id: 'process', label: 'طريقة الطلب' },
+    { id: 'faq', label: 'الأسئلة الشائعة' },
   ];
+
+  const handleLinkClick = (pageId: PageId) => {
+    onNavigate(pageId);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header 
@@ -57,13 +67,10 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
         <div className="flex items-center justify-between">
           
           {/* Logo */}
-          <motion.a 
-            href="#home" 
+          <button 
+            onClick={() => handleLinkClick('home')}
             id="brand-logo"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-2 sm:gap-3 group focus:outline-none"
+            className="flex items-center gap-2 sm:gap-3 group focus:outline-none cursor-pointer"
           >
             <DeutschPlexLogo 
               variant="horizontal" 
@@ -71,60 +78,58 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
               animated={false}
               className="py-1"
             />
-          </motion.a>
+          </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-reverse space-x-6 text-sm font-medium">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`transition-colors duration-200 hover:text-white ${
-                  link.isSpecial 
-                    ? 'text-[#f4efea] hover:text-[#b88655] flex items-center gap-1.5 bg-[#1e222a] px-3 py-1 rounded-full border border-[#b88655]/40 shadow-sm' 
-                    : 'text-[#c6beb4]'
-                }`}
-              >
-                {link.isSpecial && <Search className="w-3.5 h-3.5 text-[#b88655]" />}
-                {link.label}
-              </a>
-            ))}
+          <nav className="hidden lg:flex items-center space-x-reverse space-x-1.5 text-xs font-semibold">
+            {navLinks.map((link) => {
+              const isActive = currentPage === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => handleLinkClick(link.id)}
+                  className={`relative px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
+                    isActive 
+                      ? 'text-white bg-[#1e232d] border border-[#383f4f] shadow-md' 
+                      : link.isSpecial
+                        ? 'text-[#f4efea] hover:text-[#b88655] bg-[#181b22] border border-[#292e3a] hover:border-[#b88655]/50'
+                        : link.isOrder
+                          ? 'text-[#f4efea] hover:text-white bg-[#a71d2a]/20 border border-[#a71d2a]/40 hover:bg-[#a71d2a]/30'
+                          : 'text-[#c6beb4] hover:text-white hover:bg-[#181b22]'
+                  }`}
+                >
+                  {link.isSpecial && <Search className="w-3 h-3 text-[#b88655]" />}
+                  <span>{link.label}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbarActiveIndicator"
+                      className="absolute bottom-0 inset-x-2 h-[2px] rounded-full bg-[#a71d2a]"
+                    />
+                  )}
+                </button>
+              );
+            })}
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* GitHub & Netlify Continuous Deployment Hub */}
-            <button
-              onClick={onOpenDeploymentModal}
-              id="cicd-hub-btn"
-              title="إعدادات مستودع GitHub والنشر السحابي المستمر على Netlify"
-              className="px-3 py-2 rounded-xl bg-[#181b22] hover:bg-[#202530] text-[#c6beb4] hover:text-white border border-[#292e3a] text-xs font-semibold flex items-center gap-2 transition-all hover:border-[#b88655]/50 group"
-            >
-              <Workflow className="w-3.5 h-3.5 text-[#b88655] group-hover:rotate-45 transition-transform" />
-              <span>نشر GitHub & Netlify</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            </button>
-
+          <div className="hidden sm:flex items-center gap-2.5">
             {/* Order CTA */}
-            <a
-              href="#vin-tool"
+            <button
+              onClick={() => handleLinkClick('order')}
               id="header-order-btn"
-              className="bg-[#a71d2a] hover:bg-[#bd2432] text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl shadow-lg shadow-[#a71d2a]/30 transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+              className={`text-xs sm:text-sm font-bold px-4 py-2 rounded-xl shadow-lg transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
+                currentPage === 'order'
+                  ? 'bg-[#bd2432] text-white ring-2 ring-[#b88655]'
+                  : 'bg-[#a71d2a] hover:bg-[#bd2432] text-white shadow-[#a71d2a]/30'
+              }`}
             >
               <span>طلب تسعيرة</span>
               <ArrowLeft className="w-4 h-4" />
-            </a>
+            </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={onOpenDeploymentModal}
-              className="p-2 rounded-lg bg-[#181b22] text-[#c6beb4] border border-[#292e3a] text-xs"
-              title="GitHub & Netlify CI/CD"
-            >
-              <Workflow className="w-4 h-4 text-[#b88655]" />
-            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               id="mobile-nav-toggle"
@@ -141,38 +146,33 @@ export default function Navbar({ onOpenDeploymentModal, onOpenVinChecker }: Navb
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#111317]/98 border-b border-[#292e3a] px-4 pt-3 pb-6 space-y-3 mt-3 backdrop-blur-xl animate-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-2 gap-2 pb-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-[#c6beb4] hover:text-white hover:bg-[#181b22] transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = currentPage === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => handleLinkClick(link.id)}
+                  className={`px-3 py-2.5 rounded-lg text-xs font-semibold text-right transition-colors flex items-center justify-between ${
+                    isActive 
+                      ? 'bg-[#a71d2a] text-white font-bold' 
+                      : 'text-[#c6beb4] hover:text-white hover:bg-[#181b22]'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                </button>
+              );
+            })}
           </div>
 
           <div className="pt-2 border-t border-[#292e3a] space-y-2">
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenDeploymentModal();
-              }}
-              className="w-full py-2.5 px-3 bg-[#181b22] border border-[#292e3a] rounded-xl text-xs font-bold text-[#c6beb4] flex items-center justify-center gap-2"
-            >
-              <Workflow className="w-4 h-4 text-[#b88655]" />
-              <span>دليل ربط المستودع بـ GitHub & Netlify</span>
-            </button>
-
-            <a
-              href="#vin-tool"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => handleLinkClick('order')}
               className="w-full py-3 bg-[#a71d2a] hover:bg-[#bd2432] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#a71d2a]/30"
             >
               <span>طلب تسعيرة القطع برقم الهيكل</span>
               <ArrowLeft className="w-4 h-4" />
-            </a>
+            </button>
           </div>
         </div>
       )}

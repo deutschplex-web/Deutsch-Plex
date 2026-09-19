@@ -54,6 +54,16 @@ export interface VinAnalysis {
 
 export type ShippingSpeed = 'express' | 'standard';
 
+export type PageId = 
+  | 'home' 
+  | 'categories' 
+  | 'order' 
+  | 'tracker' 
+  | 'about' 
+  | 'features' 
+  | 'process' 
+  | 'faq';
+
 export interface QuoteRequest {
   id: string;
   createdAt: string;

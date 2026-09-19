@@ -27,13 +27,13 @@ export default function OrderTracker({ latestOrder }: OrderTrackerProps) {
     car: latestOrder ? `${latestOrder.brand} ${latestOrder.model}` : 'مرسيدس S-Class 2022',
     vin: latestOrder?.vin || 'WDD2230621A049821',
     part: latestOrder?.partDetails || 'طقم فحمات كربون سيراميك مع حساسات',
-    destination: latestOrder?.city || 'الرياض',
+    destination: latestOrder?.city || 'جدة',
     steps: [
       {
         title: 'استلام الطلب وتدقيق رقم الهيكل',
         desc: 'تمت مطابقة رقم الهيكل (VIN) بنجاح مع قاعدة بيانات دايملر في شتوتغارت.',
         date: 'أمس - 09:30 ص',
-        location: 'الرياض / فرانكفورت',
+        location: 'جدة / فرانكفورت',
         completed: true,
       },
       {
@@ -52,15 +52,15 @@ export default function OrderTracker({ latestOrder }: OrderTrackerProps) {
         current: true,
       },
       {
-        title: 'الوصول لمطار الملك خالد والتخليص الجمركي',
+        title: 'الوصول لمطار الملك عبدالعزيز والتخليص الجمركي',
         desc: 'معالجة البيان الجمركي وسداد الرسوم والضريبة المسبقة.',
         date: 'متوقع غداً',
-        location: 'الرياض (RUH)',
+        location: 'جدة (JED)',
         completed: false,
       },
       {
         title: 'التوصيل النهائي للعنوان أو الورشة',
-        desc: 'تسليم الشحنة مع كرت الضمان الذهبي لمدة سنتين.',
+        desc: 'تسليم الشحنة مع كرت الضمان المعتمد لمدة 24 شهر من ألمانيا.',
         date: 'خلال 48 ساعة',
         location: 'عنوان العميل',
         completed: false,
@@ -84,7 +84,7 @@ export default function OrderTracker({ latestOrder }: OrderTrackerProps) {
             title: 'تم استلام طلبك بنجاح',
             desc: 'طلبك قيد المراجعة الفورية من قبل مهندسي DeutschPlex في فرانكفورت.',
             date: 'الآن',
-            location: 'الرياض / ألمانيا',
+            location: `${latestOrder.city || 'جدة'} / ألمانيا`,
             completed: true,
             current: true,
           },
@@ -254,7 +254,7 @@ export default function OrderTracker({ latestOrder }: OrderTrackerProps) {
             <div className="mt-4 pt-4 border-t border-neutral-800 flex items-center justify-between text-xs text-neutral-400">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-amber-400" />
-                <span>مغطى بضمان الاستبدال الذهبي لمدة سنتين</span>
+                <span>مغطى بضمان لمدة 24 شهر من ألمانيا</span>
               </span>
               <span className="font-mono text-neutral-500">Live API Sync</span>
             </div>
