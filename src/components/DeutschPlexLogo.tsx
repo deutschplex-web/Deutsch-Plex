@@ -20,13 +20,13 @@ export default function DeutschPlexLogo({
   className = '',
   isLightMode = false,
 }: DeutschPlexLogoProps) {
-  // Dimension presets for the emblem badge
+  // Dimension presets for the emblem badge - enlarged for prominent automotive badge presence
   const emblemSizes = {
-    xs: { w: 32, h: 36 },
-    sm: { w: 42, h: 48 },
-    md: { w: 54, h: 62 },
-    lg: { w: 76, h: 86 },
-    xl: { w: 120, h: 136 },
+    xs: { w: 36, h: 40 },
+    sm: { w: 54, h: 60 },
+    md: { w: 66, h: 74 },
+    lg: { w: 92, h: 104 },
+    xl: { w: 136, h: 154 },
   };
 
   const currentSize = emblemSizes[size];
@@ -281,10 +281,10 @@ export default function DeutschPlexLogo({
   // 1. Horizontal Logo (for Navbars, cards, headers)
   if (variant === 'horizontal') {
     return (
-      <div className={`inline-flex items-center gap-3 select-none ${className}`}>
+      <div className={`inline-flex items-center gap-2 select-none ${className}`} dir="ltr">
         {emblemSvg}
-        <div className="flex flex-col justify-center">
-          <div className="flex items-center leading-none tracking-tight">
+        <div className="flex flex-col justify-center text-left" dir="ltr">
+          <div className="flex items-center leading-none tracking-tight" dir="ltr">
             <span className={`font-black text-xl sm:text-2xl font-sans ${textClasses}`}>
               Deutsch
             </span>
@@ -308,8 +308,8 @@ export default function DeutschPlexLogo({
     return (
       <div className={`p-6 sm:p-8 rounded-3xl bg-[#f4efea] text-[#1e2229] border border-[#ded5cb] shadow-2xl flex flex-col items-center justify-center text-center select-none ${className}`}>
         {emblemSvg}
-        <div className="mt-4 flex flex-col items-center">
-          <div className="flex items-center leading-none">
+        <div className="mt-4 flex flex-col items-center" dir="ltr">
+          <div className="flex items-center leading-none" dir="ltr">
             <span className="font-black tracking-tight text-2xl sm:text-3xl font-sans text-[#1e2229]">
               Deutsch
             </span>
@@ -331,8 +331,8 @@ export default function DeutschPlexLogo({
   return (
     <div className={`flex flex-col items-center justify-center text-center select-none ${className}`}>
       {emblemSvg}
-      <div className="mt-4 flex flex-col items-center">
-        <div className="flex items-center leading-none">
+      <div className="mt-4 flex flex-col items-center" dir="ltr">
+        <div className="flex items-center leading-none" dir="ltr">
           <span className={`font-black tracking-tight text-2xl sm:text-4xl font-sans ${textClasses}`}>
             Deutsch
           </span>

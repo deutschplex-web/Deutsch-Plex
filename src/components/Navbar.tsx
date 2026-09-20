@@ -42,9 +42,8 @@ export default function Navbar({
     { id: 'home', label: 'الرئيسية' },
     { id: 'categories', label: 'قطع الغيار' },
     { id: 'order', label: 'طلب تسعيرة', isOrder: true },
-    { id: 'tracker', label: 'تتبع الشحنة' },
-    { id: 'about', label: 'من نحن' },
-    { id: 'features', label: 'مميزاتنا' },
+    { id: 'tracker', label: 'تتبع الطلب' },
+    { id: 'about', label: 'عن دويتش بلكس' },
     { id: 'process', label: 'طريقة الطلب' },
     { id: 'faq', label: 'الأسئلة الشائعة' },
   ];

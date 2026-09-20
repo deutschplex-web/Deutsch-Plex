@@ -200,7 +200,7 @@ export default function OrderForm({
                       className="w-full sm:w-auto px-6 py-3.5 bg-[#181b22] hover:bg-[#202530] text-white font-bold rounded-xl border border-[#292e3a] hover:border-[#b88655]/60 transition-all flex items-center justify-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                      <span>تتبع الشحنة والطلب</span>
+                      <span>تتبع الطلب</span>
                     </button>
                   )}
 

@@ -78,17 +78,12 @@ export default function Footer({ onNavigate }: FooterProps) {
               </li>
               <li>
                 <button onClick={() => handleNav('tracker')} className="hover:text-white transition-colors cursor-pointer text-right">
-                  تتبع الشحنة والطلب
+                  تتبع الطلب
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('about')} className="hover:text-white transition-colors cursor-pointer text-right">
-                  من نحن ومعايير الجودة
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('features')} className="hover:text-white transition-colors cursor-pointer text-right">
-                  المميزات والضمان الذهبي
+                  عن دويتش بلكس
                 </button>
               </li>
               <li>

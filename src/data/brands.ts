@@ -60,7 +60,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'Brakes & Rotors',
     iconName: 'Disc',
     examplesAr: 'فحمات كربون سيراميك، هوبات أصلية، كليبرات AMG/M، حساسات تيل',
-    avgEstDays: '4-7 أيام'
+    avgEstDays: '4-7 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'suspension',
@@ -68,7 +70,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'Air Suspension & Struts',
     iconName: 'Sliders',
     examplesAr: 'مساعدات هيدروليك/هوائية (Airmatic/Adaptive)، مقصات، أذرعة، كمبروسر هواء',
-    avgEstDays: '5-9 أيام'
+    avgEstDays: '5-9 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'engine',
@@ -76,7 +80,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'Engine & Turbos',
     iconName: 'Zap',
     examplesAr: 'تيربوهات Garrett/BorgWarner، طرمبات بنزين ضغط عالي، كويلات، بخاخات',
-    avgEstDays: '6-10 أيام'
+    avgEstDays: '6-10 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'transmission',
@@ -84,7 +90,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'Transmission & Drivetrain',
     iconName: 'Cpu',
     examplesAr: 'مخ القير (Mechatronic / Valve Body)، كلتشات، عكوس، صوف وفلاتر أصلية',
-    avgEstDays: '5-9 أيام'
+    avgEstDays: '5-9 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'cooling',
@@ -92,7 +100,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'Cooling & Radiators',
     iconName: 'Wind',
     examplesAr: 'رديتر ماء ومكيف ألماني، طرمبة ماء إلكترونية، مراوح تبريد، ثيرموستات',
-    avgEstDays: '4-8 أيام'
+    avgEstDays: '4-8 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'electronics',
@@ -100,7 +110,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'ECU & Matrix Lighting',
     iconName: 'Shield',
     examplesAr: 'شمعات Matrix LED / Laser، كمبيوترات وبرمجة، حساسات أكسجين ونوكس NOx',
-    avgEstDays: '4-7 أيام'
+    avgEstDays: '4-7 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'body',
@@ -108,7 +120,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'Body & Exterior',
     iconName: 'Truck',
     examplesAr: 'صدامات AMG/M-Tech، كبوت ألمنيوم أصلي، مرايا، زجاج أمامي معزول حرارياً',
-    avgEstDays: '7-12 أيام'
+    avgEstDays: '7-12 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'maintenance',
@@ -116,7 +130,9 @@ export const PART_CATEGORIES: PartCategory[] = [
     titleEn: 'Maintenance Kits',
     iconName: 'CheckCircle2',
     examplesAr: 'فلاتر هواء وزيت ومكيف Mann/Mahle أصلية، بواجي بلاتينيوم، سيور دينامو',
-    avgEstDays: '3-6 أيام'
+    avgEstDays: '3-6 أيام',
+    imageUrl: 'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop',
+    fallbackImageUrl: 'https://images.unsplash.com/photo-1508974239320-0a029497e820?q=80&w=800&auto=format&fit=crop'
   }
 ];
 

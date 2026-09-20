@@ -156,8 +156,8 @@ export default function BrandLogo({
         return (
           <svg
             width={pixelSize * 1.5}
-            height={pixelSize}
-            viewBox="0 0 150 100"
+            height={pixelSize * 0.68}
+            viewBox="0 0 180 70"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className="drop-shadow-lg"
@@ -165,31 +165,39 @@ export default function BrandLogo({
             <defs>
               <linearGradient id="audi-chrome-top" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stopColor="#ffffff" />
-                <stop offset="35%" stopColor="#e5e7eb" />
+                <stop offset="30%" stopColor="#f3f4f6" />
                 <stop offset="70%" stopColor="#9ca3af" />
-                <stop offset="100%" stopColor="#4b5563" />
+                <stop offset="100%" stopColor="#374151" />
               </linearGradient>
               <linearGradient id="audi-chrome-inner" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stopColor="#1f2937" />
+                <stop offset="0%" stopColor="#111827" />
                 <stop offset="50%" stopColor="#6b7280" />
-                <stop offset="100%" stopColor="#d1d5db" />
+                <stop offset="100%" stopColor="#e5e7eb" />
               </linearGradient>
             </defs>
 
-            {/* 4 Interlocking Rings with polished 3D metal effect */}
+            {/* 4 Interlocking Rings with polished 3D metal effect matching official Audi badge */}
             {[
-              { cx: 33, cy: 50 },
-              { cx: 61, cy: 50 },
-              { cx: 89, cy: 50 },
-              { cx: 117, cy: 50 },
+              { cx: 36, cy: 35 },
+              { cx: 72, cy: 35 },
+              { cx: 108, cy: 35 },
+              { cx: 144, cy: 35 },
             ].map((ring, idx) => (
               <g key={idx}>
-                {/* Outer metallic shadow */}
-                <circle cx={ring.cx} cy={ring.cy} r="21" stroke="#111827" strokeWidth="4.8" opacity="0.6" />
+                {/* Outer shadow */}
+                <circle cx={ring.cx} cy={ring.cy} r="25" stroke="#000000" strokeWidth="5.5" opacity="0.5" />
                 {/* Outer metallic rim */}
-                <circle cx={ring.cx} cy={ring.cy} r="20" stroke="url(#audi-chrome-top)" strokeWidth="4.2" />
+                <circle cx={ring.cx} cy={ring.cy} r="24.5" stroke="url(#audi-chrome-top)" strokeWidth="4.8" />
                 {/* Inner chrome bevel */}
-                <circle cx={ring.cx} cy={ring.cy} r="18" stroke="url(#audi-chrome-inner)" strokeWidth="1" opacity="0.7" />
+                <circle cx={ring.cx} cy={ring.cy} r="22" stroke="url(#audi-chrome-inner)" strokeWidth="1.2" opacity="0.8" />
+                {/* Specular light highlight on top arch */}
+                <path
+                  d={`M${ring.cx - 17},${ring.cy - 17} A24,24 0 0,1 ${ring.cx + 17},${ring.cy - 17}`}
+                  stroke="#ffffff"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  opacity="0.9"
+                />
               </g>
             ))}
           </svg>
@@ -313,29 +321,43 @@ export default function BrandLogo({
             <defs>
               <linearGradient id="vw-chrome" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#ffffff" />
-                <stop offset="50%" stopColor="#94a3b8" />
-                <stop offset="100%" stopColor="#334155" />
+                <stop offset="60%" stopColor="#e2e8f0" />
+                <stop offset="100%" stopColor="#94a3b8" />
               </linearGradient>
-              <radialGradient id="vw-bg" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#1e3a8a" />
-                <stop offset="100%" stopColor="#0f172a" />
+              <radialGradient id="vw-navy-bg" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#00225d" />
+                <stop offset="85%" stopColor="#001844" />
+                <stop offset="100%" stopColor="#000e28" />
               </radialGradient>
             </defs>
 
-            {/* Outer Circle */}
-            <circle cx="50" cy="50" r="46" fill="url(#vw-bg)" stroke="url(#vw-chrome)" strokeWidth="4" />
-            <circle cx="50" cy="50" r="39" stroke="url(#vw-chrome)" strokeWidth="2" opacity="0.6" />
+            {/* Dark Midnight Blue Circular Badge */}
+            <circle cx="50" cy="50" r="47" fill="url(#vw-navy-bg)" />
 
-            {/* VW Monogram: V and W */}
-            {/* Top V */}
+            {/* Outer Chrome Ring */}
+            <circle cx="50" cy="50" r="44.5" stroke="url(#vw-chrome)" strokeWidth="3.2" />
+
+            {/* Inner Ring Guide */}
+            <circle cx="50" cy="50" r="39" stroke="url(#vw-chrome)" strokeWidth="0.8" opacity="0.4" />
+
+            {/* Authentic Volkswagen V (Upper) */}
             <path
-              d="M32,26 L45,55 L50,44 L55,55 L68,26 L61,26 L55,42 L50,32 L45,42 L39,26 Z"
-              fill="url(#vw-chrome)"
+              d="M32 23 L47 50.5 C48 52.3 52 52.3 53 50.5 L68 23"
+              stroke="url(#vw-chrome)"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
             />
-            {/* Bottom W */}
+
+            {/* Authentic Volkswagen W (Lower) */}
             <path
-              d="M30,59 L43,84 L48,73 L52,73 L57,84 L70,59 L63,59 L55,75 L50,65 L45,75 L37,59 Z"
-              fill="url(#vw-chrome)"
+              d="M23 41 L39 77 C40 79 43 79 44 77 L50 63.5 L56 77 C57 79 60 79 61 77 L77 41"
+              stroke="url(#vw-chrome)"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
             />
           </svg>
         );

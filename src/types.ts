@@ -32,6 +32,8 @@ export interface PartCategory {
   iconName: string;
   examplesAr: string;
   avgEstDays: string;
+  imageUrl: string;
+  fallbackImageUrl: string;
 }
 
 export interface VinAnalysis {

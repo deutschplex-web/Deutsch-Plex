@@ -4,7 +4,7 @@
  */
 
 export interface ShowcaseVehicle {
-  id: 'porsche' | 'bmw' | 'audi' | 'mercedes' | 'all';
+  id: 'porsche' | 'bmw' | 'audi' | 'mercedes' | 'volkswagen' | 'all';
   brandNameAr: string;
   brandNameEn: string;
   modelHighlightAr: string;
@@ -99,5 +99,24 @@ export const HERO_SHOWCASE_DATA: ShowcaseVehicle[] = [
     taglineAr: 'الأفضل أو لا شيء - قطع أصلية ومطابقة 100% بأرقام الهيكل الرسمية',
     badgeLabelAr: 'Mercedes-Benz OEM & AMG Genuine',
     badgeColor: '#00d2be'
+  },
+  {
+    id: 'volkswagen',
+    brandNameAr: 'فولكس واجن',
+    brandNameEn: 'Volkswagen',
+    modelHighlightAr: 'Golf R & Touareg V8',
+    modelHighlightEn: 'Golf R / Touareg / Arteon / Passat',
+    originCityAr: 'فولفسبورغ - ألمانيا 🇩🇪',
+    originCityEn: 'Wolfsburg, Germany',
+    vinPrefix: 'WVW / WVG',
+    sampleVin: 'WVWZZZCDZMW019284',
+    engineSpecAr: '2.0L TSI EA888 Gen 4 / 3.0L V6 TDI',
+    accelerationAr: '0-100 كم/س: 4.5 ث',
+    topSpeedAr: 'السرعة: 270 كم/س',
+    primaryCategoryAr: 'قيرات DSG، تيربوهات IS38 الأصلية، مساعدات DCC، أنظمة التبريد وطرمبات الماء الكهربائية',
+    bgImageUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=2000&auto=format&fit=crop',
+    taglineAr: 'هندسة الشعب الألمانية - متانة واعتمادية مطلقة بأعلى المعايير',
+    badgeLabelAr: 'Volkswagen Genuine Parts',
+    badgeColor: '#001e50'
   }
 ];

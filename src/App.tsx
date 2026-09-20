@@ -11,7 +11,6 @@ import HomeNavigationHub from './components/HomeNavigationHub';
 import PageHeader from './components/PageHeader';
 import Categories from './components/Categories';
 import About from './components/About';
-import Features from './components/Features';
 import Process from './components/Process';
 import OrderForm from './components/OrderForm';
 import OrderTracker from './components/OrderTracker';
@@ -171,16 +170,16 @@ export default function App() {
             >
               <PageHeader
                 pageId="tracker"
-                titleAr="تتبع مسار الشحنة والطلب الدولي"
-                subtitleAr="تتبع حي ومباشر لتحركات شحنتك الجوية عبر DHL Express من مستودعات فرانكفورت وميونخ حتى باب منزلك في السعودية."
-                badgeAr="تحديثات لحظية للشحن الدولي"
+                titleAr="تتبع الطلب"
+                subtitleAr="تابع مراحل معالجة وتجهيز طلبك لدى دويتش بلكس. يتم شحن الطلبات عبر شركات الشحن الدولية المعتمدة ونزودك برقم بوليصة التتبع لمتابعة الشحنة مباشرة عبر موقع شركة الشحن."
+                badgeAr="متابعة حالة الطلب وتفاصيل بوليصة الشحن"
                 onNavigate={navigateTo}
               />
               <OrderTracker latestOrder={latestOrder} />
             </motion.div>
           )}
 
-          {currentPage === 'about' && (
+          {(currentPage === 'about' || currentPage === 'features') && (
             <motion.div
               key="page-about"
               initial={{ opacity: 0, y: 8 }}
@@ -191,32 +190,12 @@ export default function App() {
             >
               <PageHeader
                 pageId="about"
-                titleAr="من نحن ومعايير الجودة الألمانية"
-                subtitleAr="منظومة توريد ولوجستيات متكاملة تربط ملاك ومراكز صيانة السيارات الألمانية الفاخرة بالمصادر الأصلية في ألمانيا."
-                badgeAr="شراكات مباشرة مع كبار الموردين"
+                titleAr="عن دويتش بلكس"
+                subtitleAr="تعرف على دويتش بلكس: استيراد مباشر من ألمانيا، مطابقة رقم الهيكل VIN بدقة 100%، وضمان معتمد لمدة 24 شهر مع توفير حتى 45%."
+                badgeAr="الجودة الألمانية والضمان المعتمد"
                 onNavigate={navigateTo}
               />
               <About />
-            </motion.div>
-          )}
-
-          {currentPage === 'features' && (
-            <motion.div
-              key="page-features"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25 }}
-              className="w-full"
-            >
-              <PageHeader
-                pageId="features"
-                titleAr="المميزات التنافسية وضمان 24 شهر"
-                subtitleAr="اكتشف مزايا الشراء المباشر: توفير حتى 45%، ضمان لمدة 24 شهر من ألمانيا، وتدقيق دقيق برقم الهيكل."
-                badgeAr="ضمان لمدة 24 شهر من ألمانيا"
-                onNavigate={navigateTo}
-              />
-              <Features />
             </motion.div>
           )}
 

@@ -7,7 +7,6 @@ import { motion } from 'motion/react';
 import { 
   Layers, 
   Send, 
-  Truck, 
   ShieldCheck, 
   Award, 
   Clock, 
@@ -45,34 +44,14 @@ export default function HomeNavigationHub({ onNavigate }: HomeNavigationHubProps
       badgeBg: 'bg-[#a71d2a]/15 text-[#f4efea] border-[#a71d2a]/30'
     },
     {
-      id: 'tracker' as PageId,
-      titleAr: 'تتبع الشحنة والطلب',
-      titleEn: 'Live Shipment Tracker',
-      descAr: 'تتبع مسار شحنتك الجوية لحظة بلحظة من مستودعات فرانكفورت وميونخ حتى باب منزلك بالسعودية.',
-      icon: Truck,
-      tagAr: 'شحن جوي DHL',
-      accentColor: '#10b981',
-      badgeBg: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
-    },
-    {
       id: 'about' as PageId,
-      titleAr: 'من نحن ومعايير الجودة',
-      titleEn: 'About DeutschPlex & Standards',
-      descAr: 'تعرف على شبكتنا اللوجستية المباشرة في شتوتغارت وفرانكفورت ومعايير الاعتماد الرسمية VDA.',
+      titleAr: 'عن دويتش بلكس',
+      titleEn: 'About DeutschPlex',
+      descAr: 'تعرف على شبكتنا اللوجستية المباشرة في ألمانيا، مع ضمان لمدة 24 شهر وتوفير حتى 45% بدون وسطاء.',
       icon: ShieldCheck,
-      tagAr: 'اعتماد ألماني',
+      tagAr: 'الجودة والضمان المعتمد',
       accentColor: '#b88655',
       badgeBg: 'bg-[#b88655]/15 text-[#b88655] border-[#b88655]/30'
-    },
-    {
-      id: 'features' as PageId,
-      titleAr: 'المميزات وضمان 24 شهر',
-      titleEn: 'Features & German Warranty',
-      descAr: 'خصم يصل إلى 45% مقارنة بالوكالات، ضمان لمدة 24 شهر من ألمانيا، وشحن جوي مباشر خلال 3-7 أيام.',
-      icon: Award,
-      tagAr: 'ضمان 24 شهر من ألمانيا',
-      accentColor: '#a71d2a',
-      badgeBg: 'bg-[#a71d2a]/15 text-[#f4efea] border-[#a71d2a]/30'
     },
     {
       id: 'process' as PageId,
