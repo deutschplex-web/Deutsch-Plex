@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { CarBrandId } from '../types';
+import { getBrandLogo } from '../data/brandLogos';
 
 interface BrandLogoProps {
   brandId: CarBrandId | string;
@@ -21,12 +23,15 @@ export default function BrandLogo({
   className = '',
   animateOnHover = true,
 }: BrandLogoProps) {
+  const [hasError, setHasError] = useState(false);
+
   // Normalize brand ID
-  const id = brandId.toLowerCase();
+  const id = (brandId || '').toLowerCase().trim();
+  const brandData = getBrandLogo(id);
 
   // Dimension sizes in px
   const sizeMap = {
-    sm: 36,
+    sm: 32,
     md: 48,
     lg: 64,
     xl: 88,
@@ -40,329 +45,19 @@ export default function BrandLogo({
       }
     : {};
 
-  // Render individual brand SVG emblems
-  const renderEmblem = () => {
-    switch (id) {
-      case 'mercedes':
-      case 'mercedes-benz':
-        return (
-          <svg
-            width={pixelSize}
-            height={pixelSize}
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="drop-shadow-lg"
-          >
-            <defs>
-              <linearGradient id="mb-chrome-light" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#ffffff" />
-                <stop offset="50%" stopColor="#d1d5db" />
-                <stop offset="100%" stopColor="#9ca3af" />
-              </linearGradient>
-              <linearGradient id="mb-chrome-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#9ca3af" />
-                <stop offset="50%" stopColor="#4b5563" />
-                <stop offset="100%" stopColor="#1f2937" />
-              </linearGradient>
-              <radialGradient id="mb-ring-grad" cx="50%" cy="50%" r="50%">
-                <stop offset="70%" stopColor="#1e242d" />
-                <stop offset="100%" stopColor="#0f172a" />
-              </radialGradient>
-            </defs>
+  // Width & height adjustments based on emblem proportions
+  let emblemWidth = pixelSize;
+  let emblemHeight = pixelSize;
 
-            {/* Dark background circle */}
-            <circle cx="50" cy="50" r="46" fill="url(#mb-ring-grad)" />
-
-            {/* Outer Chrome Ring with 3D bevel */}
-            <circle cx="50" cy="50" r="44" stroke="url(#mb-chrome-light)" strokeWidth="3.5" />
-            <circle cx="50" cy="50" r="41" stroke="url(#mb-chrome-dark)" strokeWidth="1" opacity="0.6" />
-
-            {/* Three-Pointed Star with Light & Dark Facets */}
-            {/* Top Point (0 deg) */}
-            <polygon points="50,12 50,50 42,48" fill="url(#mb-chrome-light)" />
-            <polygon points="50,12 58,48 50,50" fill="url(#mb-chrome-dark)" />
-
-            {/* Bottom-Right Point (120 deg) */}
-            <polygon points="82.9,69 50,50 49,41" fill="url(#mb-chrome-light)" />
-            <polygon points="82.9,69 53,58 50,50" fill="url(#mb-chrome-dark)" />
-
-            {/* Bottom-Left Point (240 deg) */}
-            <polygon points="17.1,69 50,50 47,58" fill="url(#mb-chrome-dark)" />
-            <polygon points="17.1,69 51,41 50,50" fill="url(#mb-chrome-light)" />
-
-            {/* Center Boss Highlight */}
-            <circle cx="50" cy="50" r="3" fill="#f3f4f6" />
-          </svg>
-        );
-
-      case 'bmw':
-        return (
-          <svg
-            width={pixelSize}
-            height={pixelSize}
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="drop-shadow-lg"
-          >
-            <defs>
-              <linearGradient id="bmw-silver" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#f3f4f6" />
-                <stop offset="50%" stopColor="#9ca3af" />
-                <stop offset="100%" stopColor="#4b5563" />
-              </linearGradient>
-              <radialGradient id="bmw-sheen" cx="30%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#000000" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-
-            {/* Outer Chrome Border */}
-            <circle cx="50" cy="50" r="47" fill="#000000" stroke="url(#bmw-silver)" strokeWidth="3" />
-
-            {/* Inner Chrome Rim */}
-            <circle cx="50" cy="50" r="28" stroke="url(#bmw-silver)" strokeWidth="1.8" />
-
-            {/* Quadrants (Bavarian Blue & White) */}
-            <g transform="translate(50, 50)">
-              {/* Top-Right Quadrant: White */}
-              <path d="M0,0 L0,-27 A27,27 0 0,1 27,0 Z" fill="#ffffff" />
-              {/* Bottom-Right Quadrant: Bavarian Blue */}
-              <path d="M0,0 L27,0 A27,27 0 0,1 0,27 Z" fill="#0066B2" />
-              {/* Bottom-Left Quadrant: White */}
-              <path d="M0,0 L0,27 A27,27 0 0,1 -27,0 Z" fill="#ffffff" />
-              {/* Top-Left Quadrant: Bavarian Blue */}
-              <path d="M0,0 L-27,0 A27,27 0 0,1 0,-27 Z" fill="#0066B2" />
-
-              {/* Quadrant Divider Cross */}
-              <line x1="-27" y1="0" x2="27" y2="0" stroke="#9ca3af" strokeWidth="1" />
-              <line x1="0" y1="-27" x2="0" y2="27" stroke="#9ca3af" strokeWidth="1" />
-
-              {/* Glass / Metallic Specular Sheen */}
-              <circle cx="0" cy="0" r="27" fill="url(#bmw-sheen)" />
-            </g>
-
-            {/* Typography "B M W" along the black ring */}
-            <g fill="#e5e7eb" fontWeight="900" fontSize="11" fontFamily="sans-serif" textAnchor="middle">
-              <text transform="translate(25, 33) rotate(-45)">B</text>
-              <text transform="translate(50, 20) rotate(0)">M</text>
-              <text transform="translate(75, 33) rotate(45)">W</text>
-            </g>
-          </svg>
-        );
-
-      case 'audi':
-        return (
-          <svg
-            width={pixelSize * 1.5}
-            height={pixelSize * 0.68}
-            viewBox="0 0 180 70"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="drop-shadow-lg"
-          >
-            <defs>
-              <linearGradient id="audi-chrome-top" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#ffffff" />
-                <stop offset="30%" stopColor="#f3f4f6" />
-                <stop offset="70%" stopColor="#9ca3af" />
-                <stop offset="100%" stopColor="#374151" />
-              </linearGradient>
-              <linearGradient id="audi-chrome-inner" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stopColor="#111827" />
-                <stop offset="50%" stopColor="#6b7280" />
-                <stop offset="100%" stopColor="#e5e7eb" />
-              </linearGradient>
-            </defs>
-
-            {/* 4 Interlocking Rings with polished 3D metal effect matching official Audi badge */}
-            {[
-              { cx: 36, cy: 35 },
-              { cx: 72, cy: 35 },
-              { cx: 108, cy: 35 },
-              { cx: 144, cy: 35 },
-            ].map((ring, idx) => (
-              <g key={idx}>
-                {/* Outer shadow */}
-                <circle cx={ring.cx} cy={ring.cy} r="25" stroke="#000000" strokeWidth="5.5" opacity="0.5" />
-                {/* Outer metallic rim */}
-                <circle cx={ring.cx} cy={ring.cy} r="24.5" stroke="url(#audi-chrome-top)" strokeWidth="4.8" />
-                {/* Inner chrome bevel */}
-                <circle cx={ring.cx} cy={ring.cy} r="22" stroke="url(#audi-chrome-inner)" strokeWidth="1.2" opacity="0.8" />
-                {/* Specular light highlight on top arch */}
-                <path
-                  d={`M${ring.cx - 17},${ring.cy - 17} A24,24 0 0,1 ${ring.cx + 17},${ring.cy - 17}`}
-                  stroke="#ffffff"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  opacity="0.9"
-                />
-              </g>
-            ))}
-          </svg>
-        );
-
-      case 'porsche':
-        return (
-          <svg
-            width={pixelSize * 0.85}
-            height={pixelSize}
-            viewBox="0 0 90 106"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="drop-shadow-lg"
-          >
-            <defs>
-              <linearGradient id="porsche-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#fef08a" />
-                <stop offset="30%" stopColor="#eab308" />
-                <stop offset="70%" stopColor="#ca8a04" />
-                <stop offset="100%" stopColor="#854d0e" />
-              </linearGradient>
-              <linearGradient id="porsche-red" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#dc2626" />
-                <stop offset="100%" stopColor="#991b1b" />
-              </linearGradient>
-            </defs>
-
-            {/* Crest Shield Outline */}
-            <path
-              d="M12,12 L78,12 C80,38 80,68 45,98 C10,68 10,38 12,12 Z"
-              fill="url(#porsche-gold)"
-              stroke="#ca8a04"
-              strokeWidth="2.5"
-            />
-
-            {/* Top Banner with PORSCHE Text */}
-            <path d="M14,14 L76,14 L76,27 L14,27 Z" fill="url(#porsche-gold)" />
-            <text
-              x="45"
-              y="23"
-              fill="#000000"
-              fontSize="7.5"
-              fontWeight="900"
-              letterSpacing="1.2"
-              fontFamily="sans-serif"
-              textAnchor="middle"
-            >
-              PORSCHE
-            </text>
-
-            {/* Shield Quarters */}
-            {/* Top-Right & Bottom-Left Quarters: Red and Black Stripes */}
-            {/* Top-Right Red & Black */}
-            <rect x="46" y="28" width="31" height="6" fill="#000000" />
-            <rect x="46" y="34" width="31" height="6" fill="url(#porsche-red)" />
-            <rect x="46" y="40" width="31" height="6" fill="#000000" />
-            <rect x="46" y="46" width="31" height="6" fill="url(#porsche-red)" />
-
-            {/* Bottom-Left Red & Black */}
-            <rect x="13" y="52" width="32" height="7" fill="url(#porsche-red)" />
-            <rect x="13" y="59" width="32" height="7" fill="#000000" />
-            <rect x="13" y="66" width="32" height="7" fill="url(#porsche-red)" />
-            <rect x="13" y="73" width="32" height="7" fill="#000000" />
-
-            {/* Top-Left & Bottom-Right Antlers (Württemberg Stag Horns) */}
-            {/* Top-Left Antlers */}
-            <g stroke="#000000" strokeWidth="2.2" strokeLinecap="round">
-              <path d="M18,34 Q28,31 40,34 M23,33 L21,30 M30,32 L29,28 M37,33 L37,29" />
-              <path d="M18,42 Q28,39 40,42 M23,41 L21,38 M30,40 L29,36 M37,41 L37,37" />
-              <path d="M18,50 Q28,47 40,50 M23,49 L21,46 M30,48 L29,44 M37,49 L37,45" />
-            </g>
-
-            {/* Bottom-Right Antlers */}
-            <g stroke="#000000" strokeWidth="2.2" strokeLinecap="round">
-              <path d="M48,58 Q58,55 70,58 M53,57 L51,54 M60,56 L59,52 M67,57 L67,53" />
-              <path d="M48,67 Q58,64 70,67 M53,66 L51,63 M60,65 L59,61 M67,66 L67,62" />
-              <path d="M48,76 Q58,73 66,76 M53,75 L51,72 M60,74 L59,70" />
-            </g>
-
-            {/* Center Stuttgart Crest with Rearing Prancing Stallion */}
-            <path
-              d="M33,37 L57,37 C58,50 58,62 45,71 C32,62 32,50 33,37 Z"
-              fill="url(#porsche-gold)"
-              stroke="#000000"
-              strokeWidth="1.2"
-            />
-            {/* "STUTTGART" text */}
-            <text
-              x="45"
-              y="42"
-              fill="#000000"
-              fontSize="3.8"
-              fontWeight="900"
-              letterSpacing="0.4"
-              fontFamily="sans-serif"
-              textAnchor="middle"
-            >
-              STUTTGART
-            </text>
-
-            {/* Rearing Stallion Silhouette */}
-            <path
-              d="M45,45 C47,44 48,46 47,48 C46,49 47,51 49,52 C46,53 45,56 46,59 C44,58 43,62 42,65 C41,61 41,58 43,56 C41,54 42,50 44,48 Z"
-              fill="#000000"
-            />
-          </svg>
-        );
-
-      case 'volkswagen':
-      default:
-        return (
-          <svg
-            width={pixelSize}
-            height={pixelSize}
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="drop-shadow-lg"
-          >
-            <defs>
-              <linearGradient id="vw-chrome" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#ffffff" />
-                <stop offset="60%" stopColor="#e2e8f0" />
-                <stop offset="100%" stopColor="#94a3b8" />
-              </linearGradient>
-              <radialGradient id="vw-navy-bg" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#00225d" />
-                <stop offset="85%" stopColor="#001844" />
-                <stop offset="100%" stopColor="#000e28" />
-              </radialGradient>
-            </defs>
-
-            {/* Dark Midnight Blue Circular Badge */}
-            <circle cx="50" cy="50" r="47" fill="url(#vw-navy-bg)" />
-
-            {/* Outer Chrome Ring */}
-            <circle cx="50" cy="50" r="44.5" stroke="url(#vw-chrome)" strokeWidth="3.2" />
-
-            {/* Inner Ring Guide */}
-            <circle cx="50" cy="50" r="39" stroke="url(#vw-chrome)" strokeWidth="0.8" opacity="0.4" />
-
-            {/* Authentic Volkswagen V (Upper) */}
-            <path
-              d="M32 23 L47 50.5 C48 52.3 52 52.3 53 50.5 L68 23"
-              stroke="url(#vw-chrome)"
-              strokeWidth="4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
-
-            {/* Authentic Volkswagen W (Lower) */}
-            <path
-              d="M23 41 L39 77 C40 79 43 79 44 77 L50 63.5 L56 77 C57 79 60 79 61 77 L77 41"
-              stroke="url(#vw-chrome)"
-              strokeWidth="4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
-          </svg>
-        );
-    }
-  };
+  if (brandData.aspectRatio === 'wide') {
+    // Audi 4 rings is wider horizontally (approx 1.6 : 1)
+    emblemWidth = Math.round(pixelSize * 1.55);
+    emblemHeight = Math.round(pixelSize * 0.95);
+  } else if (brandData.aspectRatio === 'shield') {
+    // Porsche crest shield is taller vertically (approx 0.8 : 1)
+    emblemWidth = Math.round(pixelSize * 0.82);
+    emblemHeight = pixelSize;
+  }
 
   // Wordmark under the emblem if requested
   const renderWordmark = () => {
@@ -370,32 +65,32 @@ export default function BrandLogo({
       case 'mercedes':
       case 'mercedes-benz':
         return (
-          <span className="font-serif font-bold text-xs tracking-wider text-neutral-200 mt-1 uppercase">
+          <span className="font-serif font-bold text-xs tracking-wider text-neutral-200 mt-1.5 uppercase">
             Mercedes-Benz
           </span>
         );
       case 'bmw':
         return (
-          <span className="font-sans font-black text-xs tracking-widest text-neutral-200 mt-1">
+          <span className="font-sans font-black text-xs tracking-widest text-neutral-200 mt-1.5">
             BMW
           </span>
         );
       case 'audi':
         return (
-          <span className="font-sans font-black text-xs tracking-wider text-red-500 mt-1">
+          <span className="font-sans font-black text-xs tracking-wider text-red-500 mt-1.5">
             Audi
           </span>
         );
       case 'porsche':
         return (
-          <span className="font-sans font-black text-[11px] tracking-[0.2em] text-amber-400 mt-1 uppercase">
+          <span className="font-sans font-black text-[11px] tracking-[0.2em] text-amber-400 mt-1.5 uppercase">
             Porsche
           </span>
         );
       case 'volkswagen':
       default:
         return (
-          <span className="font-sans font-bold text-xs tracking-wider text-neutral-200 mt-1">
+          <span className="font-sans font-bold text-xs tracking-wider text-neutral-200 mt-1.5">
             Volkswagen
           </span>
         );
@@ -407,7 +102,27 @@ export default function BrandLogo({
       {...containerMotionProps}
       className={`inline-flex flex-col items-center justify-center select-none ${className}`}
     >
-      {renderEmblem()}
+      <div 
+        className="relative flex items-center justify-center"
+        style={{ width: emblemWidth, height: emblemHeight }}
+      >
+        {!hasError ? (
+          <img
+            src={brandData.png}
+            alt={brandData.alt}
+            width={emblemWidth}
+            height={emblemHeight}
+            loading="eager"
+            onError={() => setHasError(true)}
+            className="w-full h-full object-contain filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] transition-transform duration-300 pointer-events-none"
+          />
+        ) : (
+          <div className="w-full h-full rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-xs font-bold text-neutral-300">
+            {brandData.nameEn.substring(0, 2).toUpperCase()}
+          </div>
+        )}
+      </div>
+
       {showWordmark && renderWordmark()}
     </motion.div>
   );

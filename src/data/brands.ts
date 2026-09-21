@@ -12,6 +12,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Mercedes-Benz',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'M',
+    logoUrl: '/images/logos/mercedes.png',
     wmiPrefixes: ['WDB', 'WDD', 'WDC', 'WMX', '4JG'],
     popularModels: ['S-Class (W222/W223)', 'E-Class (W213/W214)', 'C-Class (W205/W206)', 'G-Class (W463)', 'GLE / GLS', 'AMG GT']
   },
@@ -21,6 +22,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'BMW',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'B',
+    logoUrl: '/images/logos/bmw.png',
     wmiPrefixes: ['WBA', 'WBS', 'WBX', 'WBY', '5UX'],
     popularModels: ['7-Series (G11/G70)', '5-Series (G30/G60)', '3-Series (G20)', 'X5 / X7 (G05/G07)', 'M3 / M4 / M5', '8-Series Gran Coupé']
   },
@@ -30,6 +32,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Audi',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'A',
+    logoUrl: '/images/logos/audi.png',
     wmiPrefixes: ['WAU', 'WA1', 'WUA'],
     popularModels: ['A8 / S8', 'A6 / RS6 Avant', 'A7 / RS7 Sportback', 'Q7 / Q8 / RSQ8', 'A4 / S4', 'e-tron GT']
   },
@@ -39,6 +42,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Porsche',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'P',
+    logoUrl: '/images/logos/porsche.png',
     wmiPrefixes: ['WP0', 'WP1'],
     popularModels: ['911 Carrera / Turbo / GT3', 'Panamera / GTS', 'Cayenne / Coupe', 'Macan GTS', 'Taycan Turbo', '718 Cayman / Boxster']
   },
@@ -48,6 +52,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Volkswagen',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'V',
+    logoUrl: '/images/logos/volkswagen.png',
     wmiPrefixes: ['WVW', 'WVG', 'WV1'],
     popularModels: ['Touareg V8/V6', 'Arteon R-Line', 'Golf R / GTI', 'Tiguan R-Line', 'Passat']
   }

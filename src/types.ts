@@ -11,6 +11,7 @@ export interface CarBrand {
   nameEn: string;
   country: string;
   logoSvg: string;
+  logoUrl?: string;
   wmiPrefixes: string[]; // e.g. WDB, WDC, WDD for Mercedes
   popularModels: string[];
 }

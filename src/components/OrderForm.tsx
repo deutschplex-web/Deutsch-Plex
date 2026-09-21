@@ -17,6 +17,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { GERMAN_BRANDS } from '../data/brands';
+import BrandLogo from './BrandLogo';
 import { decodeVin } from '../utils/vinDecoder';
 import { PartCategoryId, QuoteRequest, PageId } from '../types';
 
@@ -290,11 +291,14 @@ export default function OrderForm({
                       <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
                         ماركة السيارة *
                       </label>
-                      <div className="relative">
+                      <div className="relative flex items-center">
+                        <div className="absolute right-3 pointer-events-none z-10 flex items-center justify-center">
+                          <BrandLogo brandId={brand} size={22} animateOnHover={false} />
+                        </div>
                         <select
                           value={brand}
                           onChange={(e) => setBrand(e.target.value)}
-                          className="w-full py-3 pr-4 pl-10 bg-[#090d14] border border-red-600 ring-1 ring-red-600/40 rounded-xl text-sm font-semibold text-white focus:outline-none appearance-none cursor-pointer"
+                          className="w-full py-3 pr-11 pl-10 bg-[#090d14] border border-red-600 ring-1 ring-red-600/40 rounded-xl text-sm font-semibold text-white focus:outline-none appearance-none cursor-pointer"
                         >
                           {GERMAN_BRANDS.map((b) => (
                             <option key={b.id} value={b.id} className="bg-[#0f141d] text-white">
