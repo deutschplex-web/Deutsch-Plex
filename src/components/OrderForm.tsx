@@ -135,14 +135,14 @@ export default function OrderForm({
   };
 
   return (
-    <section id="order" className="py-14 sm:py-20 bg-[#0a0a0d] relative">
+    <section id="order" className="py-14 sm:py-20 bg-[#eff1f5] relative">
       {/* Glow Effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-80 bg-red-950/10 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-80 bg-[#535864]/5 blur-[130px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main Card */}
-        <div className="max-w-5xl mx-auto rounded-2xl bg-[#0f141d] border border-[#1e2638] shadow-2xl overflow-hidden p-6 sm:p-8 lg:p-10">
+        <div className="max-w-5xl mx-auto rounded-2xl bg-white border border-[#C3C4CC] shadow-xl overflow-hidden p-6 sm:p-8 lg:p-10">
           
           <AnimatePresence mode="wait">
             {submittedOrder ? (
@@ -155,27 +155,27 @@ export default function OrderForm({
                 transition={{ duration: 0.3 }}
                 className="text-center py-8 sm:py-12 space-y-6"
               >
-                <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mx-auto flex items-center justify-center">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 mx-auto flex items-center justify-center shadow-sm">
                   <FileCheck className="w-8 h-8" />
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-extrabold text-white mb-2">
+                  <h3 className="text-2xl font-extrabold text-[#181b22] mb-2">
                     تم استلام طلبك بنجاح!
                   </h3>
-                  <p className="text-sm text-neutral-400 max-w-md mx-auto">
+                  <p className="text-sm text-[#535864] max-w-md mx-auto">
                     يقوم مهندسونا الآن بمطابقة رقم الهيكل واستخراج رقم القطعة من الكتالوجات الألمانية الرسمية.
                   </p>
                 </div>
 
                 {/* Reference Number */}
-                <div className="inline-flex items-center gap-3 bg-neutral-950 px-5 py-3 rounded-xl border border-neutral-800">
-                  <span className="text-xs text-neutral-400">رقم الطلب المرجعي:</span>
-                  <span className="font-mono font-bold text-white text-base">{submittedOrder.id}</span>
+                <div className="inline-flex items-center gap-3 bg-[#eff1f5] px-5 py-3 rounded-xl border border-[#C3C4CC]">
+                  <span className="text-xs text-[#535864]">رقم الطلب المرجعي:</span>
+                  <span className="font-mono font-bold text-[#ba1823] text-base">{submittedOrder.id}</span>
                   <button
                     type="button"
                     onClick={handleCopyRef}
-                    className="text-neutral-400 hover:text-white transition-colors text-xs flex items-center gap-1 border-r border-neutral-800 pr-3"
+                    className="text-[#535864] hover:text-[#181b22] transition-colors text-xs flex items-center gap-1 border-r border-[#C3C4CC] pr-3"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     <span>{copiedRef ? 'تم النسخ' : 'نسخ'}</span>
@@ -188,7 +188,7 @@ export default function OrderForm({
                     href={buildWhatsAppUrl()}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full sm:w-auto px-7 py-3.5 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40 transition-all"
+                    className="w-full sm:w-auto px-7 py-3.5 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
                   >
                     <MessageCircle className="w-5 h-5" />
                     <span>متابعة الطلب فوراً عبر الواتساب</span>
@@ -198,9 +198,9 @@ export default function OrderForm({
                     <button
                       type="button"
                       onClick={() => onNavigate('tracker')}
-                      className="w-full sm:w-auto px-6 py-3.5 bg-[#181b22] hover:bg-[#202530] text-white font-bold rounded-xl border border-[#292e3a] hover:border-[#b88655]/60 transition-all flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto px-6 py-3.5 bg-white hover:bg-[#eff1f5] text-[#181b22] font-bold rounded-xl border border-[#C3C4CC] hover:border-[#535864] transition-all flex items-center justify-center gap-2 shadow-xs"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                       <span>تتبع الطلب</span>
                     </button>
                   )}
@@ -208,7 +208,7 @@ export default function OrderForm({
                   <button
                     type="button"
                     onClick={handleResetForm}
-                    className="w-full sm:w-auto px-6 py-3.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 font-semibold rounded-xl border border-neutral-700 transition-colors flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-6 py-3.5 bg-[#eff1f5] hover:bg-white text-[#535864] hover:text-[#181b22] font-semibold rounded-xl border border-[#C3C4CC] transition-colors flex items-center justify-center gap-2"
                   >
                     <RotateCcw className="w-4 h-4" />
                     <span>تقديم طلب آخر</span>
@@ -216,7 +216,7 @@ export default function OrderForm({
                 </div>
               </motion.div>
             ) : (
-              /* Two-Column Form Layout matching the image */
+              /* Two-Column Form Layout */
               <motion.div 
                 key="order-form"
                 initial={{ opacity: 0 }}
@@ -230,50 +230,50 @@ export default function OrderForm({
                 <div className="lg:col-span-5 flex flex-col justify-between">
                   <div>
                     {/* Main Card Title */}
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight mb-3">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#181b22] tracking-tight mb-3">
                       اطلب قطعتك الآن
                     </h2>
                     
                     {/* Subtitle */}
-                    <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-8">
+                    <p className="text-xs sm:text-sm text-[#535864] leading-relaxed mb-8">
                       املأ النموذج وسنقوم بالرد عليك في أسرع وقت ممكن بعرض سعر يشمل قيمة القطعة وتكلفة الشحن.
                     </p>
 
                     {/* Features List with Red Check Badges */}
                     <div className="space-y-4 mb-8">
                       <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 rounded-full bg-[#dc2626] flex items-center justify-center text-white shrink-0 shadow-sm">
+                        <div className="w-5 h-5 rounded-full bg-[#ba1823] flex items-center justify-center text-white shrink-0 shadow-sm">
                           <Check className="w-3 h-3 stroke-[3]" />
                         </div>
-                        <span className="text-sm font-bold text-white">مطابقة 100% برقم الهيكل</span>
+                        <span className="text-sm font-bold text-[#181b22]">مطابقة 100% برقم الهيكل</span>
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 rounded-full bg-[#dc2626] flex items-center justify-center text-white shrink-0 shadow-sm">
+                        <div className="w-5 h-5 rounded-full bg-[#ba1823] flex items-center justify-center text-white shrink-0 shadow-sm">
                           <Check className="w-3 h-3 stroke-[3]" />
                         </div>
-                        <span className="text-sm font-bold text-white">ضمان لمدة 24 شهر من ألمانيا</span>
+                        <span className="text-sm font-bold text-[#181b22]">ضمان لمدة 24 شهر من ألمانيا</span>
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 rounded-full bg-[#dc2626] flex items-center justify-center text-white shrink-0 shadow-sm">
+                        <div className="w-5 h-5 rounded-full bg-[#ba1823] flex items-center justify-center text-white shrink-0 shadow-sm">
                           <Check className="w-3 h-3 stroke-[3]" />
                         </div>
-                        <span className="text-sm font-bold text-white">شحن سريع وآمن</span>
+                        <span className="text-sm font-bold text-[#181b22]">شحن سريع وآمن</span>
                       </div>
                     </div>
                   </div>
 
                   {/* WhatsApp Quick Link */}
-                  <div className="mt-8 pt-6 border-t border-[#1e2638]">
-                    <p className="text-xs text-neutral-400 text-center mb-3">
+                  <div className="mt-8 pt-6 border-t border-[#C3C4CC]">
+                    <p className="text-xs text-[#535864] text-center mb-3">
                       أو اختصر الوقت واطلب عبر
                     </p>
                     <a
                       href={buildWhatsAppUrl()}
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full py-3.5 px-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-950/40 text-sm sm:text-base"
+                      className="w-full py-3.5 px-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-md text-sm sm:text-base"
                     >
                       <MessageCircle className="w-5 h-5 fill-white text-[#25D366]" />
                       <span>واتساب: <span dir="ltr" className="font-mono">+966 53 615 2188</span></span>
@@ -288,7 +288,7 @@ export default function OrderForm({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Brand Select */}
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#181b22] mb-1.5">
                         ماركة السيارة *
                       </label>
                       <div className="relative flex items-center">
@@ -298,15 +298,15 @@ export default function OrderForm({
                         <select
                           value={brand}
                           onChange={(e) => setBrand(e.target.value)}
-                          className="w-full py-3 pr-11 pl-10 bg-[#090d14] border border-red-600 ring-1 ring-red-600/40 rounded-xl text-sm font-semibold text-white focus:outline-none appearance-none cursor-pointer"
+                          className="w-full py-3 pr-11 pl-10 bg-[#f7f8fb] border border-[#C3C4CC] focus:border-[#535864] focus:ring-1 focus:ring-[#535864]/30 rounded-xl text-sm font-semibold text-[#181b22] focus:outline-none appearance-none cursor-pointer"
                         >
                           {GERMAN_BRANDS.map((b) => (
-                            <option key={b.id} value={b.id} className="bg-[#0f141d] text-white">
+                            <option key={b.id} value={b.id} className="bg-white text-[#181b22]">
                               {b.nameAr} ({b.nameEn})
                             </option>
                           ))}
                         </select>
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[#535864]">
                           <ChevronDown className="w-4 h-4" />
                         </div>
                       </div>
@@ -314,7 +314,7 @@ export default function OrderForm({
 
                     {/* Model & Year Input */}
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#181b22] mb-1.5">
                         موديل السيارة / السنة *
                       </label>
                       <input
@@ -323,7 +323,7 @@ export default function OrderForm({
                         value={modelYear}
                         onChange={(e) => setModelYear(e.target.value)}
                         placeholder="مثال: S-Class 2022"
-                        className="w-full py-3 px-4 bg-[#090d14] border border-[#1e2638] focus:border-red-600 focus:ring-1 focus:ring-red-600/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors"
+                        className="w-full py-3 px-4 bg-[#f7f8fb] border border-[#C3C4CC] focus:border-[#535864] focus:ring-1 focus:ring-[#535864]/30 rounded-xl text-sm text-[#181b22] placeholder:text-[#8a93a0] focus:outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -331,10 +331,10 @@ export default function OrderForm({
                   {/* Row 2: VIN Input with Barcode Icon */}
                   <div>
                     <div className="flex items-center gap-1.5 mb-1.5">
-                      <label className="text-xs font-semibold text-neutral-300">
+                      <label className="text-xs font-semibold text-[#181b22]">
                         رقم الهيكل (VIN) *
                       </label>
-                      <span className="text-[11px] text-neutral-400 font-normal">
+                      <span className="text-[11px] text-[#535864] font-normal">
                         (مطلوب لضمان الدقة)
                       </span>
                     </div>
@@ -347,11 +347,11 @@ export default function OrderForm({
                         onChange={(e) => handleVinChange(e.target.value)}
                         maxLength={17}
                         placeholder="أدخل رقم الهيكل المكون من 17 حرف ورقم"
-                        className="w-full py-3 pr-4 pl-12 bg-[#090d14] border border-[#1e2638] focus:border-red-600 focus:ring-1 focus:ring-red-600/40 rounded-xl text-sm font-mono text-white placeholder:font-sans placeholder:text-neutral-500 focus:outline-none uppercase tracking-wider transition-colors"
+                        className="w-full py-3 pr-4 pl-12 bg-[#f7f8fb] border border-[#C3C4CC] focus:border-[#535864] focus:ring-1 focus:ring-[#535864]/30 rounded-xl text-sm font-mono text-[#181b22] placeholder:font-sans placeholder:text-[#8a93a0] focus:outline-none uppercase tracking-wider transition-colors"
                       />
                       
                       {/* Barcode Icon on the Left (inside the input) */}
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-neutral-400">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-[#535864]">
                         <Barcode className="w-5 h-5" />
                       </div>
                     </div>
@@ -361,13 +361,13 @@ export default function OrderForm({
                       <motion.div 
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-1.5 flex items-center justify-between text-[11px] text-emerald-400 font-medium px-1"
+                        className="mt-1.5 flex items-center justify-between text-[11px] text-emerald-600 font-medium px-1"
                       >
                         <span className="flex items-center gap-1">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>رقم هيكل متطابق ({vinAnalysis.brandName} • {vinAnalysis.originCountry})</span>
                         </span>
-                        <span className="font-mono text-neutral-400">17/17 خانة</span>
+                        <span className="font-mono text-[#535864]">17/17 خانة</span>
                       </motion.div>
                     )}
                   </div>
@@ -376,7 +376,7 @@ export default function OrderForm({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Customer Name */}
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#181b22] mb-1.5">
                         الاسم الكريم *
                       </label>
                       <input
@@ -385,13 +385,13 @@ export default function OrderForm({
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
                         placeholder="الاسم"
-                        className="w-full py-3 px-4 bg-[#090d14] border border-[#1e2638] focus:border-red-600 focus:ring-1 focus:ring-red-600/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors"
+                        className="w-full py-3 px-4 bg-[#f7f8fb] border border-[#C3C4CC] focus:border-[#535864] focus:ring-1 focus:ring-[#535864]/30 rounded-xl text-sm text-[#181b22] placeholder:text-[#8a93a0] focus:outline-none transition-colors"
                       />
                     </div>
 
                     {/* Phone Number */}
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#181b22] mb-1.5">
                         رقم الجوال *
                       </label>
                       <input
@@ -401,14 +401,14 @@ export default function OrderForm({
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         placeholder="05xxxxxxxx"
                         dir="ltr"
-                        className="w-full py-3 px-4 bg-[#090d14] border border-[#1e2638] focus:border-red-600 focus:ring-1 focus:ring-red-600/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors text-right"
+                        className="w-full py-3 px-4 bg-[#f7f8fb] border border-[#C3C4CC] focus:border-[#535864] focus:ring-1 focus:ring-[#535864]/30 rounded-xl text-sm text-[#181b22] placeholder:text-[#8a93a0] focus:outline-none transition-colors text-right"
                       />
                     </div>
                   </div>
 
                   {/* Row 4: Part Details Textarea */}
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-[#181b22] mb-1.5">
                       تفاصيل القطعة المطلوبة *
                     </label>
                     <textarea
@@ -417,7 +417,7 @@ export default function OrderForm({
                       value={partDetails}
                       onChange={(e) => setPartDetails(e.target.value)}
                       placeholder="يرجى وصف القطعة بدقة (مثال: فحمات أمامية، مساعدات، حساس أكسجين...)"
-                      className="w-full p-4 bg-[#090d14] border border-[#1e2638] focus:border-red-600 focus:ring-1 focus:ring-red-600/40 rounded-xl text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-colors resize-none"
+                      className="w-full p-4 bg-[#f7f8fb] border border-[#C3C4CC] focus:border-[#535864] focus:ring-1 focus:ring-[#535864]/30 rounded-xl text-sm text-[#181b22] placeholder:text-[#8a93a0] focus:outline-none transition-colors resize-none"
                     />
                   </div>
 
@@ -426,7 +426,7 @@ export default function OrderForm({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 sm:py-4 px-6 bg-[#b91c1c] hover:bg-[#dc2626] disabled:opacity-75 text-white font-bold rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-red-950/40 text-sm sm:text-base active:scale-[0.99]"
+                      className="w-full py-3.5 sm:py-4 px-6 bg-[#ba1823] hover:bg-[#a0141e] disabled:opacity-75 text-white font-bold rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-md shadow-[#ba1823]/20 text-sm sm:text-base active:scale-[0.99] cursor-pointer"
                     >
                       <span>{isSubmitting ? 'جاري إرسال الطلب...' : 'أرسل الطلب للبحث'}</span>
                       <Send className="w-4 h-4 ml-1" />

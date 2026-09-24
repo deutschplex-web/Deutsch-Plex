@@ -12,8 +12,8 @@ public/images/logos/
 ├── mercedes.svg        # Official Mercedes-Benz Vector Emblem
 ├── bmw.png             # Official BMW Circular Bavarian Emblem (960x960, Transparent)
 ├── bmw.svg             # Official BMW Vector Emblem
-├── audi.png            # Official Audi 4-Rings Chrome 3D Emblem (960x593, Transparent)
-├── audi.svg            # Official Audi Vector Emblem
+├── audi.png            # Official Audi 4-Rings 3D Faceted Chrome Rings (1200x419, Transparent)
+├── audi.svg            # Official Audi 3D Chrome Vector Rings Emblem
 ├── porsche.png         # Official Porsche Crest Shield (383x512, Transparent)
 ├── volkswagen.png      # Official Volkswagen Circular Emblem (960x960, Transparent)
 └── volkswagen.svg      # Official Volkswagen Vector Emblem

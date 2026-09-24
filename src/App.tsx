@@ -18,8 +18,10 @@ import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import { PageId, PartCategoryId, QuoteRequest } from './types';
 import { MessageCircle } from 'lucide-react';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
-export default function App() {
+function AppContent() {
+  const { isDarkMode } = useTheme();
   const [selectedVin, setSelectedVin] = useState<string>('');
   const [selectedBrand, setSelectedBrand] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<PartCategoryId>('brakes');
@@ -81,7 +83,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e1014] text-[#f4efea] flex flex-col selection:bg-[#a71d2a] selection:text-white relative font-sans">
+    <div className="min-h-screen bg-[#eff1f5] text-[#535864] flex flex-col selection:bg-[#535864] selection:text-white relative font-sans">
       
       {/* Navbar with Multi-Page Navigation and active indicators */}
       <Navbar 
@@ -144,7 +146,7 @@ export default function App() {
             >
               <PageHeader
                 pageId="order"
-                titleAr="طلب تسعيرة فورية معتمدة"
+                titleAr="اطلب عرض سعر معتمد"
                 subtitleAr="املأ تفاصيل سيارتك أو رقم الهيكل لاستخراج أفضل تسعيرة مباشرة من مستودعات ألمانيا مع خيارات الشحن الجوي السريع."
                 badgeAr="تسعير مباشر بدون وسطاء"
                 onNavigate={navigateTo}
@@ -260,5 +262,13 @@ export default function App() {
       </div>
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }

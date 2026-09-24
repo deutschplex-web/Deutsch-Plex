@@ -48,7 +48,7 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-20 bg-[#111317] relative">
+    <section id="features" className="py-20 bg-[#eff1f5] border-t border-[#C3C4CC] relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -59,13 +59,13 @@ export default function Features() {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto text-center mb-16"
         >
-          <span className="text-xs font-bold text-[#b88655] tracking-widest uppercase mb-2 block">
+          <span className="text-xs font-bold text-[#535864] tracking-widest uppercase mb-2 block">
             المميزات التنافسية
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#f4efea] mb-4">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#181b22] mb-4">
             لماذا يختار ملاك السيارات الألمانية DeutschPlex؟
           </h2>
-          <p className="text-sm sm:text-base text-[#c6beb4]">
+          <p className="text-sm sm:text-base text-[#535864]">
             نجمع بين دقة الهندسة الألمانية وسرعة الشحن الجوي وخدمة العملاء المحلية على مدار الساعة.
           </p>
         </motion.div>
@@ -82,17 +82,17 @@ export default function Features() {
                 viewport={{ once: true, margin: '-30px' }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="p-6 sm:p-7 rounded-2xl bg-[#181b22] border border-[#292e3a] hover:border-[#b88655]/50 transition-colors group shadow-lg"
+                className="p-6 sm:p-7 rounded-2xl bg-white border border-[#C3C4CC] hover:border-[#535864]/50 transition-colors group shadow-xs hover:shadow-md"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#111317] border border-[#292e3a] text-[#b88655] group-hover:bg-[#b88655] group-hover:text-white transition-colors flex items-center justify-center mb-5 shadow-sm">
+                <div className="w-12 h-12 rounded-xl bg-[#eff1f5] border border-[#C3C4CC] text-[#535864] group-hover:bg-[#535864] group-hover:text-white transition-colors flex items-center justify-center mb-5 shadow-xs">
                   <Icon className="w-6 h-6" />
                 </div>
 
-                <h3 className="text-lg font-bold text-white mb-2.5 group-hover:text-[#b88655] transition-colors">
+                <h3 className="text-lg font-bold text-[#181b22] mb-2.5 group-hover:text-[#ba1823] transition-colors">
                   {feat.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-[#c6beb4] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#535864] leading-relaxed">
                   {feat.desc}
                 </p>
               </motion.div>

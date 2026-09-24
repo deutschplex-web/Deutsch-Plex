@@ -12,7 +12,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Mercedes-Benz',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'M',
-    logoUrl: '/images/logos/mercedes.png',
+    logoUrl: '/images/car-brands/mercedes.png',
     wmiPrefixes: ['WDB', 'WDD', 'WDC', 'WMX', '4JG'],
     popularModels: ['S-Class (W222/W223)', 'E-Class (W213/W214)', 'C-Class (W205/W206)', 'G-Class (W463)', 'GLE / GLS', 'AMG GT']
   },
@@ -22,7 +22,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'BMW',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'B',
-    logoUrl: '/images/logos/bmw.png',
+    logoUrl: '/images/car-brands/bmw.png',
     wmiPrefixes: ['WBA', 'WBS', 'WBX', 'WBY', '5UX'],
     popularModels: ['7-Series (G11/G70)', '5-Series (G30/G60)', '3-Series (G20)', 'X5 / X7 (G05/G07)', 'M3 / M4 / M5', '8-Series Gran Coupé']
   },
@@ -32,7 +32,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Audi',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'A',
-    logoUrl: '/images/logos/audi.png',
+    logoUrl: '/images/car-brands/audi.png',
     wmiPrefixes: ['WAU', 'WA1', 'WUA'],
     popularModels: ['A8 / S8', 'A6 / RS6 Avant', 'A7 / RS7 Sportback', 'Q7 / Q8 / RSQ8', 'A4 / S4', 'e-tron GT']
   },
@@ -42,7 +42,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Porsche',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'P',
-    logoUrl: '/images/logos/porsche.png',
+    logoUrl: '/images/car-brands/porsche.png',
     wmiPrefixes: ['WP0', 'WP1'],
     popularModels: ['911 Carrera / Turbo / GT3', 'Panamera / GTS', 'Cayenne / Coupe', 'Macan GTS', 'Taycan Turbo', '718 Cayman / Boxster']
   },
@@ -52,7 +52,7 @@ export const GERMAN_BRANDS: CarBrand[] = [
     nameEn: 'Volkswagen',
     country: 'ألمانيا 🇩🇪',
     logoSvg: 'V',
-    logoUrl: '/images/logos/volkswagen.png',
+    logoUrl: '/images/car-brands/volkswagen.png',
     wmiPrefixes: ['WVW', 'WVG', 'WV1'],
     popularModels: ['Touareg V8/V6', 'Arteon R-Line', 'Golf R / GTI', 'Tiguan R-Line', 'Passat']
   }
@@ -60,84 +60,64 @@ export const GERMAN_BRANDS: CarBrand[] = [
 
 export const PART_CATEGORIES: PartCategory[] = [
   {
-    id: 'brakes',
-    titleAr: 'أنظمة الفرامل والفحمات',
-    titleEn: 'Brakes & Rotors',
-    iconName: 'Disc',
-    examplesAr: 'فحمات كربون سيراميك، هوبات أصلية، كليبرات AMG/M، حساسات تيل',
-    avgEstDays: '4-7 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=800&auto=format&fit=crop'
-  },
-  {
-    id: 'suspension',
-    titleAr: 'المساعدات ونظام التعليق الهوائي',
-    titleEn: 'Air Suspension & Struts',
-    iconName: 'Sliders',
-    examplesAr: 'مساعدات هيدروليك/هوائية (Airmatic/Adaptive)، مقصات، أذرعة، كمبروسر هواء',
+    id: 'transmission',
+    titleAr: 'القير وناقل الحركة والدفرنس',
+    titleEn: 'Gearbox, Transmission & Differential',
+    iconName: 'Cpu',
+    examplesAr: 'مخ القير (Mechatronic / Valve Body)، كلتشات، عكوس، صوف وفلاتر أصلية',
     avgEstDays: '5-9 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=800&auto=format&fit=crop'
+    imageUrl: '/gearbox.jpeg',
+    fallbackImageUrl: '/gearbox.jpg'
   },
   {
     id: 'engine',
     titleAr: 'المحرك وملحقاته والتيربو',
-    titleEn: 'Engine & Turbos',
+    titleEn: 'Engine, Accessories & Turbo',
     iconName: 'Zap',
     examplesAr: 'تيربوهات Garrett/BorgWarner، طرمبات بنزين ضغط عالي، كويلات، بخاخات',
     avgEstDays: '6-10 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=800&auto=format&fit=crop'
+    imageUrl: '/engine-turbo.jpeg',
+    fallbackImageUrl: '/engine-turbo.jpg'
   },
   {
-    id: 'transmission',
-    titleAr: 'القير وناقل الحركة والدفرنس',
-    titleEn: 'Transmission & Drivetrain',
-    iconName: 'Cpu',
-    examplesAr: 'مخ القير (Mechatronic / Valve Body)، كلتشات، عكوس، صوف وفلاتر أصلية',
+    id: 'suspension',
+    titleAr: 'المساعدات ونظام التعليق الهوائي',
+    titleEn: 'Shocks & Air Suspension',
+    iconName: 'Sliders',
+    examplesAr: 'مساعدات هيدروليك/هوائية (Airmatic/Adaptive)، مقصات، أذرعة، كمبروسر هواء',
     avgEstDays: '5-9 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=800&auto=format&fit=crop'
+    imageUrl: '/suspension.jpeg',
+    fallbackImageUrl: '/suspension.jpg'
   },
   {
-    id: 'cooling',
-    titleAr: 'التبريد والرديتر والمكيف',
-    titleEn: 'Cooling & Radiators',
-    iconName: 'Wind',
-    examplesAr: 'رديتر ماء ومكيف ألماني، طرمبة ماء إلكترونية، مراوح تبريد، ثيرموستات',
-    avgEstDays: '4-8 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800&auto=format&fit=crop'
+    id: 'brakes',
+    titleAr: 'أنظمة الفرامل والفحمات',
+    titleEn: 'Brake Systems & Pads',
+    iconName: 'Disc',
+    examplesAr: 'فحمات كربون سيراميك، هوبات أصلية، كليبرات AMG/M، حساسات تيل',
+    avgEstDays: '4-7 أيام',
+    imageUrl: '/brakes.jpeg',
+    fallbackImageUrl: '/brakes.jpg'
   },
   {
     id: 'electronics',
     titleAr: 'الكمبيوترات والحساسات والإضاءة',
-    titleEn: 'ECU & Matrix Lighting',
+    titleEn: 'Computers, Sensors & Lighting',
     iconName: 'Shield',
     examplesAr: 'شمعات Matrix LED / Laser، كمبيوترات وبرمجة، حساسات أكسجين ونوكس NOx',
     avgEstDays: '4-7 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800&auto=format&fit=crop'
+    imageUrl: '/electronics.jpeg',
+    fallbackImageUrl: '/electronics.jpg'
   },
   {
-    id: 'body',
-    titleAr: 'قطع البودي والأبواب والديكورات',
-    titleEn: 'Body & Exterior',
-    iconName: 'Truck',
-    examplesAr: 'صدامات AMG/M-Tech، كبوت ألمنيوم أصلي، مرايا، زجاج أمامي معزول حرارياً',
-    avgEstDays: '7-12 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop'
-  },
-  {
-    id: 'maintenance',
-    titleAr: 'باقات الصيانة الدورية والفلاتر',
-    titleEn: 'Maintenance Kits',
-    iconName: 'CheckCircle2',
-    examplesAr: 'فلاتر هواء وزيت ومكيف Mann/Mahle أصلية، بواجي بلاتينيوم، سيور دينامو',
-    avgEstDays: '3-6 أيام',
-    imageUrl: 'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop',
-    fallbackImageUrl: 'https://images.unsplash.com/photo-1508974239320-0a029497e820?q=80&w=800&auto=format&fit=crop'
+    id: 'cooling',
+    titleAr: 'التبريد والرديتر والمكيف',
+    titleEn: 'Cooling, Radiator & A/C',
+    iconName: 'Wind',
+    examplesAr: 'رديتر ماء ومكيف ألماني، طرمبة ماء إلكترونية، مراوح تبريد، ثيرموستات',
+    avgEstDays: '4-8 أيام',
+    imageUrl: '/cooling.jpeg',
+    fallbackImageUrl: '/cooling.jpg'
   }
 ];
 
