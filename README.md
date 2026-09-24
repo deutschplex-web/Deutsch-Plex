@@ -17,6 +17,7 @@ Built with **React + Vite + Tailwind CSS**. It's hosted on **Netlify**, and ever
 | Car brands and models | `src/data/brands.ts` |
 | Home page showcase cars | `src/data/heroShowcase.ts` |
 | Text on a specific page | that page's folder in `src/pages/` (see below) |
+| The DeutschPlex logo | replace the files in `public/images/brand/` (same names) |
 | Colors, fonts, dark mode | `src/styles/index.css` |
 
 ---
@@ -29,7 +30,7 @@ public/                      Files served as-is (images, favicon)
     ├── categories/          Category card images (.webp + .jpg fallback)
     ├── car-brands/          Brand logos
     ├── hero/                Home page hero photos
-    ├── store-logo/          DeutschPlex logo files (for social media / print)
+    ├── brand/               DeutschPlex logo (site versions + full-size files)
     └── future-pictures/     Spare photos, not used on the site yet
 
 src/

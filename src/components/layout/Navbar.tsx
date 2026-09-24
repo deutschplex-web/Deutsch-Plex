@@ -8,7 +8,6 @@ import { motion } from 'motion/react';
 import { Menu, X, ArrowLeft } from 'lucide-react';
 import DeutschPlexLogo from '../brand/DeutschPlexLogo';
 import ThemeToggle from '../ui/ThemeToggle';
-import { useTheme } from '../../context/ThemeContext';
 import { PageId } from '../../types';
 import { NAV_LINKS } from '../../config/navigation';
 
@@ -21,7 +20,6 @@ export default function Navbar({
   currentPage, 
   onNavigate
 }: NavbarProps) {
-  const { isDarkMode } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -56,13 +54,7 @@ export default function Navbar({
             id="brand-logo"
             className="flex items-center gap-2 sm:gap-3 group focus:outline-none cursor-pointer"
           >
-            <DeutschPlexLogo 
-              variant="horizontal" 
-              size="sm" 
-              animated={false}
-              isLightMode={!isDarkMode}
-              className="py-1"
-            />
+            <DeutschPlexLogo variant="horizontal" className="py-1" />
           </button>
 
           {/* Desktop Navigation */}
