@@ -114,7 +114,7 @@ export const HERO_SHOWCASE_DATA: ShowcaseVehicle[] = [
     accelerationAr: '0-100 كم/س: 5.1 ث',
     topSpeedAr: 'السرعة: 250 كم/س',
     primaryCategoryAr: 'قيرات DSG، تيربوهات IS38 الأصلية، مساعدات DCC، أنظمة التبريد وطرمبات الماء الكهربائية',
-    bgImageUrl: '/images/volkswagen-touareg-r.jpg',
+    bgImageUrl: '/images/volkswagen-touareg-r.webp',
     taglineAr: 'هندسة الشعب الألمانية - متانة واعتمادية مطلقة بأعلى المعايير',
     badgeLabelAr: 'Volkswagen Genuine Parts',
     badgeColor: '#001e50'

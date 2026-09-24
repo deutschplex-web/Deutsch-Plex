@@ -11,11 +11,11 @@ public/images/
 │
 ├── car-brands/            # شعارات ماركات السيارات الألمانية (Mercedes, BMW, Audi, Porsche, Volkswagen)
 │   ├── README.md          # توثيق شعارات الماركات
-│   ├── mercedes.png / .svg
-│   ├── bmw.png / .svg
-│   ├── audi.png / .svg
+│   ├── mercedes.png
+│   ├── bmw.png
+│   ├── audi.png
 │   ├── porsche.png
-│   └── volkswagen.png / .svg
+│   └── volkswagen.png
 │
 ├── store-logo/            # شعار المتجر الرسمي الجديد ثنائي اللغة (DeutschPlex / دويتش بليكس)
 │   ├── README.md          # توثيق شعار المتجر وصيغ الاستخدام
@@ -26,13 +26,10 @@ public/images/
 │   ├── deutschplex-emblem.svg     # الشارة الميكانيكية السداسية فقط
 │   └── deutschplex-emblem.png     # الشارة السداسية PNG
 │
-├── future-pictures/       # صور السيارات، قطع الغيار، والبنرات المستقبلية
-│   ├── README.md          # إرشادات إضافة الصور المستقبلية
-│   ├── volkswagen-touareg-r.jpg
-│   ├── touareg-8439.jpg
-│   └── touareg-8443.jpg
-│
-└── logos/                 # مسار متوافق لضمان استمرارية الروابط القديمة دون انقطاع
+└── future-pictures/       # صور السيارات، قطع الغيار، والبنرات المستقبلية
+    ├── README.md          # إرشادات إضافة الصور المستقبلية
+    ├── touareg-8439.jpg
+    └── touareg-8443.jpg
 ```
 
 ---
@@ -61,7 +58,7 @@ import DeutschPlexLogo from '../components/DeutschPlexLogo';
 ### 2. شعارات ماركات السيارات (Car Brands)
 ```html
 <img src="/images/car-brands/porsche.png" alt="Porsche" />
-<img src="/images/car-brands/mercedes.svg" alt="Mercedes-Benz" />
+<img src="/images/car-brands/mercedes.png" alt="Mercedes-Benz" />
 ```
 
 ### 3. صور السيارات المستقبلية (Future Pictures)
