@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Home page section: cards that link to each page of the site.
  */
 
 import { motion } from 'motion/react';
@@ -8,20 +7,18 @@ import {
   Layers, 
   Send, 
   ShieldCheck, 
-  Award, 
   Clock, 
   HelpCircle,
   ArrowLeft,
-  CheckCircle2,
   Sparkles
 } from 'lucide-react';
-import { PageId } from '../types';
+import { PageId } from '../../types';
 
-interface HomeNavigationHubProps {
+interface SectionsHubProps {
   onNavigate: (page: PageId) => void;
 }
 
-export default function HomeNavigationHub({ onNavigate }: HomeNavigationHubProps) {
+export default function SectionsHub({ onNavigate }: SectionsHubProps) {
   const sections = [
     {
       id: 'order' as PageId,
@@ -39,7 +36,7 @@ export default function HomeNavigationHub({ onNavigate }: HomeNavigationHubProps
       titleEn: 'Parts Catalog & Systems',
       descAr: 'تصفح أكثر من 15,000 قطعة أصلية معتمدة للفرامل، المساعدات، المحركات، ونواقل الحركة.',
       icon: Layers,
-      tagAr: '8 أنظمة رئيسية',
+      tagAr: '6 أنظمة رئيسية',
       accentColor: '#ba1823',
       badgeBg: 'bg-red-50 text-[#ba1823] border-red-200'
     },

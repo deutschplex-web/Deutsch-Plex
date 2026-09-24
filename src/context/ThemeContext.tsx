@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Light / dark theme state, saved in the browser between visits.
  */
 
 import React, { createContext, useContext, useEffect, useState } from 'react';

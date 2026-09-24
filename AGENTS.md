@@ -1,7 +1,12 @@
-# DeutschPlex Development & Deployment Rules
+# Notes for AI coding agents
 
-## GitHub Synchronization & Export
-- Always keep the repository production-ready for GitHub sync.
-- Users can export or push directly to GitHub at any time via the AI Studio Settings menu or using standard `git push origin main`.
-- All build configurations (`package.json`, `vite.config.ts`, `netlify.toml`, `.github/workflows`) must remain strictly green and verified.
-- Any new features, assets, and components must pass `npm run lint` and `npm run build` so that automated GitHub Actions and Netlify Continuous Deployment work smoothly on every push.
+Read `README.md` first. It explains the folder layout and where each kind of change belongs.
+
+Rules:
+
+- Each page lives in `src/pages/<page>/`. Code shared by several pages goes in `src/components/`.
+- Contact details (WhatsApp, email, locations) come only from `src/config/site.ts`. Never hard-code them in components.
+- Menu links come only from `src/config/navigation.ts`.
+- Content lists (categories, FAQs, brands) live in `src/data/`. Don't duplicate them inside components.
+- Images go in `public/images/<purpose>/`. Provide a `.webp` plus a `.jpg` fallback.
+- Before committing, run `npm run lint` and `npm run build`. Both must pass, because Netlify deploys every push to `main`.

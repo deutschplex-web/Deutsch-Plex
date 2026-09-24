@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * About page content: company story, why choose us, and guarantees.
  */
 
 import { motion } from 'motion/react';
@@ -13,11 +12,10 @@ import {
   Plane, 
   Wrench,
   Sparkles,
-  Building2,
-  Check
+  Building2
 } from 'lucide-react';
-import DeutschPlexLogo from './DeutschPlexLogo';
-import { useTheme } from '../context/ThemeContext';
+import DeutschPlexLogo from '../../components/brand/DeutschPlexLogo';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function About() {
   const { isDarkMode } = useTheme();

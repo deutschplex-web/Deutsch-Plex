@@ -1,6 +1,6 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Quote request form. The visitor enters their car, VIN, contact details and
+ * the part they need. The same details can also be sent straight to WhatsApp.
  */
 
 import { useState, useEffect, type FormEvent } from 'react';
@@ -16,26 +16,20 @@ import {
   Copy,
   CheckCircle2
 } from 'lucide-react';
-import { GERMAN_BRANDS } from '../data/brands';
-import BrandLogo from './BrandLogo';
-import { decodeVin } from '../utils/vinDecoder';
-import { PartCategoryId, QuoteRequest, PageId } from '../types';
+import { GERMAN_BRANDS } from '../../data/brands';
+import BrandLogo from '../../components/brand/BrandLogo';
+import { decodeVin } from '../../utils/vinDecoder';
+import { CarBrandId, PartCategoryId, QuoteRequest } from '../../types';
+import { WHATSAPP_DISPLAY, whatsappLink } from '../../config/site';
 
 interface OrderFormProps {
-  initialVin?: string;
-  initialBrand?: string;
+  /** Brand chosen on the home page, used to pre-select the brand dropdown. */
+  initialBrand?: CarBrandId;
+  /** Category chosen on the categories page. */
   initialCategory?: PartCategoryId;
-  onOrderCreated?: (order: QuoteRequest) => void;
-  onNavigate?: (page: PageId) => void;
 }
 
-export default function OrderForm({ 
-  initialVin, 
-  initialBrand, 
-  initialCategory,
-  onOrderCreated,
-  onNavigate
-}: OrderFormProps) {
+export default function OrderForm({ initialBrand, initialCategory }: OrderFormProps) {
   const [brand, setBrand] = useState('mercedes');
   const [modelYear, setModelYear] = useState('');
   const [vin, setVin] = useState('');
@@ -47,16 +41,10 @@ export default function OrderForm({
   const [submittedOrder, setSubmittedOrder] = useState<QuoteRequest | null>(null);
   const [copiedRef, setCopiedRef] = useState(false);
 
-  // Sync with initial props
+  // Pre-select the brand the visitor picked on the home page
   useEffect(() => {
-    if (initialVin) setVin(initialVin.toUpperCase().trim());
-    if (initialBrand) {
-      const match = GERMAN_BRANDS.find(
-        (b) => b.id === initialBrand || b.nameEn.toLowerCase() === initialBrand.toLowerCase()
-      );
-      if (match) setBrand(match.id);
-    }
-  }, [initialVin, initialBrand]);
+    if (initialBrand) setBrand(initialBrand);
+  }, [initialBrand]);
 
   const vinAnalysis = decodeVin(vin);
   const selectedBrandObj = GERMAN_BRANDS.find((b) => b.id === brand) || GERMAN_BRANDS[0];
@@ -84,7 +72,7 @@ export default function OrderForm({
     if (phoneNumber) text += `• الجوال: ${phoneNumber}\n`;
     if (partDetails) text += `• القطع المطلوبة: ${partDetails}\n`;
     
-    return `https://wa.me/966536152188?text=${encodeURIComponent(text)}`;
+    return whatsappLink(text);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -99,26 +87,16 @@ export default function OrderForm({
       createdAt: new Date().toLocaleDateString('ar-SA'),
       brand: selectedBrandObj.nameAr,
       model: modelYear || selectedBrandObj.popularModels[0],
-      year: modelYear || '2022',
       vin: vin.toUpperCase().trim() || 'سيتم تقديمه لاحقاً',
-      category: initialCategory || 'maintenance',
+      category: initialCategory,
       partDetails: partDetails || 'طلب تسعيرة قطع غيار ألمانية',
-      partNumber: 'يتم استخراجه بالكتالوج الألماني',
       customerName: customerName || 'عميل DeutschPlex',
       phoneNumber: phoneNumber || 'غير محدد',
-      city: 'المملكة العربية السعودية',
-      shippingSpeed: 'express',
-      estimatedPriceRangeSar: 'جاري استخراج السعر باليورو',
-      estimatedDays: '3 - 7 أيام عمل',
-      status: 'received'
     };
 
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmittedOrder(newOrder);
-      if (onOrderCreated) {
-        onOrderCreated(newOrder);
-      }
     }, 800);
   };
 
@@ -194,17 +172,6 @@ export default function OrderForm({
                     <span>متابعة الطلب فوراً عبر الواتساب</span>
                   </a>
 
-                  {onNavigate && (
-                    <button
-                      type="button"
-                      onClick={() => onNavigate('tracker')}
-                      className="w-full sm:w-auto px-6 py-3.5 bg-white hover:bg-[#eff1f5] text-[#181b22] font-bold rounded-xl border border-[#C3C4CC] hover:border-[#535864] transition-all flex items-center justify-center gap-2 shadow-xs"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      <span>تتبع الطلب</span>
-                    </button>
-                  )}
-
                   <button
                     type="button"
                     onClick={handleResetForm}
@@ -276,7 +243,7 @@ export default function OrderForm({
                       className="w-full py-3.5 px-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-md text-sm sm:text-base"
                     >
                       <MessageCircle className="w-5 h-5 fill-white text-[#25D366]" />
-                      <span>واتساب: <span dir="ltr" className="font-mono">+966 53 615 2188</span></span>
+                      <span>واتساب: <span dir="ltr" className="font-mono">{WHATSAPP_DISPLAY}</span></span>
                     </a>
                   </div>
                 </div>

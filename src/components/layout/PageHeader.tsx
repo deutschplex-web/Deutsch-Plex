@@ -1,14 +1,12 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Title banner at the top of every inner page (breadcrumb, badge, title, subtitle).
  */
 
 import { motion } from 'motion/react';
 import { ArrowRight, ChevronLeft, Home } from 'lucide-react';
-import { PageId } from '../types';
+import { PageId } from '../../types';
 
 interface PageHeaderProps {
-  pageId: PageId;
   titleAr: string;
   subtitleAr: string;
   badgeAr: string;
@@ -16,7 +14,6 @@ interface PageHeaderProps {
 }
 
 export default function PageHeader({
-  pageId,
   titleAr,
   subtitleAr,
   badgeAr,

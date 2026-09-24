@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Brand logo images (files in public/images/car-brands/).
  */
 
 export interface BrandLogoAsset {
