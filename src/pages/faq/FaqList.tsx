@@ -1,11 +1,10 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Expandable list of questions and answers (data in src/data/faqs.ts).
  */
 
 import { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
-import { FAQS } from '../data/brands';
+import { ChevronDown } from 'lucide-react';
+import { FAQS } from '../../data/faqs';
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);

@@ -1,26 +1,23 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Site footer: brand info, page links and contact details.
+ * Links come from src/config/navigation.ts, contact info from src/config/site.ts.
  */
 
-import { MessageCircle, MapPin, Phone, Mail, ShieldCheck } from 'lucide-react';
-import DeutschPlexLogo from './DeutschPlexLogo';
-import BrandLogo from './BrandLogo';
-import { GERMAN_BRANDS } from '../data/brands';
-import { PageId } from '../types';
-import { useTheme } from '../context/ThemeContext';
+import { MessageCircle, MapPin, Mail, ShieldCheck } from 'lucide-react';
+import DeutschPlexLogo from '../brand/DeutschPlexLogo';
+import BrandLogo from '../brand/BrandLogo';
+import { GERMAN_BRANDS } from '../../data/brands';
+import { PageId } from '../../types';
+import { NAV_LINKS } from '../../config/navigation';
+import { LOCATIONS, SUPPORT_EMAIL, WHATSAPP_DISPLAY, whatsappLink } from '../../config/site';
+import { useTheme } from '../../context/ThemeContext';
 
 interface FooterProps {
-  onNavigate?: (page: PageId) => void;
+  onNavigate: (page: PageId) => void;
 }
 
 export default function Footer({ onNavigate }: FooterProps) {
   const { isDarkMode } = useTheme();
-  const handleNav = (page: PageId) => {
-    if (onNavigate) {
-      onNavigate(page);
-    }
-  };
   return (
     <footer className="bg-[#dce0e8] border-t border-[#C3C4CC] text-[#535864] text-xs py-14">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,41 +60,18 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-sm font-bold text-[#181b22]">صفحات المنصة</h4>
             <ul className="space-y-2">
-              <li>
-                <button onClick={() => handleNav('home')} className="hover:text-[#ba1823] transition-colors cursor-pointer text-right">
-                  الرئيسية
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('order')} className="hover:text-[#ba1823] transition-colors cursor-pointer text-right text-[#ba1823] font-semibold">
-                  اطلب عرض سعر
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('categories')} className="hover:text-[#ba1823] transition-colors cursor-pointer text-right">
-                  كتالوج القطع الألمانية
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('tracker')} className="hover:text-[#ba1823] transition-colors cursor-pointer text-right">
-                  تتبع الطلب
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('about')} className="hover:text-[#ba1823] transition-colors cursor-pointer text-right">
-                  عن دويتش بلكس
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('process')} className="hover:text-[#ba1823] transition-colors cursor-pointer text-right">
-                  طريقة وخطوات الطلب
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('faq')} className="hover:text-[#ba1823] transition-colors cursor-pointer text-right">
-                  الأسئلة الشائعة
-                </button>
-              </li>
+              {NAV_LINKS.map((link) => (
+                <li key={link.id}>
+                  <button
+                    onClick={() => onNavigate(link.id)}
+                    className={`hover:text-[#ba1823] transition-colors cursor-pointer text-right ${
+                      link.highlight ? 'text-[#ba1823] font-semibold' : ''
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -107,26 +81,26 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="space-y-2 text-[#535864]">
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#ba1823] shrink-0" />
-                <span>جدة، المملكة العربية السعودية</span>
+                <span>{LOCATIONS.saudi}</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#535864] shrink-0" />
-                <span>فرانكفورت، ألمانيا (التجهيز)</span>
+                <span>{LOCATIONS.germany}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#535864] shrink-0" />
-                <span>support@deutschplex.com</span>
+                <span>{SUPPORT_EMAIL}</span>
               </li>
               <li className="flex items-center gap-2">
                 <MessageCircle className="w-3.5 h-3.5 text-[#25D366] shrink-0" />
                 <a 
-                  href="https://wa.me/966536152188"
+                  href={whatsappLink()}
                   target="_blank"
                   rel="noreferrer"
                   dir="ltr"
                   className="font-mono text-[#181b22] hover:text-[#25D366] transition-colors font-semibold"
                 >
-                  +966 53 615 2188
+                  {WHATSAPP_DISPLAY}
                 </a>
               </li>
             </ul>

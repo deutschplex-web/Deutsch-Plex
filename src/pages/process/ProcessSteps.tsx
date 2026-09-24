@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * The four ordering steps, from sending the VIN to delivery.
  */
 
 import { motion } from 'motion/react';

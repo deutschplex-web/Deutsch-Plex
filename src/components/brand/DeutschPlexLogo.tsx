@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * The DeutschPlex logo in its different layouts (horizontal, emblem, card).
  */
 
 import { motion } from 'motion/react';

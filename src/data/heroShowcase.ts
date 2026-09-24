@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Cars shown in the home page hero, one per brand.
  */
 
 export interface ShowcaseVehicle {
@@ -114,7 +113,7 @@ export const HERO_SHOWCASE_DATA: ShowcaseVehicle[] = [
     accelerationAr: '0-100 كم/س: 5.1 ث',
     topSpeedAr: 'السرعة: 250 كم/س',
     primaryCategoryAr: 'قيرات DSG، تيربوهات IS38 الأصلية، مساعدات DCC، أنظمة التبريد وطرمبات الماء الكهربائية',
-    bgImageUrl: '/images/volkswagen-touareg-r.webp',
+    bgImageUrl: '/images/hero/volkswagen-touareg-r.webp',
     taglineAr: 'هندسة الشعب الألمانية - متانة واعتمادية مطلقة بأعلى المعايير',
     badgeLabelAr: 'Volkswagen Genuine Parts',
     badgeColor: '#001e50'

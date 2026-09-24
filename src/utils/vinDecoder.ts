@@ -1,6 +1,5 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Reads a 17-character VIN and works out the brand and model year.
  */
 
 import { VinAnalysis, CarBrandId } from '../types';

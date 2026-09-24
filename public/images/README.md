@@ -1,68 +1,15 @@
-# DeutschPlex Image Repository
+# Images
 
-مستودع الصور المنظم لمشروع **DeutschPlex (دويتش بليكس)** لقطع غيار السيارات الألمانية الأصلية.
+Everything in `public/` is served as-is. For example, `public/images/categories/brakes.webp` is available on the site at `/images/categories/brakes.webp`.
 
----
+| Folder | What it holds | Used by |
+| --- | --- | --- |
+| `categories/` | The six category card images (`.webp` plus a `.jpg` fallback) | `src/data/categories.ts` |
+| `car-brands/` | Brand logos (Mercedes, BMW, Audi, Porsche, VW) | `src/data/brandLogos.ts` |
+| `store-logo/` | DeutschPlex logo files (SVG/PNG) for social media, print, etc. | nothing (the site draws the logo in code: `src/components/brand/DeutschPlexLogo.tsx`) |
+| `hero/` | Photos in the home page brand showcase | `src/data/heroShowcase.ts` |
+| `future-pictures/` | Spare photos that aren't on the site yet | nothing |
 
-## 📁 هيكلية المجلدات / Directory Structure
+To replace an image, upload a new file with **exactly the same name** into the same folder. No code change is needed.
 
-```text
-public/images/
-│
-├── car-brands/            # شعارات ماركات السيارات الألمانية (Mercedes, BMW, Audi, Porsche, Volkswagen)
-│   ├── README.md          # توثيق شعارات الماركات
-│   ├── mercedes.png
-│   ├── bmw.png
-│   ├── audi.png
-│   ├── porsche.png
-│   └── volkswagen.png
-│
-├── store-logo/            # شعار المتجر الرسمي الجديد ثنائي اللغة (DeutschPlex / دويتش بليكس)
-│   ├── README.md          # توثيق شعار المتجر وصيغ الاستخدام
-│   ├── deutschplex-logo.svg       # الشعار الكامل (فيكتور عالي الدقة)
-│   ├── deutschplex-logo.png       # الشعار الكامل بصيغة PNG
-│   ├── deutschplex-horizontal.svg # الشعار الأفقي للشريط العلوي
-│   ├── deutschplex-horizontal.png # الشعار الأفقي PNG
-│   ├── deutschplex-emblem.svg     # الشارة الميكانيكية السداسية فقط
-│   └── deutschplex-emblem.png     # الشارة السداسية PNG
-│
-└── future-pictures/       # صور السيارات، قطع الغيار، والبنرات المستقبلية
-    ├── README.md          # إرشادات إضافة الصور المستقبلية
-    ├── touareg-8439.jpg
-    └── touareg-8443.jpg
-```
-
----
-
-## 🚀 كيفية استخدام الصور في التطبيق / How to Use Images
-
-### 1. شعار المتجر الرسمي (Store Logo)
-يمكن استخدام مكون الشعار التفاعلي مباشرة:
-```tsx
-import DeutschPlexLogo from '../components/DeutschPlexLogo';
-
-// الشعار الأفقي (للهيدر والفوتر)
-<DeutschPlexLogo variant="horizontal" size="sm" />
-
-// الشارة الميكانيكية المنفردة
-<DeutschPlexLogo variant="emblem" size="md" />
-
-// البطاقة الكاملة ثنائية اللغة
-<DeutschPlexLogo variant="card" />
-```
-أو عبر الرابط المباشر للصور:
-```html
-<img src="/images/store-logo/deutschplex-logo.svg" alt="DeutschPlex Logo" />
-```
-
-### 2. شعارات ماركات السيارات (Car Brands)
-```html
-<img src="/images/car-brands/porsche.png" alt="Porsche" />
-<img src="/images/car-brands/mercedes.png" alt="Mercedes-Benz" />
-```
-
-### 3. صور السيارات المستقبلية (Future Pictures)
-ضع أي صورة جديدة في `public/images/future-pictures/` واستدعها عبر:
-```html
-<img src="/images/future-pictures/your-car-photo.webp" alt="Car showcase" />
-```
+When adding a new image, save a `.webp` version for speed and a `.jpg` fallback for older browsers.

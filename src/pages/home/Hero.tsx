@@ -1,23 +1,22 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Home page hero: rotating German brand showcase with the main call to action.
+ * Showcase cars and images live in src/data/heroShowcase.ts.
  */
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
-import { HERO_SHOWCASE_DATA, ShowcaseVehicle } from '../data/heroShowcase';
-import BrandLogo from './BrandLogo';
-import { PageId } from '../types';
-import { useTheme } from '../context/ThemeContext';
+import { HERO_SHOWCASE_DATA, ShowcaseVehicle } from '../../data/heroShowcase';
+import BrandLogo from '../../components/brand/BrandLogo';
+import { CarBrandId } from '../../types';
+import { useTheme } from '../../context/ThemeContext';
 
 interface HeroProps {
-  onSelectBrand?: (brandId: string) => void;
-  onSearchVin?: (vin: string, brand?: string) => void;
-  onNavigate?: (page: PageId) => void;
+  /** Called with the selected brand when the visitor clicks "request a quote". */
+  onSelectBrand: (brandId: CarBrandId) => void;
 }
 
-export default function Hero({ onSelectBrand, onNavigate }: HeroProps) {
+export default function Hero({ onSelectBrand }: HeroProps) {
   const { isDarkMode } = useTheme();
   const [activeBrandId, setActiveBrandId] = useState<'porsche' | 'bmw' | 'audi' | 'mercedes' | 'volkswagen'>('porsche');
 
@@ -165,14 +164,7 @@ export default function Hero({ onSelectBrand, onNavigate }: HeroProps) {
           >
             <button
               type="button"
-              onClick={() => {
-                if (onSelectBrand) {
-                  onSelectBrand(activeBrandId);
-                }
-                if (onNavigate) {
-                  onNavigate('order');
-                }
-              }}
+              onClick={() => onSelectBrand(activeBrandId)}
               className="px-8 py-3.5 bg-[#ba1823] hover:bg-[#a0141e] text-white rounded-xl font-bold text-sm sm:text-base shadow-lg shadow-[#ba1823]/30 hover:shadow-[#ba1823]/40 transition-all flex items-center gap-2 cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>اطلب عرض سعر</span>

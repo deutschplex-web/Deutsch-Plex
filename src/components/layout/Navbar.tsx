@@ -1,24 +1,16 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Top navigation bar (desktop links + mobile drawer).
+ * The menu items come from src/config/navigation.ts.
  */
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Menu, 
-  X, 
-  ArrowLeft, 
-  ShieldCheck,
-  Search,
-  Layers,
-  Send,
-  Truck
-} from 'lucide-react';
-import DeutschPlexLogo from './DeutschPlexLogo';
-import ThemeToggle from './ThemeToggle';
-import { useTheme } from '../context/ThemeContext';
-import { PageId } from '../types';
+import { motion } from 'motion/react';
+import { Menu, X, ArrowLeft } from 'lucide-react';
+import DeutschPlexLogo from '../brand/DeutschPlexLogo';
+import ThemeToggle from '../ui/ThemeToggle';
+import { useTheme } from '../../context/ThemeContext';
+import { PageId } from '../../types';
+import { NAV_LINKS } from '../../config/navigation';
 
 interface NavbarProps {
   currentPage: PageId;
@@ -40,16 +32,6 @@ export default function Navbar({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navLinks: { id: PageId; label: string; isSpecial?: boolean; isOrder?: boolean }[] = [
-    { id: 'home', label: 'الرئيسية' },
-    { id: 'categories', label: 'قطع الغيار' },
-    { id: 'order', label: 'اطلب عرض سعر', isOrder: true },
-    { id: 'tracker', label: 'تتبع الطلب' },
-    { id: 'about', label: 'عن دويتش بلكس' },
-    { id: 'process', label: 'طريقة الطلب' },
-    { id: 'faq', label: 'الأسئلة الشائعة' },
-  ];
 
   const handleLinkClick = (pageId: PageId) => {
     onNavigate(pageId);
@@ -85,7 +67,7 @@ export default function Navbar({
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-reverse space-x-1.5 text-xs font-semibold">
-            {navLinks.map((link) => {
+            {NAV_LINKS.map((link) => {
               const isActive = currentPage === link.id;
               return (
                 <button
@@ -94,14 +76,11 @@ export default function Navbar({
                   className={`relative px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                     isActive 
                       ? 'text-[#181b22] bg-[#ffffff] border border-[#C3C4CC] shadow-xs font-bold' 
-                      : link.isSpecial
-                        ? 'text-[#181b22] hover:text-[#535864] bg-[#ffffff]/70 border border-[#C3C4CC] hover:border-[#535864]'
-                        : link.isOrder
-                          ? 'text-[#ba1823] hover:text-white bg-[#ba1823]/10 border border-[#ba1823]/30 hover:bg-[#ba1823] font-bold'
-                          : 'text-[#535864] hover:text-[#181b22] hover:bg-[#ffffff]/80'
+                      : link.highlight
+                        ? 'text-[#ba1823] hover:text-white bg-[#ba1823]/10 border border-[#ba1823]/30 hover:bg-[#ba1823] font-bold'
+                        : 'text-[#535864] hover:text-[#181b22] hover:bg-[#ffffff]/80'
                   }`}
                 >
-                  {link.isSpecial && <Search className="w-3 h-3 text-[#535864]" />}
                   <span>{link.label}</span>
                   {isActive && (
                     <motion.div
@@ -151,7 +130,7 @@ export default function Navbar({
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#eff1f5]/98 border-b border-[#C3C4CC] px-4 pt-3 pb-6 space-y-3 mt-3 backdrop-blur-xl shadow-xl animate-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-2 gap-2 pb-2">
-            {navLinks.map((link) => {
+            {NAV_LINKS.map((link) => {
               const isActive = currentPage === link.id;
               return (
                 <button

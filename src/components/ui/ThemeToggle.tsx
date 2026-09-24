@@ -1,11 +1,10 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Light / dark mode switch button.
  */
 
 import { motion, AnimatePresence } from 'motion/react';
 import { Sun, Moon } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../../context/ThemeContext';
 
 interface ThemeToggleProps {
   className?: string;

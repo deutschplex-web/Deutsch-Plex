@@ -1,138 +1,87 @@
-# DeutschPlex | بوابة قطع غيار السيارات الألمانية الأصلية
-> **Direct Import of German Car Spare Parts to Saudi Arabia**  
-> *Continuous Deployment Ready for GitHub & Netlify (Vite + React + Tailwind CSS)*
+# DeutschPlex — دويتش بلكس
+
+Website for **DeutschPlex**, which imports genuine German car parts (Mercedes, BMW, Audi, Porsche, Volkswagen) from Germany to Saudi Arabia.
+
+Built with **React + Vite + Tailwind CSS**. It's hosted on **Netlify**, and every push to `main` goes live automatically.
 
 ---
 
-## 🚀 Quick Start & Continuous Deployment (GitHub ➔ Netlify)
+## Where to change things
 
-This repository is pre-configured for **seamless continuous deployment (CI/CD)** on [Netlify](https://www.netlify.com/). Any commit pushed to your GitHub repository will automatically trigger an instant build and deploy!
+| I want to change… | Edit this file |
+| --- | --- |
+| WhatsApp number, email, office locations | `src/config/site.ts` |
+| Menu links (navbar + footer) | `src/config/navigation.ts` |
+| Category cards (titles, images) | `src/data/categories.ts` + images in `public/images/categories/` |
+| FAQ questions and answers | `src/data/faqs.ts` |
+| Car brands and models | `src/data/brands.ts` |
+| Home page showcase cars | `src/data/heroShowcase.ts` |
+| Text on a specific page | that page's folder in `src/pages/` (see below) |
+| Colors, fonts, dark mode | `src/styles/index.css` |
 
-### 1. Uploading This Project to GitHub
+---
 
-If you exported this repository or downloaded the ZIP from Google AI Studio:
+## Project structure
 
-```bash
-# 1. Initialize git (if not already initialized)
-git init
+```text
+public/                      Files served as-is (images, favicon)
+└── images/
+    ├── categories/          Category card images (.webp + .jpg fallback)
+    ├── car-brands/          Brand logos
+    ├── hero/                Home page hero photos
+    ├── store-logo/          DeutschPlex logo files (for social media / print)
+    └── future-pictures/     Spare photos, not used on the site yet
 
-# 2. Stage all files
-git add .
-
-# 3. Commit initial project
-git commit -m "feat: initial DeutschPlex automotive platform"
-
-# 4. Set main branch
-git branch -M main
-
-# 5. Add your GitHub repository remote URL (replace with your repo)
-git remote add origin https://github.com/YOUR_USERNAME/deutschplex.git
-
-# 6. Push to GitHub
-git push -u origin main
+src/
+├── App.tsx                  Site shell: navbar, active page, footer
+├── main.tsx                 Entry point (you rarely need to touch this)
+│
+├── pages/                   One folder per page
+│   ├── home/                HomePage + Hero + SectionsHub
+│   ├── categories/          CategoriesPage + CategoryGrid
+│   ├── order/               OrderPage + OrderForm
+│   ├── about/               AboutPage + AboutContent
+│   ├── process/             ProcessPage + ProcessSteps
+│   └── faq/                 FaqPage + FaqList
+│
+├── components/              Pieces shared by several pages
+│   ├── layout/              Navbar, Footer, PageHeader, WhatsAppButton, PageTransition
+│   ├── brand/               DeutschPlexLogo, BrandLogo
+│   └── ui/                  ThemeToggle
+│
+├── config/                  Site-wide settings (contact info, menu)
+├── data/                    Content lists (brands, categories, FAQs, showcase)
+├── hooks/                   useHashPage: which page is open, based on the URL
+├── context/                 ThemeContext: light / dark mode
+├── utils/                   vinDecoder: reads a VIN number
+├── types/                   Shared TypeScript types
+└── styles/                  index.css (Tailwind + theme colors)
 ```
 
-*(Tip: In Google AI Studio, you can also export directly to GitHub via the settings menu in the top right).*
+Each page folder has a `…Page.tsx` file with the page title banner, and one or more section files with the actual content.
+
+Pages are addressed by URL hash: `/#categories`, `/#order`, `/#about`, `/#process`, `/#faq`.
+
+### Adding a new page
+
+1. Add its id to `PageId` in `src/types/index.ts`, and to the `PAGES` list in `src/hooks/useHashPage.ts`.
+2. Create `src/pages/<name>/<Name>Page.tsx` (copy an existing page as a starting point).
+3. Render it in `src/App.tsx`.
+4. Add a menu link in `src/config/navigation.ts`.
 
 ---
 
-### 2. Connecting GitHub to Netlify (Continuous Deployment in 2 Minutes)
+## Running locally
 
-1. Go to **[Netlify Dashboard](https://app.netlify.com)** and log in with your GitHub account.
-2. Click **"Add new site"** ➔ **"Import an existing project"**.
-3. Select **GitHub** and grant repository permissions to choose your `deutschplex` repository.
-4. Netlify will auto-detect the configuration from our included `netlify.toml`:
-   - **Build command**: `npm run build`
-   - **Publish directory**: `dist`
-   - **Node version**: `20` (configured automatically)
-5. Click **"Deploy Site"**.
-
-🎉 **That's it!** Whenever you make updates or push new commits to GitHub, Netlify will automatically build and publish your latest code within seconds.
-
----
-
-## 🛠 Included Netlify & CI/CD Files
-
-- `netlify.toml` — Pre-configured build command (`npm run build`), publish directory (`dist`), SPA route fallback (`/* ➔ /index.html`), and secure production caching headers.
-- `public/_redirects` — Fallback Netlify single-page redirect rule.
-- `.github/workflows/deploy-netlify.yml` — Automated GitHub Actions CI workflow to test, type-check, and verify production builds on push.
-
----
-
-## 🌟 Platform Features
-
-- **VIN (Vehicle Identification Number) 17-Digit Validator & Decoder**:
-  - Live character analysis (WMI manufacturer country, VDS model descriptors, VIS sequence).
-  - Pre-configured sample VINs for Mercedes-Benz S-Class, BMW M5, Audi RS6, Porsche Cayenne.
-- **Instant Quotation & Order Portal**:
-  - Interactive multi-step form (Vehicle selection, VIN validation, part category pills, photo simulation).
-  - Shipping tier selection (Express DHL Germany 3-7 days vs Air Cargo 7-14 days).
-  - Instant WhatsApp direct message generator with pre-formatted vehicle and VIN specifications.
-  - Quotation ID reference generation (e.g., `DP-2026-XXXX`).
-- **Interactive Order Tracking Simulator**:
-  - Track order progression (Received ➔ Catalog Query in Germany ➔ Quality Inspection ➔ Air Freight Frankfurt ➔ Riyadh Customs ➔ Delivered).
-- **Luxury German Automotive UI**:
-  - High-performance dark aesthetic with racing burgundy accents, glassmorphic panels, and full Arabic (RTL) typography powered by Google Cairo and Inter.
-- **Golden Warranty (ضمان سنتين ذهبي)**:
-  - 2-Year replacement warranty on all OEM and German-certified aftermarket parts.
-
----
-
-## 💻 Local Development
+Requires Node.js 20+.
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Run local development server
-npm run dev
-
-# 3. Build for production (outputs to dist/)
-npm run build
-
-# 4. Preview production build locally
-npm run preview
+npm run dev       # http://localhost:3000
+npm run lint      # type check
+npm run build     # production build into dist/
 ```
 
----
+## Deployment
 
-## 📂 Project Structure
-
-```
-├── .github/
-│   └── workflows/
-│       └── deploy-netlify.yml    # GitHub Actions CI workflow
-├── public/
-│   ├── _redirects                # Netlify SPA redirect
-│   └── assets/
-├── src/
-│   ├── components/               # UI components
-│   │   ├── Navbar.tsx            # Header & quick actions
-│   │   ├── Hero.tsx              # Automotive hero section
-│   │   ├── VinChecker.tsx        # Interactive 17-digit VIN validator
-│   │   ├── OrderForm.tsx         # Quotation & WhatsApp generator
-│   │   ├── Features.tsx          # Competitive advantages
-│   │   ├── Process.tsx           # 4-Step customer journey
-│   │   ├── OrderTracker.tsx      # Order & quote tracking
-│   │   ├── DeploymentModal.tsx   # Built-in GitHub & Netlify CI/CD Hub
-│   │   ├── FaqSection.tsx        # Interactive FAQ
-│   │   └── Footer.tsx            # Footer & contact info
-│   ├── data/
-│   │   └── brands.ts             # German auto brands & parts catalog
-│   ├── utils/
-│   │   └── vinDecoder.ts         # VIN 17-character decoding engine
-│   ├── types.ts                  # Shared TypeScript models
-│   ├── App.tsx                   # Main application layout
-│   ├── main.tsx                  # App entry point
-│   └── index.css                 # Tailwind CSS styles
-├── index.html                    # Root HTML with Arabic RTL & Cairo fonts
-├── netlify.toml                  # Netlify deployment configuration
-├── package.json                  # Dependencies & build scripts
-├── tsconfig.json                 # TypeScript configuration
-└── vite.config.ts                # Vite build configuration
-```
-
----
-
-## 📜 License
-Licensed under Apache-2.0. Built for DeutschPlex.
+Netlify builds the site from `main` using `netlify.toml` (`npm run build` → `dist/`). GitHub Actions (`.github/workflows/`) runs the type check and build on every push and pull request.

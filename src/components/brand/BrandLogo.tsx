@@ -1,13 +1,12 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Logo of a car brand (Mercedes, BMW, Audi, Porsche, VW).
  */
 
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { CarBrandId } from '../types';
-import { getBrandLogo } from '../data/brandLogos';
-import { useTheme } from '../context/ThemeContext';
+import { CarBrandId } from '../../types';
+import { getBrandLogo } from '../../data/brandLogos';
+import { useTheme } from '../../context/ThemeContext';
 
 interface BrandLogoProps {
   brandId: CarBrandId | string;
@@ -46,7 +45,7 @@ export default function BrandLogo({
   const containerMotionProps = animateOnHover
     ? {
         whileHover: { scale: 1.08, y: -2 },
-        transition: { type: 'spring', stiffness: 350, damping: 18 },
+        transition: { type: 'spring' as const, stiffness: 350, damping: 18 },
       }
     : {};
 
