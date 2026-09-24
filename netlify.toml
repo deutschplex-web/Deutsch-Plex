@@ -7,6 +7,12 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
+# Old logo path (folder removed; files live in /images/car-brands/)
+[[redirects]]
+  from = "/images/logos/*"
+  to = "/images/car-brands/:splat"
+  status = 301
+
 # Client-side SPA routing fallback
 [[redirects]]
   from = "/*"

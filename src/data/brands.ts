@@ -66,7 +66,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     iconName: 'Cpu',
     examplesAr: 'مخ القير (Mechatronic / Valve Body)، كلتشات، عكوس، صوف وفلاتر أصلية',
     avgEstDays: '5-9 أيام',
-    imageUrl: '/gearbox.jpeg',
+    imageUrl: '/gearbox.webp',
     fallbackImageUrl: '/gearbox.jpg'
   },
   {
@@ -76,7 +76,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     iconName: 'Zap',
     examplesAr: 'تيربوهات Garrett/BorgWarner، طرمبات بنزين ضغط عالي، كويلات، بخاخات',
     avgEstDays: '6-10 أيام',
-    imageUrl: '/engine-turbo.jpeg',
+    imageUrl: '/engine-turbo.webp',
     fallbackImageUrl: '/engine-turbo.jpg'
   },
   {
@@ -86,7 +86,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     iconName: 'Sliders',
     examplesAr: 'مساعدات هيدروليك/هوائية (Airmatic/Adaptive)، مقصات، أذرعة، كمبروسر هواء',
     avgEstDays: '5-9 أيام',
-    imageUrl: '/suspension.jpeg',
+    imageUrl: '/suspension.webp',
     fallbackImageUrl: '/suspension.jpg'
   },
   {
@@ -96,7 +96,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     iconName: 'Disc',
     examplesAr: 'فحمات كربون سيراميك، هوبات أصلية، كليبرات AMG/M، حساسات تيل',
     avgEstDays: '4-7 أيام',
-    imageUrl: '/brakes.jpeg',
+    imageUrl: '/brakes.webp',
     fallbackImageUrl: '/brakes.jpg'
   },
   {
@@ -106,7 +106,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     iconName: 'Shield',
     examplesAr: 'شمعات Matrix LED / Laser، كمبيوترات وبرمجة، حساسات أكسجين ونوكس NOx',
     avgEstDays: '4-7 أيام',
-    imageUrl: '/electronics.jpeg',
+    imageUrl: '/electronics.webp',
     fallbackImageUrl: '/electronics.jpg'
   },
   {
@@ -116,7 +116,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     iconName: 'Wind',
     examplesAr: 'رديتر ماء ومكيف ألماني، طرمبة ماء إلكترونية، مراوح تبريد، ثيرموستات',
     avgEstDays: '4-8 أيام',
-    imageUrl: '/cooling.jpeg',
+    imageUrl: '/cooling.webp',
     fallbackImageUrl: '/cooling.jpg'
   }
 ];

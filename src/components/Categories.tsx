@@ -21,42 +21,42 @@ interface CategoryCardItem {
 const CATEGORY_ITEMS: CategoryCardItem[] = [
   {
     id: 'transmission',
-    image: '/gearbox.jpeg',
+    image: '/gearbox.webp',
     fallbackImage: '/gearbox.jpg',
     title: 'القير وناقل الحركة والدفرنس',
     alt: 'القير وناقل الحركة والدفرنس - قطع غيار ألمانية أصلية'
   },
   {
     id: 'engine',
-    image: '/engine-turbo.jpeg',
+    image: '/engine-turbo.webp',
     fallbackImage: '/engine-turbo.jpg',
     title: 'المحرك وملحقاته والتيربو',
     alt: 'المحرك وملحقاته والتيربو - قطع غيار ألمانية أصلية'
   },
   {
     id: 'suspension',
-    image: '/suspension.jpeg',
+    image: '/suspension.webp',
     fallbackImage: '/suspension.jpg',
     title: 'المساعدات ونظام التعليق الهوائي',
     alt: 'المساعدات ونظام التعليق الهوائي - قطع غيار ألمانية أصلية'
   },
   {
     id: 'brakes',
-    image: '/brakes.jpeg',
+    image: '/brakes.webp',
     fallbackImage: '/brakes.jpg',
     title: 'أنظمة الفرامل والفحمات',
     alt: 'أنظمة الفرامل والفحمات - قطع غيار ألمانية أصلية'
   },
   {
     id: 'electronics',
-    image: '/electronics.jpeg',
+    image: '/electronics.webp',
     fallbackImage: '/electronics.jpg',
     title: 'الكمبيوترات والحساسات والإضاءة',
     alt: 'الكمبيوترات والحساسات والإضاءة - قطع غيار ألمانية أصلية'
   },
   {
     id: 'cooling',
-    image: '/cooling.jpeg',
+    image: '/cooling.webp',
     fallbackImage: '/cooling.jpg',
     title: 'التبريد والرديتر والمكيف',
     alt: 'التبريد والرديتر والمكيف - قطع غيار ألمانية أصلية'

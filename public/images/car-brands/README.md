@@ -4,19 +4,15 @@
 
 ## قائمة الملفات / Asset Inventory:
 1. **Mercedes-Benz (مرسيدس بنز)**:
-   - `mercedes.png` (960x960, Transparent 3D Chrome Star)
-   - `mercedes.svg` (Official Vector Star Emblem)
+   - `mercedes.png` (480x480, Transparent 3D Chrome Star)
 2. **BMW (بي إم دبليو)**:
-   - `bmw.png` (960x960, Transparent Bavarian Roundel)
-   - `bmw.svg` (Official Vector Roundel)
+   - `bmw.png` (480x480, Transparent Bavarian Roundel)
 3. **Audi (أودي)**:
-   - `audi.png` (1200x419, Transparent 3D Chrome Rings)
-   - `audi.svg` (Official Vector Rings)
+   - `audi.png` (480x168, Transparent 3D Chrome Rings)
 4. **Porsche (بورش)**:
    - `porsche.png` (383x512, Transparent Official Stuttgart Crest)
 5. **Volkswagen (فولكس واجن)**:
-   - `volkswagen.png` (960x960, Transparent Circular Emblem)
-   - `volkswagen.svg` (Official Vector Emblem)
+   - `volkswagen.png` (480x480, Transparent Circular Emblem)
 
 ## إضافة ماركة جديدة:
 1. ضع الشعار بصيغة SVG أو PNG بخلفية شفافة بدقة 512x512 على الأقل.
