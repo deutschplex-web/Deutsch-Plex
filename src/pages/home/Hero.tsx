@@ -110,7 +110,7 @@ export default function Hero({ onSelectBrand }: HeroProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-sm sm:text-base lg:text-lg text-[#535864] dark:text-[#9ca3af] max-w-2xl mx-auto leading-relaxed mb-8 font-medium dark:drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]"
           >
-            استيراد فوري وشحن جوي سريع لقطع الغيار الأصلية (OEM) المعتمدة لسيارات <strong className="text-[#181b22] dark:text-[#f3f4f6]">بورش، بي إم دبليو، أودي، مرسيدس بنز، وفولكس واجن</strong> بأعلى تصنيف جودة وخصم يصل إلى 45% مقارنة بالوكالات.
+            استيراد فوري وشحن جوي سريع لقطع الغيار الأصلية (OEM) المعتمدة لسيارات <strong className="text-[#181b22] dark:text-[#f3f4f6]">بورش، بي إم دبليو، أودي، مرسيدس بنز، وفولكس واجن.
           </motion.p>
 
           {/* Interactive Luxury German Brand Showcase Dock (No text, pure large emblems) */}
