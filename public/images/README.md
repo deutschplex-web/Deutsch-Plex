@@ -6,7 +6,7 @@ Everything in `public/` is served as-is. For example, `public/images/categories/
 | --- | --- | --- |
 | `categories/` | The six category card images (`.webp` plus a `.jpg` fallback) | `src/data/categories.ts` |
 | `car-brands/` | Brand logos (Mercedes, BMW, Audi, Porsche, VW) | `src/data/brandLogos.ts` |
-| `store-logo/` | DeutschPlex logo files (SVG/PNG) for social media, print, etc. | nothing (the site draws the logo in code: `src/components/brand/DeutschPlexLogo.tsx`) |
+| `brand/` | DeutschPlex logo: `logo-compact-light/dark` (navbar, footer), `emblem` (badge), `og-image.jpg` (link preview on WhatsApp and social media), and full-size `deutschplex-*-full.png` files for print and social media | `src/components/brand/DeutschPlexLogo.tsx`, `index.html` |
 | `hero/` | Photos in the home page brand showcase | `src/data/heroShowcase.ts` |
 | `future-pictures/` | Spare photos that aren't on the site yet | nothing |
 

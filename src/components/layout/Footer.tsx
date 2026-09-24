@@ -27,7 +27,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-5 space-y-4">
             <div>
-              <DeutschPlexLogo variant="horizontal" size="sm" animated={false} isLightMode={!isDarkMode} />
+              <DeutschPlexLogo variant="horizontal" heightClass="h-12 sm:h-14" />
             </div>
             
             <p className="text-xs text-[#535864] leading-relaxed max-w-sm">

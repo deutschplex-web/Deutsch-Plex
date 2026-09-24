@@ -15,10 +15,8 @@ import {
   Building2
 } from 'lucide-react';
 import DeutschPlexLogo from '../../components/brand/DeutschPlexLogo';
-import { useTheme } from '../../context/ThemeContext';
 
 export default function About() {
-  const { isDarkMode } = useTheme();
   const features = [
     {
       icon: Award,
@@ -75,7 +73,7 @@ export default function About() {
             <div className="relative rounded-2xl overflow-hidden border border-[#C3C4CC] bg-white shadow-xl p-6 sm:p-8">
               <div className="flex items-center justify-between pb-6 border-b border-[#C3C4CC]">
                 <div className="flex items-center gap-3">
-                  <DeutschPlexLogo variant="emblem" size="sm" animated={false} isLightMode={!isDarkMode} />
+                  <DeutschPlexLogo variant="emblem" />
                   <div>
                     <h4 className="text-sm font-bold text-[#181b22]">الاستيراد المباشر من ألمانيا</h4>
                     <p className="text-xs text-[#535864]">مقر التجهيز: فرانكفورت / شتوتغارت 🇩🇪</p>
