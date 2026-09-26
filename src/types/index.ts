@@ -32,6 +32,25 @@ export interface PartCategory {
   fallbackImageUrl: string;
 }
 
+/** One titled block of a brand profile (e.g. "نبذة عن الشركة"). */
+export interface BrandProfileSection {
+  title: string;
+  /** Paragraphs. */
+  text?: string[];
+  /** Bullet points. */
+  items?: string[];
+  /** Show as a highlighted tip box. */
+  highlight?: boolean;
+}
+
+/** A parts brand we sell, as shown inside a category. */
+export interface BrandProfile {
+  /** Brand name in Latin letters, e.g. "ZF". */
+  name: string;
+  country: 'germany' | 'italy';
+  sections: BrandProfileSection[];
+}
+
 export interface VinAnalysis {
   vin: string;
   isValidLength: boolean;
