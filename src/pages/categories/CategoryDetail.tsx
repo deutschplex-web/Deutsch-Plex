@@ -12,7 +12,7 @@ import { PartCategory, PartCategoryId } from '../../types';
 import { PART_CATEGORIES } from '../../data/categories';
 import { BRAND_PROFILES } from '../../data/brandProfiles';
 import BrandProfileCard from './BrandProfileCard';
-import BrandLogo from './BrandLogo';
+import PartBrandLogo from './PartBrandLogo';
 import CountryFlag, { COUNTRY_LABEL } from './CountryFlag';
 
 interface CategoryDetailProps {
@@ -119,7 +119,7 @@ export default function CategoryDetail({ category, onOpenCategory, onOrderCatego
                     </span>
                   )}
                   <span className="h-24 sm:h-28 bg-[#fdfdfd] flex items-center justify-center px-4">
-                    <BrandLogo name={brand.name} />
+                    <PartBrandLogo name={brand.name} />
                   </span>
                   <span className="flex items-center justify-center gap-1.5 py-2 bg-white border-t border-[#C3C4CC]/60 text-[11px] font-bold text-[#535864]">
                     <CountryFlag country={brand.country} />

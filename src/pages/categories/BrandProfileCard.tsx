@@ -6,8 +6,7 @@
 
 import { Info, X } from 'lucide-react';
 import { BrandProfile } from '../../types';
-import BrandLogo from './BrandLogo';
-import { PART_BRAND_LOGOS } from '../../data/partBrandLogos';
+import PartBrandLogo from './PartBrandLogo';
 import CountryFlag, { COUNTRY_LABEL } from './CountryFlag';
 
 interface BrandProfileCardProps {
@@ -16,15 +15,16 @@ interface BrandProfileCardProps {
 }
 
 export default function BrandProfileCard({ brand, onClose }: BrandProfileCardProps) {
-  const hasLogo = Boolean(PART_BRAND_LOGOS[brand.name]);
   return (
     <article className="bg-white rounded-[20px] border border-[#C3C4CC]/60 shadow-md p-5 sm:p-7">
       <header className="flex items-center gap-4 pb-4 mb-5 border-b-2 border-[#ba1823]/80">
-        {hasLogo && (
-          <div className="w-24 h-16 sm:w-32 sm:h-20 rounded-[12px] bg-[#fdfdfd] border border-[#C3C4CC]/60 flex items-center justify-center shrink-0">
-            <BrandLogo name={brand.name} imageClass="max-h-10 sm:max-h-12 max-w-[82%]" />
-          </div>
-        )}
+        {/* Logo box, hidden until the brand's logo file is added */}
+        <PartBrandLogo
+          name={brand.name}
+          fallback="none"
+          imageClass="max-h-10 sm:max-h-12 max-w-[82%]"
+          frameClass="w-24 h-16 sm:w-32 sm:h-20 rounded-[12px] bg-[#fdfdfd] border border-[#C3C4CC]/60 flex items-center justify-center shrink-0"
+        />
         <div className="flex-1 min-w-0">
           <h3 dir="ltr" className="text-right text-xl sm:text-2xl font-extrabold text-[#181b22] tracking-tight font-sans">
             {brand.name}
