@@ -1,15 +1,19 @@
 /**
  * One category opened from the categories grid (/#categories/<id>):
- * the brands we sell in it, each with its full profile, plus a button to
- * request a quote for this category and links to the other categories.
+ * the logos of the brands we sell in it. Clicking a logo shows that brand's
+ * full profile. Also: a button to request a quote for this category,
+ * a shipping note and links to the other categories.
  */
 
-import { motion } from 'motion/react';
-import { ArrowLeft, ArrowRight, PackageCheck, Truck } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowLeft, ArrowRight, Check, MousePointerClick, PackageCheck, Truck } from 'lucide-react';
 import { PartCategory, PartCategoryId } from '../../types';
 import { PART_CATEGORIES } from '../../data/categories';
 import { BRAND_PROFILES } from '../../data/brandProfiles';
 import BrandProfileCard from './BrandProfileCard';
+import BrandLogo from './BrandLogo';
+import CountryFlag, { COUNTRY_LABEL } from './CountryFlag';
 
 interface CategoryDetailProps {
   category: PartCategory;
@@ -23,17 +27,28 @@ export default function CategoryDetail({ category, onOpenCategory, onOrderCatego
   const previous = PART_CATEGORIES[index - 1];
   const next = PART_CATEGORIES[index + 1];
 
-  const scrollToBrand = (name: string) => {
-    document
-      .getElementById(`brand-${name.toLowerCase().replace(/\s+/g, '-')}`)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const [selectedName, setSelectedName] = useState<string>();
+  const selected = brands.find((b) => b.name === selectedName);
+  const pickerRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  const selectBrand = (name: string) => {
+    if (name === selectedName) {
+      setSelectedName(undefined);
+      return;
+    }
+    setSelectedName(name);
+    // Large screens: keep the logos at the top with the profile right under them.
+    // Phones: jump to the profile, since the logos take up most of the screen.
+    const target = window.innerWidth >= 1024 ? pickerRef.current : profileRef.current;
+    setTimeout(() => target?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
   };
 
   return (
     <section className="py-12 sm:py-16 bg-[#eff1f5]" dir="rtl">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Overview: image, parts summary, brand shortcuts, order button */}
+        {/* Overview: image, parts summary, order button */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,24 +68,12 @@ export default function CategoryDetail({ category, onOpenCategory, onOrderCatego
 
           <div>
             <span className="text-xs font-bold text-[#ba1823] tracking-widest block mb-2">
-              العلامات التي نوفرها في هذا القسم
+              القطع التي نوفرها في هذا القسم
             </span>
-            <p className="text-sm sm:text-base text-[#535864] leading-7 mb-4">
+            <p className="text-sm sm:text-base text-[#535864] leading-7 mb-5">
               {category.examplesAr}
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-5">
-              {brands.map((brand) => (
-                <button
-                  key={brand.name}
-                  onClick={() => scrollToBrand(brand.name)}
-                  dir="ltr"
-                  className="px-3.5 py-1.5 rounded-full bg-[#eff1f5] border border-[#C3C4CC] text-sm font-bold text-[#181b22] hover:border-[#ba1823] hover:text-[#ba1823] transition-colors"
-                >
-                  {brand.name}
-                </button>
-              ))}
-            </div>
 
             <button
               onClick={() => onOrderCategory(category.id)}
@@ -82,11 +85,67 @@ export default function CategoryDetail({ category, onOpenCategory, onOrderCatego
           </div>
         </motion.div>
 
-        {/* Brand profiles (two balanced columns on large screens) */}
-        <div className="lg:columns-2 gap-6 [&>*]:break-inside-avoid [&>*]:mb-6">
-          {brands.map((brand) => (
-            <BrandProfileCard key={brand.name} brand={brand} />
-          ))}
+        {/* Brand logos: click one to show its profile */}
+        <div ref={pickerRef} className="scroll-mt-24 mb-6">
+          <div className="flex flex-wrap items-end justify-between gap-2 mb-4">
+            <div>
+              <span className="text-xs font-bold text-[#ba1823] tracking-widest block mb-1">
+                العلامات التي نوفرها
+              </span>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[#181b22]">اختر العلامة لعرض تفاصيلها</h2>
+            </div>
+            <span className="hidden sm:flex items-center gap-1.5 text-xs text-[#535864]">
+              <MousePointerClick className="w-4 h-4 text-[#ba1823]" />
+              اضغط على الشعار
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-3 sm:gap-4">
+            {brands.map((brand) => {
+              const isSelected = brand.name === selectedName;
+              return (
+                <button
+                  key={brand.name}
+                  onClick={() => selectBrand(brand.name)}
+                  aria-pressed={isSelected}
+                  aria-label={`عرض تفاصيل ${brand.name}`}
+                  className={`group relative flex flex-col w-[calc(50%-0.375rem)] sm:w-44 lg:w-52 rounded-[16px] overflow-hidden border-2 transition-all duration-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 ${
+                    isSelected ? 'border-[#ba1823] ring-4 ring-[#ba1823]/15' : 'border-[#C3C4CC]/60 hover:border-[#ba1823]/50'
+                  }`}
+                >
+                  {isSelected && (
+                    <span className="absolute top-2 left-2 w-6 h-6 rounded-full bg-[#ba1823] text-white flex items-center justify-center z-10">
+                      <Check className="w-3.5 h-3.5" />
+                    </span>
+                  )}
+                  <span className="h-24 sm:h-28 bg-[#fdfdfd] flex items-center justify-center px-4">
+                    <BrandLogo name={brand.name} />
+                  </span>
+                  <span className="flex items-center justify-center gap-1.5 py-2 bg-white border-t border-[#C3C4CC]/60 text-[11px] font-bold text-[#535864]">
+                    <CountryFlag country={brand.country} />
+                    {COUNTRY_LABEL[brand.country]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* The selected brand's profile */}
+        <div ref={profileRef} className="scroll-mt-24 mb-4">
+          <AnimatePresence mode="wait">
+            {selected && (
+              <motion.div
+                key={selected.name}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+              >
+                <BrandProfileCard brand={selected} onClose={() => setSelectedName(undefined)} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Shipping note */}

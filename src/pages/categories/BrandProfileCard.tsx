@@ -1,52 +1,50 @@
 /**
- * One parts brand inside a category: name, country and its profile sections
- * (about, why this brand, parts we sell, compatible cars, important tip).
+ * The full profile of one parts brand, shown after the customer clicks its
+ * logo: about, why this brand, parts we sell, compatible cars, important tip.
  * Data lives in src/data/brandProfiles.ts.
  */
 
-import { Info } from 'lucide-react';
+import { Info, X } from 'lucide-react';
 import { BrandProfile } from '../../types';
+import BrandLogo from './BrandLogo';
+import { PART_BRAND_LOGOS } from '../../data/partBrandLogos';
+import CountryFlag, { COUNTRY_LABEL } from './CountryFlag';
 
-const COUNTRY_LABEL: Record<BrandProfile['country'], string> = {
-  germany: 'ألمانية',
-  italy: 'إيطالية',
-};
-
-function Flag({ country }: { country: BrandProfile['country'] }) {
-  const stripes =
-    country === 'germany'
-      ? ['#111111', '#dd0000', '#ffce00']
-      : ['#009246', '#ffffff', '#ce2b37'];
-  const vertical = country === 'italy';
-  return (
-    <span
-      aria-hidden="true"
-      className={`inline-flex w-4 h-3 rounded-[2px] overflow-hidden ring-1 ring-black/10 ${vertical ? 'flex-row-reverse' : 'flex-col'}`}
-    >
-      {stripes.map((color) => (
-        <span key={color} className="flex-1" style={{ backgroundColor: color }} />
-      ))}
-    </span>
-  );
+interface BrandProfileCardProps {
+  brand: BrandProfile;
+  onClose: () => void;
 }
 
-export default function BrandProfileCard({ brand }: { brand: BrandProfile }) {
+export default function BrandProfileCard({ brand, onClose }: BrandProfileCardProps) {
+  const hasLogo = Boolean(PART_BRAND_LOGOS[brand.name]);
   return (
-    <article
-      id={`brand-${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
-      className="scroll-mt-28 bg-white rounded-[16px] border border-[#C3C4CC]/60 shadow-sm p-5 sm:p-6"
-    >
-      <header className="flex items-center justify-between gap-3 pb-3 mb-4 border-b-2 border-[#ba1823]/80">
-        <h3 dir="ltr" className="text-xl sm:text-2xl font-extrabold text-[#181b22] tracking-tight font-sans">
-          {brand.name}
-        </h3>
-        <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#eff1f5] border border-[#C3C4CC]/60 text-[11px] font-bold text-[#535864]">
-          <Flag country={brand.country} />
-          {COUNTRY_LABEL[brand.country]}
-        </span>
+    <article className="bg-white rounded-[20px] border border-[#C3C4CC]/60 shadow-md p-5 sm:p-7">
+      <header className="flex items-center gap-4 pb-4 mb-5 border-b-2 border-[#ba1823]/80">
+        {hasLogo && (
+          <div className="w-24 h-16 sm:w-32 sm:h-20 rounded-[12px] bg-[#fdfdfd] border border-[#C3C4CC]/60 flex items-center justify-center shrink-0">
+            <BrandLogo name={brand.name} imageClass="max-h-10 sm:max-h-12 max-w-[82%]" />
+          </div>
+        )}
+        <div className="flex-1 min-w-0">
+          <h3 dir="ltr" className="text-right text-xl sm:text-2xl font-extrabold text-[#181b22] tracking-tight font-sans">
+            {brand.name}
+          </h3>
+          <span className="mt-1 inline-flex items-center gap-2 text-xs font-bold text-[#535864]">
+            <CountryFlag country={brand.country} />
+            علامة {COUNTRY_LABEL[brand.country]}
+          </span>
+        </div>
+        <button
+          onClick={onClose}
+          aria-label="إغلاق"
+          className="w-9 h-9 rounded-full border border-[#C3C4CC] flex items-center justify-center text-[#535864] hover:text-[#ba1823] hover:border-[#ba1823] transition-colors shrink-0"
+        >
+          <X className="w-4 h-4" />
+        </button>
       </header>
 
-      <div className="space-y-4">
+      {/* Two balanced columns on large screens */}
+      <div className="lg:columns-2 gap-10 [&>*]:break-inside-avoid [&>*]:mb-5">
         {brand.sections.map((section) =>
           section.highlight ? (
             <div

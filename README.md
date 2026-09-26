@@ -14,6 +14,7 @@ Built with **React + Vite + Tailwind CSS**. It's hosted on **Netlify**, and ever
 | Menu links (navbar + footer) | `src/config/navigation.ts` |
 | Category cards (titles, images) | `src/data/categories.ts` + images in `public/images/categories/` |
 | Brands inside each category (profiles) | `src/data/brandProfiles.ts` |
+| Brand logos inside each category | `src/data/partBrandLogos.ts` + files in `public/images/part-brands/` |
 | FAQ questions and answers | `src/data/faqs.ts` |
 | Car brands and models | `src/data/brands.ts` |
 | Home page showcase cars | `src/data/heroShowcase.ts` |
@@ -40,7 +41,7 @@ src/
 │
 ├── pages/                   One folder per page
 │   ├── home/                HomePage + Hero + SectionsHub
-│   ├── categories/          CategoriesPage + CategoryGrid + CategoryDetail + BrandProfileCard
+│   ├── categories/          CategoriesPage + CategoryGrid + CategoryDetail (logo picker) + BrandProfileCard
 │   ├── order/               OrderPage + OrderForm
 │   ├── about/               AboutPage + AboutContent
 │   ├── process/             ProcessPage + ProcessSteps
