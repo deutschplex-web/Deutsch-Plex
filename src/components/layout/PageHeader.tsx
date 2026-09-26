@@ -1,5 +1,7 @@
 /**
  * Title banner at the top of every inner page (breadcrumb, badge, title, subtitle).
+ * Pass `parent` for a sub-page (e.g. one category): it adds a middle breadcrumb
+ * and makes the back button return to the parent instead of the home page.
  */
 
 import { motion } from 'motion/react';
@@ -11,13 +13,15 @@ interface PageHeaderProps {
   subtitleAr: string;
   badgeAr: string;
   onNavigate: (page: PageId) => void;
+  parent?: { labelAr: string; onClick: () => void };
 }
 
 export default function PageHeader({
   titleAr,
   subtitleAr,
   badgeAr,
-  onNavigate
+  onNavigate,
+  parent
 }: PageHeaderProps) {
   return (
     <div className="pt-24 pb-8 sm:pt-28 sm:pb-10 border-b border-[#C3C4CC] bg-gradient-to-b from-[#e2e5eb] via-[#eff1f5] to-[#eff1f5] relative overflow-hidden">
@@ -29,7 +33,7 @@ export default function PageHeader({
         
         {/* Breadcrumb Navigation Bar */}
         <div className="flex items-center justify-between gap-4 mb-4">
-          <nav className="flex items-center gap-2 text-xs text-[#535864]">
+          <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#535864] min-w-0">
             <button
               onClick={() => onNavigate('home')}
               className="flex items-center gap-1.5 hover:text-[#181b22] transition-colors"
@@ -38,14 +42,25 @@ export default function PageHeader({
               <span>الرئيسية</span>
             </button>
             <ChevronLeft className="w-3.5 h-3.5 text-[#C3C4CC]" />
+            {parent && (
+              <>
+                <button
+                  onClick={parent.onClick}
+                  className="hover:text-[#181b22] transition-colors"
+                >
+                  {parent.labelAr}
+                </button>
+                <ChevronLeft className="w-3.5 h-3.5 text-[#C3C4CC]" />
+              </>
+            )}
             <span className="text-[#181b22] font-bold">{titleAr}</span>
           </nav>
 
           <button
-            onClick={() => onNavigate('home')}
-            className="text-xs font-semibold text-[#535864] hover:text-[#ba1823] flex items-center gap-1.5 transition-colors group"
+            onClick={parent ? parent.onClick : () => onNavigate('home')}
+            className="text-xs font-semibold text-[#535864] hover:text-[#ba1823] flex items-center gap-1.5 transition-colors group shrink-0"
           >
-            <span>العودة للرئيسية</span>
+            <span>{parent ? `العودة إلى ${parent.labelAr}` : 'العودة للرئيسية'}</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>

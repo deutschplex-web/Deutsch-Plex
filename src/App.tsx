@@ -24,7 +24,7 @@ import ProcessPage from './pages/process/ProcessPage';
 import FaqPage from './pages/faq/FaqPage';
 
 function Site() {
-  const { currentPage, navigateTo } = useHashPage();
+  const { currentPage, subPath, navigateTo } = useHashPage();
 
   // Pre-fill the order form when a visitor picks a brand or category elsewhere.
   const [selectedBrand, setSelectedBrand] = useState<CarBrandId>();
@@ -51,7 +51,11 @@ function Site() {
               <HomePage onNavigate={navigateTo} onSelectBrand={orderForBrand} />
             )}
             {currentPage === 'categories' && (
-              <CategoriesPage onNavigate={navigateTo} onSelectCategory={orderForCategory} />
+              <CategoriesPage
+                onNavigate={navigateTo}
+                categoryPath={subPath}
+                onOrderCategory={orderForCategory}
+              />
             )}
             {currentPage === 'order' && (
               <OrderPage

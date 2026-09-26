@@ -1,6 +1,8 @@
 /**
  * The part categories shown on the categories page.
  * Images live in public/images/categories/ (a .webp plus a .jpg fallback).
+ * examplesAr is the short parts summary shown at the top of each category.
+ * The brands inside each category live in src/data/brandProfiles.ts.
  * The order here is the order the cards appear on the site.
  */
 
@@ -11,7 +13,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     id: 'transmission',
     titleAr: 'القير وناقل الحركة والدفرنس',
     titleEn: 'Gearbox, Transmission & Differential',
-    examplesAr: 'مخ القير (Mechatronic / Valve Body)، كلتشات، عكوس، صوف وفلاتر أصلية',
+    examplesAr: 'مخ القير (الميكاترونيك)، كلتشات وحدافات، محوّلات العزم، كرتير القير بفلتر',
     avgEstDays: '5-9 أيام',
     imageUrl: '/images/categories/gearbox.webp',
     fallbackImageUrl: '/images/categories/gearbox.jpg'
@@ -20,7 +22,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     id: 'engine',
     titleAr: 'المحرك وملحقاته والتيربو',
     titleEn: 'Engine, Accessories & Turbo',
-    examplesAr: 'تيربوهات Garrett/BorgWarner، طرمبات بنزين ضغط عالي، كويلات، بخاخات',
+    examplesAr: 'بخاخات البنزين والديزل، طرمبات الضغط العالي، طرمبات البنزين، كويلات الإشعال، حساسات المحرك',
     avgEstDays: '6-10 أيام',
     imageUrl: '/images/categories/engine-turbo.webp',
     fallbackImageUrl: '/images/categories/engine-turbo.jpg'
@@ -29,7 +31,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     id: 'suspension',
     titleAr: 'المساعدات ونظام التعليق الهوائي',
     titleEn: 'Shocks & Air Suspension',
-    examplesAr: 'مساعدات هيدروليك/هوائية (Airmatic/Adaptive)، مقصات، أذرعة، كمبروسر هواء',
+    examplesAr: 'مساعدات هوائية وقِرَب هواء، كمبروسرات، مساعدات، مقصات وأذرعة ومفاصل كروية',
     avgEstDays: '5-9 أيام',
     imageUrl: '/images/categories/suspension.webp',
     fallbackImageUrl: '/images/categories/suspension.jpg'
@@ -38,7 +40,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     id: 'brakes',
     titleAr: 'أنظمة الفرامل والفحمات',
     titleEn: 'Brake Systems & Pads',
-    examplesAr: 'فحمات كربون سيراميك، هوبات أصلية، كليبرات AMG/M، حساسات تيل',
+    examplesAr: 'فحمات وهوبات، حساسات تآكل الفحمات، كليبرات AMG وM الرياضية',
     avgEstDays: '4-7 أيام',
     imageUrl: '/images/categories/brakes.webp',
     fallbackImageUrl: '/images/categories/brakes.jpg'
@@ -47,7 +49,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     id: 'electronics',
     titleAr: 'الكمبيوترات والحساسات والإضاءة',
     titleEn: 'Computers, Sensors & Lighting',
-    examplesAr: 'شمعات Matrix LED / Laser، كمبيوترات وبرمجة، حساسات أكسجين ونوكس NOx',
+    examplesAr: 'كمبيوترات المحرك، وحدات ABS/ESP، حساسات سرعة العجلات والأكسجين، شمعات LED وMatrix',
     avgEstDays: '4-7 أيام',
     imageUrl: '/images/categories/electronics.webp',
     fallbackImageUrl: '/images/categories/electronics.jpg'
@@ -56,7 +58,7 @@ export const PART_CATEGORIES: PartCategory[] = [
     id: 'cooling',
     titleAr: 'التبريد والرديتر والمكيف',
     titleEn: 'Cooling, Radiator & A/C',
-    examplesAr: 'رديتر ماء ومكيف ألماني، طرمبة ماء إلكترونية، مراوح تبريد، ثيرموستات',
+    examplesAr: 'رديترات، ثيرموستات، مراوح، كمبروسر المكيف، طرمبات الماء، ليات وفلنجات',
     avgEstDays: '4-8 أيام',
     imageUrl: '/images/categories/cooling.webp',
     fallbackImageUrl: '/images/categories/cooling.jpg'

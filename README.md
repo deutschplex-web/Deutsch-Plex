@@ -13,6 +13,8 @@ Built with **React + Vite + Tailwind CSS**. It's hosted on **Netlify**, and ever
 | WhatsApp number, email, office locations | `src/config/site.ts` |
 | Menu links (navbar + footer) | `src/config/navigation.ts` |
 | Category cards (titles, images) | `src/data/categories.ts` + images in `public/images/categories/` |
+| Brands inside each category (profiles) | `src/data/brandProfiles.ts` |
+| Brand logos inside each category | drop files in `public/images/part-brands/` (names listed in its README) |
 | FAQ questions and answers | `src/data/faqs.ts` |
 | Car brands and models | `src/data/brands.ts` |
 | Home page showcase cars | `src/data/heroShowcase.ts` |
@@ -39,7 +41,7 @@ src/
 │
 ├── pages/                   One folder per page
 │   ├── home/                HomePage + Hero + SectionsHub
-│   ├── categories/          CategoriesPage + CategoryGrid
+│   ├── categories/          CategoriesPage + CategoryGrid + CategoryDetail (logo picker) + BrandProfileCard
 │   ├── order/               OrderPage + OrderForm
 │   ├── about/               AboutPage + AboutContent
 │   ├── process/             ProcessPage + ProcessSteps
@@ -51,7 +53,7 @@ src/
 │   └── ui/                  ThemeToggle
 │
 ├── config/                  Site-wide settings (contact info, menu)
-├── data/                    Content lists (brands, categories, FAQs, showcase)
+├── data/                    Content lists (brands, categories, brand profiles, FAQs, showcase)
 ├── hooks/                   useHashPage: which page is open, based on the URL
 ├── context/                 ThemeContext: light / dark mode
 ├── utils/                   vinDecoder: reads a VIN number
@@ -62,6 +64,8 @@ src/
 Each page folder has a `…Page.tsx` file with the page title banner, and one or more section files with the actual content.
 
 Pages are addressed by URL hash: `/#categories`, `/#order`, `/#about`, `/#process`, `/#faq`.
+
+Each category has its own address too, e.g. `/#categories/brakes`. The ids are `transmission`, `engine`, `suspension`, `brakes`, `electronics` and `cooling`.
 
 ### Adding a new page
 
